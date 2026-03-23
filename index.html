@@ -1,232 +1,349 @@
 <!DOCTYPE html>
-<html lang="ar" dir="auto">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MUH Plastic Surgeons Handover ✌️</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultra PRO Handover Form</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-/* المتغيرات والتنسيقات الأساسية من مشروعك الأصلي مع تحسينات */
-:root {
-  --bg:#0d0f14; --surface:#141720; --surface2:#1c2030;
-  --primary:#4f86f7; --accent:#2ecc71; --danger:#e74c3c;
-  --text:#eef0f5; --text-dim:#9499b0;
-}
-
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
-  margin: 0; padding-bottom: 80px; overflow-x: hidden;
-}
-
-/* التنسيق الجديد للميكروفون */
-.voice-input-wrapper {
-  display: flex; gap: 8px; align-items: flex-end; width: 100%;
-}
-.mic-btn {
-  background: var(--surface2); border: 1px solid var(--primary);
-  color: var(--primary); border-radius: 10px; width: 45px; height: 45px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: 0.3s; flex-shrink: 0;
-}
-.mic-btn.recording {
-  background: var(--danger); border-color: var(--danger);
-  color: white; animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { box-shadow: 0 0 15px var(--danger); }
-  100% { transform: scale(1); }
-}
-
-/* تصميم الكروت */
-.case-card {
-  background: var(--surface); margin: 12px; padding: 16px;
-  border-radius: 16px; border: 1px solid #2a2e3f;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-.sync-dot {
-  width: 10px; height: 10px; border-radius: 50%; display: inline-block;
-  margin-right: 8px; background: #555;
-}
-.sync-active { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
-
-/* زر الإضافة العائم */
-.fab {
-  position: fixed; bottom: 30px; right: 25px;
-  width: 65px; height: 65px; background: var(--primary);
-  border-radius: 20px; display: flex; align-items: center;
-  justify-content: center; font-size: 30px; color: white;
-  box-shadow: 0 10px 25px rgba(79,134,247,0.4); z-index: 100;
-}
-
-/* النموذج المنبثق */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85); display: none; z-index: 200;
-  backdrop-filter: blur(5px);
-}
-.modal-content {
-  background: var(--surface); margin: 20px auto; padding: 25px;
-  width: 90%; max-width: 500px; border-radius: 24px;
-  max-height: 85vh; overflow-y: auto;
-}
-
-input, textarea, select {
-  width: 100%; padding: 12px; margin-top: 8px;
-  background: var(--surface2); border: 1px solid #2a2e3f;
-  border-radius: 10px; color: white; font-family: inherit;
-}
+  body { font-family: 'DM Sans', sans-serif; background:#f5f5f5; margin:0; padding:0;}
+  .container { max-width:1200px; margin:20px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+  h1 { text-align:center; color:#333; }
+  .tabs { display:flex; margin-bottom:20px; cursor:pointer; }
+  .tab { flex:1; padding:10px; text-align:center; background:#eee; margin-right:2px; border-radius:5px 5px 0 0; }
+  .tab.active { background:#ff9800; color:#fff; font-weight:700; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .field { margin-bottom:15px; }
+  label { display:block; margin-bottom:5px; font-weight:500; }
+  input[type=text], input[type=number], textarea { width:100%; padding:8px; border:1px solid #ccc; border-radius:5px; }
+  textarea { resize:vertical; }
+  .buttons-group button { margin:3px; padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
+  .buttons-group button.active { background:#ff9800; color:#fff; }
+  .todo-list { list-style:none; padding:0; }
+  .todo-list li { display:flex; align-items:center; margin-bottom:5px; }
+  .todo-list input[type=checkbox] { margin-right:10px; }
+  .lab-table { width:100%; border-collapse:collapse; margin-top:10px; }
+  .lab-table th, .lab-table td { border:1px solid #ccc; padding:5px; text-align:center; }
+  .actions { margin-top:20px; display:flex; justify-content:flex-end; gap:10px; }
+  .actions button { padding:10px 20px; background:#ff9800; border:none; color:#fff; border-radius:5px; cursor:pointer; }
 </style>
 </head>
 <body>
+<div class="container">
+<h1>Ultra PRO Handover Form</h1>
 
-<header style="padding: 20px; display: flex; justify-content: space-between; align-items: center;">
-    <div>
-        <h1 style="margin:0; font-size: 20px;">Handover <span style="color:var(--primary)">MUH</span></h1>
-        <small id="statusText"><span class="sync-dot" id="syncDot"></span> جاري التزامن...</small>
-    </div>
-    <div style="font-size: 24px;">✌️</div>
-</header>
-
-<div id="mainContainer">
-    <div id="casesList"></div>
+<div class="tabs">
+  <div class="tab active" data-tab="burn">Burn</div>
+  <div class="tab" data-tab="hand">Hand</div>
+  <div class="tab" data-tab="maxfac">Maxillo-Facial</div>
 </div>
 
-<div class="fab" onclick="toggleModal(true)">+</div>
+<!-- Tab Contents -->
+<div class="tab-content active" id="burn">
+  <div class="field"><label>Name:</label><input type="text" id="name_burn"></div>
+  <div class="field"><label>Age:</label><input type="number" id="age_burn"></div>
+  <div class="field"><label>Bed:</label><input type="text" id="bed_burn"></div>
+  <div class="field"><label>Dx:</label><input type="text" id="dx_burn"></div>
+  <div class="field"><label>TBSA in burn 🔥:</label><input type="text" id="tbsa_burn"></div>
 
-<div id="modalOverlay" class="modal-overlay">
-    <div class="modal-content">
-        <h2 style="margin-top:0">إضافة حالة مريض</h2>
-        
-        <label>اسم المريض</label>
-        <input type="text" id="patientName" placeholder="Full Name">
-
-        <label style="display:block; margin-top:15px;">التشخيص (Diagnosis)</label>
-        <div class="voice-input-wrapper">
-            <textarea id="diagnosis" rows="3" placeholder="اكتب أو استخدم المايك..."></textarea>
-            <button class="mic-btn" id="micDx" onclick="runSpeech('diagnosis', 'micDx')">🎤</button>
-        </div>
-
-        <label style="display:block; margin-top:15px;">الخطة (Plan)</label>
-        <div class="voice-input-wrapper">
-            <textarea id="plan" rows="3" placeholder="الخطة العلاجية..."></textarea>
-            <button class="mic-btn" id="micPlan" onclick="runSpeech('plan', 'micPlan')">🎤</button>
-        </div>
-
-        <div style="margin-top:25px; display:flex; gap:10px;">
-            <button onclick="saveToCloud()" style="flex:2; background:var(--primary); color:white; border:none; padding:15px; border-radius:12px; font-weight:600;">حفظ للسحابة</button>
-            <button onclick="toggleModal(false)" style="flex:1; background:transparent; color:var(--text-dim); border:none;">إلغاء</button>
-        </div>
+  <div class="field">
+    <label>Virology:</label>
+    <div class="buttons-group" id="virology_burn">
+      <button>HBsAg</button>
+      <button>HCV</button>
+      <button>HIV</button>
+      <button>COVID</button>
     </div>
+  </div>
+
+  <div class="field">
+    <label>Status:</label>
+    <select id="status_burn">
+      <option>Stable</option>
+      <option>Improving</option>
+      <option>Unstable</option>
+      <option>Discharge</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Plan:</label>
+    <textarea id="plan_burn" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>To Do:</label>
+    <ul class="todo-list" id="todo_burn"></ul>
+    <input type="text" id="newtodo_burn" placeholder="Add new task">
+    <button onclick="addTodo('burn')">Add</button>
+  </div>
+
+  <div class="field">
+    <label>Medical & Surgical Hx:</label>
+    <textarea id="medhx_burn" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Important Vitals:</label>
+    <textarea id="vitals_burn" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Important Labs:</label>
+    <table class="lab-table">
+      <tr><th>Hb</th><th>Plt</th><th>WBC</th><th>Albumin</th><th>INR</th></tr>
+      <tr>
+        <td><input type="text" id="hb_burn"></td>
+        <td><input type="text" id="plt_burn"></td>
+        <td><input type="text" id="wbc_burn"></td>
+        <td><input type="text" id="albumin_burn"></td>
+        <td><input type="text" id="inr_burn"></td>
+      </tr>
+    </table>
+  </div>
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, addDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+<div class="tab-content" id="hand">
+  <!-- Copy the same structure for Hand -->
+  <div class="field"><label>Name:</label><input type="text" id="name_hand"></div>
+  <div class="field"><label>Age:</label><input type="number" id="age_hand"></div>
+  <div class="field"><label>Bed:</label><input type="text" id="bed_hand"></div>
+  <div class="field"><label>Dx:</label><input type="text" id="dx_hand"></div>
+  <div class="field"><label>TBSA in burn 🔥:</label><input type="text" id="tbsa_hand"></div>
 
-    // إعدادات Firebase الخاصة بك
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCZc8g17IYScKDJLYHrjuY749kTvzBvJi4",
-  authDomain: "muh-plastic-handover.firebaseapp.com",
-  databaseURL: "https://muh-plastic-handover-default-rtdb.firebaseio.com",
-  projectId: "muh-plastic-handover",
-  storageBucket: "muh-plastic-handover.firebasestorage.app",
-  messagingSenderId: "366426667486",
-  appId: "1:366426667486:web:086255fb4dba5b3a6a454f",
-  measurementId: "G-RFC0MG5C69"
-};
+  <div class="field">
+    <label>Virology:</label>
+    <div class="buttons-group" id="virology_hand">
+      <button>HBsAg</button>
+      <button>HCV</button>
+      <button>HIV</button>
+      <button>COVID</button>
+    </div>
+  </div>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const casesRef = collection(db, "muh_handover");
+  <div class="field">
+    <label>Status:</label>
+    <select id="status_hand">
+      <option>Stable</option>
+      <option>Improving</option>
+      <option>Unstable</option>
+      <option>Discharge</option>
+    </select>
+  </div>
 
-    // دالة الحفظ للسحابة
-    window.saveToCloud = async function() {
-        const name = document.getElementById('patientName').value;
-        const diag = document.getElementById('diagnosis').value;
-        const plan = document.getElementById('plan').value;
+  <div class="field">
+    <label>Plan:</label>
+    <textarea id="plan_hand" rows="3"></textarea>
+  </div>
 
-        if(!name || !diag) return alert("يرجى ملء الاسم والتشخيص");
+  <div class="field">
+    <label>To Do:</label>
+    <ul class="todo-list" id="todo_hand"></ul>
+    <input type="text" id="newtodo_hand" placeholder="Add new task">
+    <button onclick="addTodo('hand')">Add</button>
+  </div>
 
-        try {
-            await addDoc(casesRef, {
-                patientName: name,
-                diagnosis: diag,
-                plan: plan,
-                createdAt: serverTimestamp()
-            });
-            toggleModal(false);
-            resetForm();
-        } catch (e) {
-            alert("خطأ في الاتصال: " + e.message);
-        }
-    };
+  <div class="field">
+    <label>Medical & Surgical Hx:</label>
+    <textarea id="medhx_hand" rows="3"></textarea>
+  </div>
 
-    // التزامن اللحظي بين الأجهزة
-    onSnapshot(query(casesRef, orderBy("createdAt", "desc")), (snapshot) => {
-        const list = document.getElementById('casesList');
-        const syncDot = document.getElementById('syncDot');
-        list.innerHTML = '';
-        
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            list.innerHTML += `
-                <div class="case-card">
-                    <div style="display:flex; justify-content:space-between;">
-                        <span style="font-weight:800; color:var(--primary)">${data.patientName}</span>
-                        <span style="font-size:12px; color:var(--text-dim)">${data.createdAt?.toDate().toLocaleTimeString() || ''}</span>
-                    </div>
-                    <div style="margin-top:10px; font-family:'IBM Plex Mono'">
-                        <div style="font-size:14px; margin-bottom:5px;">📋 <b>Dx:</b> ${data.diagnosis}</div>
-                        <div style="font-size:14px; color:var(--accent)">💡 <b>Plan:</b> ${data.plan}</div>
-                    </div>
-                </div>
-            `;
-        });
-        syncDot.classList.add('sync-active');
-        document.getElementById('statusText').innerText = "متصل سحابياً";
-    });
-</script>
+  <div class="field">
+    <label>Important Vitals:</label>
+    <textarea id="vitals_hand" rows="3"></textarea>
+  </div>
 
+  <div class="field">
+    <label>Important Labs:</label>
+    <table class="lab-table">
+      <tr><th>Hb</th><th>Plt</th><th>WBC</th><th>Albumin</th><th>INR</th></tr>
+      <tr>
+        <td><input type="text" id="hb_hand"></td>
+        <td><input type="text" id="plt_hand"></td>
+        <td><input type="text" id="wbc_hand"></td>
+        <td><input type="text" id="albumin_hand"></td>
+        <td><input type="text" id="inr_hand"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="tab-content" id="maxfac">
+  <!-- Copy the same structure for Maxillo-Facial -->
+  <div class="field"><label>Name:</label><input type="text" id="name_maxfac"></div>
+  <div class="field"><label>Age:</label><input type="number" id="age_maxfac"></div>
+  <div class="field"><label>Bed:</label><input type="text" id="bed_maxfac"></div>
+  <div class="field"><label>Dx:</label><input type="text" id="dx_maxfac"></div>
+  <div class="field"><label>TBSA in burn 🔥:</label><input type="text" id="tbsa_maxfac"></div>
+
+  <div class="field">
+    <label>Virology:</label>
+    <div class="buttons-group" id="virology_maxfac">
+      <button>HBsAg</button>
+      <button>HCV</button>
+      <button>HIV</button>
+      <button>COVID</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Status:</label>
+    <select id="status_maxfac">
+      <option>Stable</option>
+      <option>Improving</option>
+      <option>Unstable</option>
+      <option>Discharge</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Plan:</label>
+    <textarea id="plan_maxfac" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>To Do:</label>
+    <ul class="todo-list" id="todo_maxfac"></ul>
+    <input type="text" id="newtodo_maxfac" placeholder="Add new task">
+    <button onclick="addTodo('maxfac')">Add</button>
+  </div>
+
+  <div class="field">
+    <label>Medical & Surgical Hx:</label>
+    <textarea id="medhx_maxfac" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Important Vitals:</label>
+    <textarea id="vitals_maxfac" rows="3"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Important Labs:</label>
+    <table class="lab-table">
+      <tr><th>Hb</th><th>Plt</th><th>WBC</th><th>Albumin</th><th>INR</th></tr>
+      <tr>
+        <td><input type="text" id="hb_maxfac"></td>
+        <td><input type="text" id="plt_maxfac"></td>
+        <td><input type="text" id="wbc_maxfac"></td>
+        <td><input type="text" id="albumin_maxfac"></td>
+        <td><input type="text" id="inr_maxfac"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="actions">
+  <button onclick="exportPDF()">Export PDF</button>
+  <button onclick="saveData()">Save</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-    function toggleModal(show) {
-        document.getElementById('modalOverlay').style.display = show ? 'block' : 'none';
-    }
+  // Tabs
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
 
-    function resetForm() {
-        document.getElementById('patientName').value = '';
-        document.getElementById('diagnosis').value = '';
-        document.getElementById('plan').value = '';
-    }
+  // Virology buttons toggle
+  document.querySelectorAll('.buttons-group').forEach(group=>{
+    group.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', ()=> btn.classList.toggle('active'));
+    });
+  });
 
-    // التعرف على الصوت (عربي/إنجليزي)
-    function runSpeech(targetId, btnId) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) return alert("متصفحك لا يدعم التسجيل الصوتي");
+  // To-Do List
+  function addTodo(tab){
+    const input = document.getElementById('newtodo_' + tab);
+    if(input.value.trim() === '') return;
+    const li = document.createElement('li');
+    const checkbox = document.createElement('input'); checkbox.type='checkbox';
+    li.appendChild(checkbox);
+    li.appendChild(document.createTextNode(input.value));
+    document.getElementById('todo_' + tab).appendChild(li);
+    input.value = '';
+  }
 
-        const rec = new SpeechRecognition();
-        rec.lang = 'ar-SA'; // سيتعرف على الإنجليزية المدمجة أيضاً
-        rec.interimResults = false;
+  // Save to localStorage
+  function saveData(){
+    ['burn','hand','maxfac'].forEach(tab=>{
+      const data = {
+        name: document.getElementById('name_'+tab).value,
+        age: document.getElementById('age_'+tab).value,
+        bed: document.getElementById('bed_'+tab).value,
+        dx: document.getElementById('dx_'+tab).value,
+        tbsa: document.getElementById('tbsa_'+tab).value,
+        plan: document.getElementById('plan_'+tab).value,
+        medhx: document.getElementById('medhx_'+tab).value,
+        vitals: document.getElementById('vitals_'+tab).value,
+        status: document.getElementById('status_'+tab).value,
+        virology: Array.from(document.querySelectorAll('#virology_'+tab+' button.active')).map(b=>b.innerText),
+        todo: Array.from(document.querySelectorAll('#todo_'+tab+' li')).map(li=>({text:li.innerText, done: li.querySelector('input').checked})),
+        labs: {
+          hb: document.getElementById('hb_'+tab).value,
+          plt: document.getElementById('plt_'+tab).value,
+          wbc: document.getElementById('wbc_'+tab).value,
+          albumin: document.getElementById('albumin_'+tab).value,
+          inr: document.getElementById('inr_'+tab).value
+        }
+      };
+      localStorage.setItem('handover_'+tab, JSON.stringify(data));
+    });
+    alert('Data saved!');
+  }
 
-        const btn = document.getElementById(btnId);
-        const area = document.getElementById(targetId);
+  // Export PDF
+  async function exportPDF(){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    ['burn','hand','maxfac'].forEach(tab=>{
+      const data = JSON.parse(localStorage.getItem('handover_'+tab) || '{}');
+      if(Object.keys(data).length===0) return;
+      doc.setFontSize(14); doc.text(tab.toUpperCase(), 10, y); y+=7;
+      Object.entries(data).forEach(([key,val])=>{
+        if(key==='virology') val = val.join(', ');
+        if(key==='todo') val = val.map(t=>'[ '+(t.done?'x':' ')+' ] '+t.text).join(', ');
+        if(key==='labs') val = `Hb:${val.hb} Plt:${val.plt} WBC:${val.wbc} Albumin:${val.albumin} INR:${val.inr}`;
+        doc.setFontSize(10); doc.text(`${key}: ${val}`, 10, y); y+=6;
+      });
+      y+=10;
+    });
+    doc.save('handover.pdf');
+  }
 
-        rec.onstart = () => btn.classList.add('recording');
-        rec.onend = () => btn.classList.remove('recording');
-
-        rec.onresult = (e) => {
-            const transcript = e.results[0][0].transcript;
-            area.value += (area.value ? ' ' : '') + transcript;
-        };
-
-        rec.start();
-    }
+  // Load saved data
+  window.onload = ()=>{
+    ['burn','hand','maxfac'].forEach(tab=>{
+      const data = JSON.parse(localStorage.getItem('handover_'+tab) || '{}');
+      if(!data.name) return;
+      document.getElementById('name_'+tab).value = data.name;
+      document.getElementById('age_'+tab).value = data.age;
+      document.getElementById('bed_'+tab).value = data.bed;
+      document.getElementById('dx_'+tab).value = data.dx;
+      document.getElementById('tbsa_'+tab).value = data.tbsa;
+      document.getElementById('plan_'+tab).value = data.plan;
+      document.getElementById('medhx_'+tab).value = data.medhx;
+      document.getElementById('vitals_'+tab).value = data.vitals;
+      document.getElementById('status_'+tab).value = data.status;
+      document.querySelectorAll('#virology_'+tab+' button').forEach(b=>{ if(data.virology?.includes(b.innerText)) b.classList.add('active'); });
+      data.todo?.forEach(t=>{
+        const li = document.createElement('li');
+        const checkbox = document.createElement('input'); checkbox.type='checkbox'; checkbox.checked = t.done;
+        li.appendChild(checkbox);
+        li.appendChild(document.createTextNode(t.text));
+        document.getElementById('todo_'+tab).appendChild(li);
+      });
+      Object.entries(data.labs || {}).forEach(([k,v])=>{ document.getElementById(k+'_'+tab).value = v; });
+    });
+  }
 </script>
-
+</div>
 </body>
 </html>
