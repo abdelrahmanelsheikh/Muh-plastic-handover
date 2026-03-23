@@ -519,18 +519,19 @@ textarea.input-field{resize:none;min-height:76px;line-height:1.55;}
 /* VOICE INPUT */
 .voice-btn{
   position:absolute;right:8px;top:50%;transform:translateY(-50%);
-  width:30px;height:30px;border-radius:50%;border:none;
+  width:auto;min-width:48px;padding:4px 8px;
+  border-radius:20px;border:1px solid var(--border2);
   background:var(--surface2);color:var(--text-muted);
-  font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .15s;z-index:2;flex-shrink:0;
+  font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:3px;
+  transition:all .15s;z-index:2;flex-shrink:0;font-family:var(--mono);
 }
 .voice-btn:hover{background:var(--accent-hand-glow);color:var(--accent-hand);}
 .voice-btn.listening{background:var(--danger);color:#fff;animation:voicePulse .6s infinite alternate;}
 .field-group.voice-wrap{position:relative;}
-.field-group.voice-wrap .input-field{padding-right:40px;}
-textarea.input-field.voice-wrap-ta{padding-right:40px;}
+.field-group.voice-wrap .input-field{padding-right:70px;}
+textarea.input-field.voice-wrap-ta{padding-right:70px;}
 .ta-voice-wrap{position:relative;}
-.ta-voice-wrap .voice-btn{top:12px;transform:none;}
+.ta-voice-wrap .voice-btn{top:12px;transform:none;right:8px;}
 @keyframes voicePulse{from{box-shadow:0 0 0 0 rgba(247,95,95,.4);}to{box-shadow:0 0 0 6px rgba(247,95,95,0);}}
 </style>
 </head>
@@ -609,7 +610,7 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
       <div class="form-section-title"><span>👤</span> Patient Info</div>
       <div class="field-group">
         <label class="field-label">Patient Name / اسم المريض</label>
-        <div class="field-group voice-wrap" style="position:relative;margin:0;padding:0;"><input type="text" id="patientName" class="input-field" placeholder="Full name / الاسم كاملاً" style="padding-right:40px;"><button type="button" class="voice-btn" data-target="patientName" title="Voice input">🎤</button></div>
+        <div class="field-group voice-wrap" style="position:relative;margin:0;padding:0;"><input type="text" id="patientName" class="input-field" placeholder="Full name / الاسم كاملاً" style="padding-right:70px;"><button type="button" class="voice-btn" data-target="patientName" title="Voice input">🎤 AR</button></div>
       </div>
       <div class="two-col">
         <div class="field-group"><label class="field-label">Age / السن</label><input type="text" id="age" class="input-field" placeholder="yrs" inputmode="numeric"></div>
@@ -624,7 +625,7 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <!-- SECTION 2: DIAGNOSIS -->
     <div class="form-section">
       <div class="form-section-title"><span>🔬</span> Diagnosis</div>
-      <div class="field-group"><label class="field-label">Diagnosis / التشخيص</label><div style="position:relative;"><input type="text" id="dx" class="input-field" placeholder="Primary diagnosis" style="padding-right:40px;"><button type="button" class="voice-btn" data-target="dx" title="Voice input">🎤</button></div></div>
+      <div class="field-group"><label class="field-label">Diagnosis / التشخيص</label><div style="position:relative;"><input type="text" id="dx" class="input-field" placeholder="Primary diagnosis" style="padding-right:70px;"><button type="button" class="voice-btn" data-target="dx" title="Voice input">🎤 AR</button></div></div>
       <div class="field-group" id="tbsaGroup" style="display:none;"><label class="field-label">TBSA 🔥</label><input type="text" id="tbsa" class="input-field" placeholder="% if applicable" inputmode="decimal"></div>
       <div class="field-group" id="surgeonGroup" style="display:none;"><label class="field-label">Surgeon / اسم الجراح</label><input type="text" id="surgeon" class="input-field" placeholder="Surgeon name"></div>
     </div>
@@ -834,7 +835,7 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <!-- SECTION 4: PLAN & TASKS -->
     <div class="form-section">
       <div class="form-section-title"><span>📋</span> Plan & Tasks</div>
-      <div class="field-group"><label class="field-label">Plan / الخطة</label><div class="ta-voice-wrap" style="position:relative;"><textarea id="plan" class="input-field" placeholder="Management plan..." style="padding-right:40px;"></textarea><button type="button" class="voice-btn" data-target="plan" title="Voice input" style="top:10px;transform:none;">🎤</button></div></div>
+      <div class="field-group"><label class="field-label">Plan / الخطة</label><div class="ta-voice-wrap" style="position:relative;"><textarea id="plan" class="input-field" placeholder="Management plan..." style="padding-right:70px;"></textarea><button type="button" class="voice-btn" data-target="plan" title="Voice input" style="top:10px;transform:none;">🎤 AR</button></div></div>
       <div class="field-group">
         <label class="field-label">To-Do / المهام</label>
         <div class="todo-items-list" id="todoListInput"></div>
@@ -892,8 +893,8 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <!-- SECTION 7: HISTORY & VITALS -->
     <div class="form-section">
       <div class="form-section-title"><span>📖</span> History & Vitals</div>
-      <div class="field-group"><label class="field-label">Medical & Surgical Hx</label><div class="ta-voice-wrap" style="position:relative;"><textarea id="medHx" class="input-field" placeholder="Relevant history..." style="padding-right:40px;"></textarea><button type="button" class="voice-btn" data-target="medHx" title="Voice input" style="top:10px;transform:none;">🎤</button></div></div>
-      <div class="field-group"><label class="field-label">Vitals / الوظائف الحيوية</label><div style="position:relative;"><input type="text" id="vitals" class="input-field" placeholder="BP / HR / Temp / RR" style="padding-right:40px;"><button type="button" class="voice-btn" data-target="vitals" title="Voice input">🎤</button></div></div>
+      <div class="field-group"><label class="field-label">Medical & Surgical Hx</label><div class="ta-voice-wrap" style="position:relative;"><textarea id="medHx" class="input-field" placeholder="Relevant history..." style="padding-right:70px;"></textarea><button type="button" class="voice-btn" data-target="medHx" title="Voice input" style="top:10px;transform:none;">🎤 AR</button></div></div>
+      <div class="field-group"><label class="field-label">Vitals / الوظائف الحيوية</label><div style="position:relative;"><input type="text" id="vitals" class="input-field" placeholder="BP / HR / Temp / RR" style="padding-right:70px;"><button type="button" class="voice-btn" data-target="vitals" title="Voice input">🎤 AR</button></div></div>
     </div>
 
     <!-- SECTION 6: LABS -->
@@ -4135,7 +4136,7 @@ function _scheduleDailyBackup(){
 // restoreAutoBackupBtn is now directly in HTML
 
 
-// ── VOICE INPUT ──
+// ── VOICE INPUT (with Arabic/English toggle) ──
 (function setupVoiceInput(){
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SpeechRecognition){
@@ -4147,15 +4148,75 @@ function _scheduleDailyBackup(){
   let _activeRecog = null;
   let _activeBtn = null;
 
-  function startVoice(targetId, btn){
+  // For each voice button, set up language toggling and listen for long press
+  function initVoiceButton(btn){
+    let lang = 'ar-EG'; // default Arabic
+    let longPressTimer = null;
+    let pressStartTime = 0;
+
+    // Update button text based on current language
+    function updateButtonText(){
+      if(lang === 'ar-EG'){
+        btn.textContent = '🎤 AR';
+        btn.setAttribute('title', 'Voice input (Arabic) — long press to switch to English');
+      } else {
+        btn.textContent = '🎤 EN';
+        btn.setAttribute('title', 'Voice input (English) — long press to switch to Arabic');
+      }
+    }
+
+    updateButtonText();
+
+    // Long press detection
+    function startLongPress(e){
+      e.preventDefault();
+      pressStartTime = Date.now();
+      longPressTimer = setTimeout(() => {
+        // Toggle language
+        lang = (lang === 'ar-EG') ? 'en-US' : 'ar-EG';
+        updateButtonText();
+        showToast(`🎤 Language: ${lang === 'ar-EG' ? 'Arabic' : 'English'}`, 1500);
+        // Also stop any active recognition
+        if(_activeRecog) _activeRecog.stop();
+        longPressTimer = null;
+      }, 500);
+    }
+
+    function cancelLongPress(){
+      if(longPressTimer){
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+    }
+
+    btn.addEventListener('pointerdown', startLongPress);
+    btn.addEventListener('pointerup', cancelLongPress);
+    btn.addEventListener('pointermove', cancelLongPress);
+    btn.addEventListener('pointercancel', cancelLongPress);
+
+    // Replace original click handler with our custom start
+    btn.removeEventListener('click', btn._voiceClickHandler); // remove any old
+    const clickHandler = (e) => {
+      // If we just toggled language, don't start voice immediately
+      if(longPressTimer) return;
+      startVoice(btn.getAttribute('data-target'), btn, lang);
+    };
+    btn.addEventListener('click', clickHandler);
+    btn._voiceClickHandler = clickHandler;
+  }
+
+  function startVoice(targetId, btn, lang){
     // Stop any active recognition
-    if(_activeRecog){ _activeRecog.stop(); }
+    if(_activeRecog){
+      _activeRecog.stop();
+      _activeRecog = null;
+    }
 
     const el = document.getElementById(targetId);
     if(!el) return;
 
     const recog = new SpeechRecognition();
-    recog.lang = 'en-US';
+    recog.lang = lang; // ar-EG or en-US
     recog.continuous = false;
     recog.interimResults = false;
     recog.maxAlternatives = 1;
@@ -4163,8 +4224,8 @@ function _scheduleDailyBackup(){
     _activeRecog = recog;
     _activeBtn = btn;
     btn.classList.add('listening');
-    btn.textContent = '⏹';
-    showToast('🎤 Listening...', 999999);
+    btn.textContent = lang === 'ar-EG' ? '🎤 AR' : '🎤 EN';
+    showToast(`🎤 Listening (${lang === 'ar-EG' ? 'Arabic' : 'English'})...`, 999999);
 
     recog.onresult = (e) => {
       const transcript = e.results[0][0].transcript;
@@ -4177,10 +4238,9 @@ function _scheduleDailyBackup(){
 
     recog.onerror = (e) => {
       btn.classList.remove('listening');
-      btn.textContent = '🎤';
+      updateButtonText(); // restore language display
       if(e.error === 'not-allowed'){
         showToast('🎤 Mic blocked — allow mic in browser settings', 4000);
-        // Try to guide user
         if(confirm('Microphone is blocked.\n\nTo fix:\n1. Tap the 🔒 lock icon in your browser\n2. Set Microphone → Allow\n3. Reload the page\n\nOpen browser settings now?')){
           // On mobile, opening settings directly isn't possible — just inform
           showToast('Go to browser Settings → Site Settings → Microphone', 5000);
@@ -4194,7 +4254,7 @@ function _scheduleDailyBackup(){
 
     recog.onend = () => {
       btn.classList.remove('listening');
-      btn.textContent = '🎤';
+      updateButtonText();
       _activeRecog = null;
       _activeBtn = null;
       // Dismiss listening toast
@@ -4205,22 +4265,9 @@ function _scheduleDailyBackup(){
     recog.start();
   }
 
-  // Delegate click on all voice buttons
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.voice-btn');
-    if(!btn) return;
-    const targetId = btn.getAttribute('data-target');
-    if(!targetId) return;
-    // If already listening for this button, stop
-    if(btn.classList.contains('listening') && _activeRecog){
-      _activeRecog.stop();
-      return;
-    }
-    startVoice(targetId, btn);
-  });
-
-  // Language toggle — tap mic again to switch lang (future)
-  console.log('🎤 Voice input ready (ar-EG / en-US)');
+  // Initialize all voice buttons
+  document.querySelectorAll('.voice-btn').forEach(initVoiceButton);
+  console.log('🎤 Voice input ready with language toggle (Arabic/English)');
 })();
 
 
@@ -4398,4 +4445,4 @@ try{ _scheduleDailyBackup(); }catch(e){ console.warn(e); } }catch(e){ console.wa
 
 </script>
 </body>
-</html>
+              </html>
