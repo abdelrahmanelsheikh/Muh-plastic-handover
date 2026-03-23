@@ -4207,22 +4207,194 @@ function _scheduleDailyBackup(){
 
   // Delegate click on all voice buttons
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.voice-btn');
-    if(!btn) return;
-    const targetId = btn.getAttribute('data-target');
-    if(!targetId) return;
-    // If already listening for this button, stop
-    if(btn.classList.contains('listening') && _activeRecog){
-      _activeRecog.stop();
-      return;
+(function setupVoiceInput(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    document.querySelectorAll('.voice-btn').forEach(b=>b.style.display='none');
+    return;
+  }
+
+  let _activeRecog = null;
+  let _activeBtn = null;
+  let _voiceLang = 'ar-EG'; // default Arabic
+  let _voiceLangName = 'عربي';
+  let _voiceToggleJustHappened = false;
+
+  function _updateVoiceButtonsTitle(){
+    const title = 'Voice input (' + (_voiceLang === 'ar-EG' ? 'عربي' : 'English') + ')';
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+      btn.title = title;
+    });
+  }
+
+  function _toggleVoiceLang(){
+    if(_voiceLang === 'ar-EG'){
+      _voiceLang = 'en-US';
+      _voiceLangName = 'English';
+    } else {
+      _voiceLang = 'ar-EG';
+      _voiceLangName = 'عربي';
     }
-    startVoice(targetId, btn);
+    _updateVoiceButtonsTitle();
+    showToast('🎤 Voice: ' + _voiceLangName, 2000);
+  }
+
+  function startVoice(targetId, btn){
+    if(_activeRecog){
+      _activeRecog.stop();
+    }
+    const el = document.getElementById(targetId);
+    if(!el) return;
+
+    const recog = new SpeechRecognition();
+    recog.lang = _voiceLang;  // use current language
+    recog.continuous = false;
+    recog.interimResults = false;
+    recog.maxAlternatives = 1;
+
+    _activeRecog = recog;
+    _activeBtn = btn;
+    btn.classList.add('listening');
+    btn.textContent = '⏹';
+    showToast('🎤 Listening...', 999999);
+
+    recog.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      const existing = el.value.trim();
+      el.value = existing ? existing + ' ' + transcript : transcript;
+      el.dispatchEvent(new Event('input'));
+      el.focus();
+    };
+
+    recog.onerror = (e) => {
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+      if(e.error === 'not-allowed'){
+        showToast('🎤 Mic blocked — allow mic in browser settings', 4000);
+        if(confirm('Microphone is blocked.\n\nTo fix:\n1. Tap the 🔒 lock icon in your browser\n2. Set Microphone → Allow\n3. Reload the page\n\nOpen browser settings now?')){
+          showToast('Go to browser Settings → Site Settings → Microphone', 5000);
+        }
+      } else if(e.error === 'no-speech'){
+        showToast('🎤 No speech detected — try again', 2500);
+      } else if(e.error !== 'aborted'){
+        showToast('🎤 Voice error: ' + e.error, 3000);
+(function setupVoiceInput(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    document.querySelectorAll('.voice-btn').forEach(b=>b.style.display='none');
+    return;
+  }
+
+  let _activeRecog = null;
+  let _activeBtn = null;
+  let _voiceLang = 'ar-EG'; // default Arabic
+  let _voiceLangName = 'عربي';
+  let _voiceToggleJustHappened = false;
+
+  function _updateVoiceButtonsTitle(){
+    const title = 'Voice input (' + (_voiceLang === 'ar-EG' ? 'عربي' : 'English') + ')';
+    document.querySelectorAll('.voice-btn').forEach(btn => {
+      btn.title = title;
+    });
+  }
+
+  function _toggleVoiceLang(){
+    if(_voiceLang === 'ar-EG'){
+      _voiceLang = 'en-US';
+      _voiceLangName = 'English';
+    } else {
+      _voiceLang = 'ar-EG';
+      _voiceLangName = 'عربي';
+    }
+    _updateVoiceButtonsTitle();
+    showToast('🎤 Voice: ' + _voiceLangName, 2000);
+  }
+
+  function startVoice(targetId, btn){
+    if(_activeRecog){
+      _activeRecog.stop();
+    }
+    const el = document.getElementById(targetId);
+    if(!el) return;
+
+    const recog = new SpeechRecognition();
+    recog.lang = _voiceLang;  // use current language
+    recog.continuous = false;
+    recog.interimResults = false;
+    recog.maxAlternatives = 1;
+
+    _activeRecog = recog;
+    _activeBtn = btn;
+    btn.classList.add('listening');
+    btn.textContent = '⏹';
+    showToast('🎤 Listening...', 999999);
+
+    recog.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      const existing = el.value.trim();
+      el.value = existing ? existing + ' ' + transcript : transcript;
+      el.dispatchEvent(new Event('input'));
+      el.focus();
+    };
+
+    recog.onerror = (e) => {
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+      if(e.error === 'not-allowed'){
+        showToast('🎤 Mic blocked — allow mic in browser settings', 4000);
+        if(confirm('Microphone is blocked.\n\nTo fix:\n1. Tap the 🔒 lock icon in your browser\n2. Set Microphone → Allow\n3. Reload the page\n\nOpen browser settings now?')){
+          showToast('Go to browser Settings → Site Settings → Microphone', 5000);
+        }
+      } else if(e.error === 'no-speech'){
+        showToast('🎤 No speech detected — try again', 2500);
+      } else if(e.error !== 'aborted'){
+        showToast('🎤 Voice error: ' + e.error, 3000);
+      }
+    };
+
+    recog.onend = () => {
+      btn.classList.remove('listening');
+      btn.textContent = '🎤';
+      _activeRecog = null;
+      _activeBtn = null;
+      // hide listening toast
+      const t = document.getElementById('toast');
+      if(t){ t.style.opacity='0'; }
+    };
+
+    recog.start();
+  }
+
+  // attach click and contextmenu to each voice button
+  const voiceBtns = document.querySelectorAll('.voice-btn');
+  voiceBtns.forEach(btn => {
+    // click starts voice (if not toggled)
+    btn.addEventListener('click', (e) => {
+      if(_voiceToggleJustHappened){
+        _voiceToggleJustHappened = false;
+        return;
+      }
+      const targetId = btn.getAttribute('data-target');
+      if(!targetId) return;
+      // if already listening, stop
+      if(btn.classList.contains('listening') && _activeRecog){
+        _activeRecog.stop();
+        return;
+      }
+      startVoice(targetId, btn);
+    });
+    // long press / contextmenu toggles language
+    btn.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      _toggleVoiceLang();
+      _voiceToggleJustHappened = true;
+      setTimeout(() => { _voiceToggleJustHappened = false; }, 300);
+      return false;
+    });
   });
 
-  // Language toggle — tap mic again to switch lang (future)
-  console.log('🎤 Voice input ready (ar-EG / en-US)');
+  _updateVoiceButtonsTitle();
 })();
-
 
 // ── BACKUP LOGIC ──
 const backupOverlay = document.getElementById('backupOverlay');
