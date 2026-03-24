@@ -107,6 +107,95 @@ html,body{height:100%;overflow:hidden;font-family:var(--body);background:var(--b
 .act-btn.perm-del{color:var(--danger);}
 .archive-empty .empty-icon{opacity:.4;}
 .fab-hidden{display:none !important;}
+
+/* PRIORITY FLAG */
+.act-btn.flag{color:var(--text-muted);}
+.act-btn.flag.flagged{color:#f75f5f;background:rgba(247,95,95,.12);border-color:rgba(247,95,95,.35);}
+.case-card.priority-flagged{border-color:rgba(247,95,95,.4);box-shadow:0 0 0 2px rgba(247,95,95,.12);}
+.case-card.priority-flagged .card-name::before{content:'🚨 ';font-size:.85em;}
+/* SHIFT NOTES TAB */
+.shift-tab-item.active{color:#34d399;border-left-color:#34d399;background:rgba(52,211,153,.1);}
+.shift-tab-item.active .tab-badge{background:rgba(52,211,153,.15);color:#34d399;}
+
+/* HANDOVER TIMER BAR */
+.hv-timer-bar{position:fixed;top:var(--header-h);left:var(--sidebar-w);right:0;z-index:150;background:linear-gradient(90deg,rgba(79,142,247,.18),rgba(123,108,246,.18));border-bottom:1px solid rgba(79,142,247,.3);padding:.35rem .85rem;display:none;align-items:center;gap:.65rem;}
+.hv-timer-bar.running{display:flex;}
+.hv-timer-bar.running ~ * .main-scroll, body.hv-running .main-scroll{top:calc(var(--header-h) + 36px);}
+.hv-timer-elapsed{font-family:var(--mono);font-weight:700;font-size:.88rem;color:var(--accent-hand);letter-spacing:.04em;min-width:52px;}
+.hv-timer-label{font-family:var(--body);font-size:.75rem;color:var(--text-dim);flex:1;}
+.hv-timer-stop{padding:3px 12px;border-radius:8px;border:1.5px solid rgba(247,95,95,.4);background:rgba(247,95,95,.1);color:var(--danger);font-family:var(--display);font-weight:700;font-size:.72rem;cursor:pointer;}
+.hv-timer-stop:active{transform:scale(.92);}
+
+/* SHIFT NOTES VIEW */
+.sn-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;}
+.sn-section-header{padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.sn-section-title{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--text);display:flex;align-items:center;gap:6px;}
+.sn-section-body{padding:.75rem 1rem;}
+.sn-textarea{width:100%;min-height:90px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--body);font-size:.88rem;padding:.65rem .8rem;resize:vertical;outline:none;transition:border-color .2s;}
+.sn-textarea:focus{border-color:var(--accent-hand);box-shadow:0 0 0 3px var(--accent-hand-glow);}
+.sn-textarea::placeholder{color:var(--text-muted);}
+.sn-save-btn{margin-top:.5rem;width:100%;padding:.6rem;border-radius:10px;border:none;background:var(--accent-hand);color:#fff;font-family:var(--display);font-weight:700;font-size:.82rem;cursor:pointer;transition:opacity .15s;}
+.sn-save-btn:active{opacity:.8;}
+.sn-log-item{padding:.6rem 0;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:3px;}
+.sn-log-item:last-child{border-bottom:none;}
+.sn-log-meta{font-family:var(--mono);font-size:.58rem;color:var(--text-muted);display:flex;gap:8px;align-items:center;}
+.sn-log-text{font-family:var(--body);font-size:.84rem;color:var(--text-dim);line-height:1.5;}
+.sn-log-del{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:13px;padding:0 4px;flex-shrink:0;}
+.sn-log-del:hover{color:var(--danger);}
+.sn-handover-btn{width:100%;padding:.75rem;border-radius:12px;border:2px solid rgba(79,142,247,.4);background:rgba(79,142,247,.08);color:var(--accent-hand);font-family:var(--display);font-weight:700;font-size:.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s;}
+.sn-handover-btn:active{transform:scale(.97);}
+.sn-handover-btn.active{background:rgba(247,95,95,.1);border-color:rgba(247,95,95,.4);color:var(--danger);}
+.sn-on-call-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--body);font-size:.88rem;padding:.6rem .8rem;outline:none;transition:border-color .2s;margin-bottom:.5rem;}
+.sn-on-call-input:focus{border-color:var(--accent-hand);}
+
+/* SORT BUTTON */
+.sort-wrap{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
+.sort-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:8px;border:1.5px solid var(--border2);background:var(--surface);color:var(--text-muted);font-family:var(--mono);font-size:.62rem;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.sort-btn:active{transform:scale(.93);}
+.sort-btn.active{border-color:var(--accent-hand);color:var(--accent-hand);background:var(--accent-hand-glow);}
+.sort-dropdown{position:absolute;top:calc(100% + 4px);right:0;background:var(--surface);border:1px solid var(--border2);border-radius:12px;z-index:300;box-shadow:0 8px 24px rgba(0,0,0,.3);min-width:160px;overflow:hidden;animation:dropIn .15s ease;}
+.sort-option{padding:.65rem 1rem;font-family:var(--body);font-size:.82rem;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);transition:background .1s;}
+.sort-option:last-child{border-bottom:none;}
+.sort-option:active{background:var(--surface2);}
+.sort-option.selected{color:var(--accent-hand);font-weight:600;}
+
+/* PHOTO ATTACHMENT */
+.photo-section{display:flex;flex-direction:column;gap:.6rem;}
+.photo-upload-area{border:2px dashed var(--border2);border-radius:12px;padding:1.2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);}
+.photo-upload-area:active{border-color:var(--accent-hand);background:var(--accent-hand-glow);}
+.photo-upload-label{font-family:var(--body);font-size:.82rem;color:var(--text-muted);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.photo-upload-label span{font-size:24px;}
+.photo-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;}
+.photo-thumb-wrap{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--surface3);}
+.photo-thumb{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-thumb-del{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+/* Card photo strip */
+.card-photos-strip{display:flex;gap:.4rem;padding:.5rem 1rem .65rem;overflow-x:auto;scrollbar-width:none;}
+.card-photos-strip::-webkit-scrollbar{display:none;}
+.card-photo-thumb{width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border);cursor:pointer;}
+/* Lightbox */
+.photo-lightbox{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;}
+.photo-lightbox.open{opacity:1;pointer-events:all;}
+.photo-lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;object-fit:contain;}
+.photo-lightbox-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+/* QUICK STATUS SHEET */
+.qs-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s;}
+.qs-overlay.visible{opacity:1;pointer-events:all;}
+.qs-sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:1rem 1rem calc(1.2rem + var(--safe-bottom));width:100%;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);}
+.qs-overlay.visible .qs-sheet{transform:translateY(0);}
+.qs-handle{width:36px;height:4px;border-radius:4px;background:var(--border2);margin:0 auto .85rem;}
+.qs-title{font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--text);margin-bottom:.25rem;text-align:center;}
+.qs-patient{font-family:var(--mono);font-size:.68rem;color:var(--text-muted);text-align:center;margin-bottom:1rem;}
+.qs-options{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.65rem;}
+.qs-btn{padding:.75rem .5rem;border-radius:12px;border:2px solid var(--border2);background:var(--surface2);font-family:var(--display);font-weight:700;font-size:.82rem;cursor:pointer;transition:all .15s;color:var(--text-muted);display:flex;align-items:center;justify-content:center;gap:6px;}
+.qs-btn:active{transform:scale(.94);}
+.qs-btn.qs-stable{border-color:rgba(79,217,160,.4);background:rgba(79,217,160,.08);color:var(--success);}
+.qs-btn.qs-improving{border-color:rgba(79,142,247,.4);background:rgba(79,142,247,.08);color:var(--accent-hand);}
+.qs-btn.qs-unstable{border-color:rgba(247,95,95,.4);background:rgba(247,95,95,.08);color:var(--danger);}
+.qs-btn.qs-discharge{border-color:rgba(79,160,217,.4);background:rgba(79,160,217,.08);color:#4fa0d9;}
+.qs-btn.qs-active{box-shadow:0 0 0 3px currentColor;opacity:.85;}
+.qs-cancel{width:100%;padding:.7rem;border:1.5px solid var(--border2);border-radius:12px;background:var(--surface2);color:var(--text-muted);font-family:var(--display);font-weight:600;font-size:.85rem;cursor:pointer;}
 .tab-badge{font-family:var(--mono);font-size:.58rem;background:var(--surface3);color:var(--text-muted);padding:1px 5px;border-radius:8px;}
 .tab-item.active .tab-badge{background:var(--accent-hand-glow);color:var(--accent-hand);}
 .tab-close{width:14px;height:14px;border-radius:50%;background:var(--border2);color:var(--text-muted);display:none;align-items:center;justify-content:center;font-size:9px;cursor:pointer;margin-left:-2px;flex-shrink:0;border:none;}
@@ -276,8 +365,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--body);background:var(--b
   font-weight:400;
 }
 .detail-val.mono-val{font-family:var(--mono);font-size:.78rem;}
-  display:flex;flex-direction:column;gap:4px;
-}
 .detail-section:last-child{border-bottom:none;}
 .detail-label{
   font-family:var(--mono);font-size:.58rem;
@@ -405,7 +492,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--body);background:var(--b
 /* FORM FIELDS */
 .field-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;display:block;}
 .field-group{display:flex;flex-direction:column;}
-.input-field{width:100%;padding:.7rem .85rem;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--body);font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;}
+.input-field{width:100%;padding:.7rem .85rem;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--body);font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s,background .2s;-webkit-appearance:none;appearance:none;}
 .input-field:focus{border-color:var(--accent-hand);box-shadow:0 0 0 3px var(--accent-hand-glow);background:var(--surface);}
 .input-field::placeholder{color:var(--text-muted);}
 textarea.input-field{resize:none;min-height:76px;line-height:1.55;}
@@ -585,7 +672,20 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
       <button class="filter-chip" id="filterNotOperated" data-filter="Not Operated" style="display:none;">Not Op.</button>
     </div>
   </div>
-  <div class="results-summary" id="resultsSummary"></div>
+  <div class="sort-wrap">
+    <div class="results-summary" id="resultsSummary"></div>
+    <div style="position:relative;">
+      <button class="sort-btn" id="sortBtn">⇅ Sort</button>
+      <div class="sort-dropdown" id="sortDropdown" style="display:none;">
+        <div class="sort-option selected" data-sort="default">📋 Default</div>
+        <div class="sort-option" data-sort="flag">🚨 Flagged First</div>
+        <div class="sort-option" data-sort="status">🟢 By Status</div>
+        <div class="sort-option" data-sort="bed">🛏 By Bed</div>
+        <div class="sort-option" data-sort="doa">📅 By Admission</div>
+        <div class="sort-option" data-sort="name">🔤 By Name</div>
+      </div>
+    </div>
+  </div>
   <div id="casesList"></div>
 </div>
 
@@ -603,7 +703,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <button class="sheet-close" id="sheetClose">✕</button>
   </div>
   <div class="sheet-body">
-
     <!-- SECTION 1: PATIENT INFO -->
     <div class="form-section">
       <div class="form-section-title"><span>👤</span> Patient Info</div>
@@ -620,7 +719,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         <div class="field-group" id="dobGroup" style="display:none;"><label class="field-label">DOB / تاريخ الحرق</label><input type="date" id="dob" class="input-field"></div>
       </div>
     </div>
-
     <!-- SECTION 2: DIAGNOSIS -->
     <div class="form-section">
       <div class="form-section-title"><span>🔬</span> Diagnosis</div>
@@ -628,7 +726,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
       <div class="field-group" id="tbsaGroup" style="display:none;"><label class="field-label">TBSA 🔥</label><input type="text" id="tbsa" class="input-field" placeholder="% if applicable" inputmode="decimal"></div>
       <div class="field-group" id="surgeonGroup" style="display:none;"><label class="field-label">Surgeon / اسم الجراح</label><input type="text" id="surgeon" class="input-field" placeholder="Surgeon name"></div>
     </div>
-
     <!-- HAND FIELDS -->
     <div id="handGroup" class="form-section" style="display:none;">
       <div class="form-section-title"><span>✋</span> Hand Exam</div>
@@ -669,7 +766,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- BURN RESUS FIELDS -->
     <div id="burnResusGroup" class="form-section" style="display:none;">
       <div class="form-section-title"><span>🔥</span> Burn Resuscitation</div>
@@ -698,7 +794,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- MAXFAC FIELDS -->
     <div id="maxfacGroup" class="form-section" style="display:none;">
       <div class="form-section-title"><span>🦷</span> MaxFac Exam</div>
@@ -758,7 +853,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- SOFT TISSUE FIELDS -->
     <div id="stGroup" class="form-section" style="display:none;">
       <div class="form-section-title"><span>🩹</span> Soft Tissue</div>
@@ -798,7 +892,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- AESTHETIC PRE-OP CHECKLIST -->
     <div id="aestheticGroup" class="form-section" style="display:none;">
       <div class="form-section-title"><span>📋</span> Pre-op Checklist</div>
@@ -808,7 +901,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         <button type="button" id="preOpAddBtn" class="add-todo-btn" style="width:38px;height:38px;font-size:16px;">＋</button>
       </div>
     </div>
-
     <!-- SECTION 3: CLINICAL STATUS -->
     <div class="form-section">
       <div class="form-section-title"><span>🧬</span> Clinical</div>
@@ -830,7 +922,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- SECTION 4: PLAN & TASKS -->
     <div class="form-section">
       <div class="form-section-title"><span>📋</span> Plan & Tasks</div>
@@ -844,7 +935,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         </div>
       </div>
     </div>
-
     <!-- SECTION 5: MEDICATIONS -->
     <div class="form-section">
       <div class="form-section-title"><span>💊</span> Medications / الأدوية</div>
@@ -862,7 +952,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
       </div>
       <button type="button" class="labs-add-btn" id="medAddBtn">＋ Add Medication</button>
     </div>
-
     <!-- SECTION 6: CULTURES -->
     <div class="form-section">
       <div class="form-section-title"><span>🧫</span> Cultures / الزراعات</div>
@@ -888,14 +977,12 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
       </div>
       <button type="button" class="labs-add-btn" id="cultureAddBtn">＋ Add Culture</button>
     </div>
-
     <!-- SECTION 7: HISTORY & VITALS -->
     <div class="form-section">
       <div class="form-section-title"><span>📖</span> History & Vitals</div>
       <div class="field-group"><label class="field-label">Medical & Surgical Hx</label><div class="ta-voice-wrap" style="position:relative;"><textarea id="medHx" class="input-field" placeholder="Relevant history..." style="padding-right:40px;"></textarea><button type="button" class="voice-btn" data-target="medHx" title="Voice input" style="top:10px;transform:none;">🎤</button></div></div>
       <div class="field-group"><label class="field-label">Vitals / الوظائف الحيوية</label><div style="position:relative;"><input type="text" id="vitals" class="input-field" placeholder="BP / HR / Temp / RR" style="padding-right:40px;"><button type="button" class="voice-btn" data-target="vitals" title="Voice input">🎤</button></div></div>
     </div>
-
     <!-- SECTION 6: LABS -->
     <div class="form-section" style="margin-bottom:1rem;">
       <div class="form-section-title"><span>🧪</span> Labs / التحاليل</div>
@@ -941,12 +1028,32 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
         <button type="button" class="labs-add-btn" id="labAddEntryBtn">＋ Add this entry</button>
       </div>
     </div>
-
+    <!-- SECTION 8: PHOTOS -->
+    <div class="form-section">
+      <div class="form-section-title"><span>📷</span> Photos / صور</div>
+      <div class="photo-section">
+        <div class="photo-preview-grid" id="photoPreviewGrid"></div>
+        <div class="photo-upload-area" id="photoUploadArea">
+          <label class="photo-upload-label" for="photoFileInput">
+            <span>📷</span>
+            <span>Tap to add photo</span>
+            <span style="font-size:.68rem;color:var(--text-muted);">Wound, X-ray, report...</span>
+          </label>
+          <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none;">
+        </div>
+      </div>
+    </div>
   </div>
   <div class="sheet-footer">
     <button class="clear-btn" id="clearFormBtn">✕ Clear</button>
     <button class="submit-btn" id="submitBtn">＋ Add Case</button>
   </div>
+</div>
+
+<!-- PHOTO LIGHTBOX -->
+<div class="photo-lightbox" id="photoLightbox">
+  <button class="photo-lightbox-close" id="photoLightboxClose">✕</button>
+  <img id="photoLightboxImg" src="" alt="Photo">
 </div>
 
 <!-- OPS FORM SHEET -->
@@ -994,9 +1101,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
   </div>
 </div>
 
-
-
-
 <div class="bsheet-overlay" id="moveOverlay">
   <div class="bsheet">
     <div class="bsheet-handle"></div>
@@ -1015,18 +1119,6 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <button id="selMoveBtn" style="padding:7px 14px;border-radius:10px;border:1.5px solid var(--accent-hand);background:var(--accent-hand-glow);color:var(--accent-hand);font-family:var(--display);font-weight:700;font-size:.78rem;cursor:pointer;">↗ Move</button>
     <button id="selDeleteBtn" style="padding:7px 14px;border-radius:10px;border:1.5px solid var(--danger);background:rgba(247,95,95,.1);color:var(--danger);font-family:var(--display);font-weight:700;font-size:.78rem;cursor:pointer;">🗑 Delete</button>
     <button id="selCancelBtn" style="padding:7px 10px;border-radius:10px;border:1.5px solid var(--border2);background:var(--surface2);color:var(--text-muted);font-family:var(--display);font-weight:600;font-size:.78rem;cursor:pointer;">✕</button>
-  </div>
-</div>
-
-<!-- MOVE SHEET -->
-<div class="bsheet-overlay" id="moveOverlay">
-  <div class="bsheet">
-    <div class="bsheet-handle"></div>
-    <div class="bsheet-icon">↗</div>
-    <div class="bsheet-title">Move to Tab</div>
-    <div class="bsheet-desc" id="moveDesc"></div>
-    <div id="moveTabList" style="display:flex;flex-direction:column;gap:6px;margin-bottom:1rem;max-height:50vh;overflow-y:auto;"></div>
-    <button class="bconf-cancel" id="moveCancelBtn">Cancel</button>
   </div>
 </div>
 
@@ -1090,7 +1182,7 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
   </div>
 </div>
 
-<!-- BACKUP SHEET --><!-- BACKUP SHEET -->
+<!-- BACKUP SHEET -->
 <div class="bsheet-overlay" id="editPhoneOverlay">
   <div class="bsheet">
     <div class="bsheet-handle"></div>
@@ -1176,6 +1268,30 @@ textarea.input-field.voice-wrap-ta{padding-right:40px;}
     <iframe id="printFrame" title="Print Preview"></iframe>
   </div>
 </div>
+
+<!-- HANDOVER TIMER BAR -->
+<div class="hv-timer-bar" id="hvTimerBar">
+  <span class="hv-timer-elapsed" id="hvTimerElapsed">00:00</span>
+  <span class="hv-timer-label">🤝 Handover in progress — <span id="hvTimerOnCall"></span></span>
+  <button class="hv-timer-stop" id="hvTimerStop">■ End</button>
+</div>
+
+<!-- QUICK STATUS SHEET -->
+<div class="qs-overlay" id="qsOverlay">
+  <div class="qs-sheet">
+    <div class="qs-handle"></div>
+    <div class="qs-title">Quick Status Update</div>
+    <div class="qs-patient" id="qsPatientName">—</div>
+    <div class="qs-options">
+      <button class="qs-btn qs-stable"  data-status="Stable">🟢 Stable</button>
+      <button class="qs-btn qs-improving" data-status="Improving">🔵 Improving</button>
+      <button class="qs-btn qs-unstable" data-status="Unstable">🔴 Unstable</button>
+      <button class="qs-btn qs-discharge" data-status="Discharge">🏠 Discharge</button>
+    </div>
+    <button class="qs-cancel" id="qsCancel">Cancel</button>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
@@ -1194,18 +1310,20 @@ var db = firebase.database();
 
 <script>
 (function(){
+// ============================================================
+// التطبيق الرئيسي - MUH Plastic Surgeons Handover
+// ============================================================
+
 // ── TAB GROUPS ──
 const TAB_GROUPS = [
-  {
-    id:'__grp_er__', label:'🏥 Emergency', color:'#4f8ef7',
+  { id:'__grp_er__', label:'🏥 Emergency', color:'#4f8ef7',
     tabs:[
       {id:'er_hand',        label:'Hand',       icon:'✋'},
       {id:'er_maxfac',      label:'MaxFac',     icon:'🦷'},
       {id:'er_softtissue',  label:'Soft Tis.',  icon:'🩹'},
     ]
   },
-  {
-    id:'__grp_elective__', label:'🏨 Elective', color:'#4fd9a0',
+  { id:'__grp_elective__', label:'🏨 Elective', color:'#4fd9a0',
     tabs:[
       {id:'burn_hand',      label:'Burn',       icon:'🔥'},
       {id:'burn_icu',       label:'Burn ICU',   icon:'🔥🏥'},
@@ -1215,7 +1333,6 @@ const TAB_GROUPS = [
   }
 ];
 
-// Flat list of all ward tabs
 const DEFAULT_TABS = TAB_GROUPS.flatMap(g=>g.tabs.map(t=>t.id));
 const DEFAULT_LABELS = {};
 const TAB_ICONS = {};
@@ -1224,17 +1341,13 @@ TAB_GROUPS.forEach(g=>g.tabs.forEach(t=>{
   TAB_ICONS[t.id]=t.icon;
 }));
 
-// Which tabs are "burn" type (DOB, TBSA fields)
 const BURN_TABS   = ['burn_hand','burn_icu'];
-const ICU_TABS    = ['burn_icu']; // tabs that get extra ICU labs
-// Which tabs are "surgical" type (Surgeon field)
+const ICU_TABS    = ['burn_icu'];
 const SURGICAL_TABS = ['aesthetic','reconstructive'];
-// Hand tabs (NV exam)
 const HAND_TABS   = ['er_hand'];
-// MaxFac tabs
 const MAXFAC_TABS = ['er_maxfac'];
-// Soft tissue tabs
 const ST_TABS     = ['er_softtissue'];
+
 let currentTab='er_hand',editIndex=-1,todos=[],selectedVirology=[],selectedStatus='';
 let handOperated='',nvArterial='',nvVenous='',nvNerve='';
 let burnCompartments=[];
@@ -1242,35 +1355,27 @@ let maxCategory='',maxOperated='',facialN='',bite='',opening='',ophtho='';
 let stOperated='';
 let vacStatus='';
 const PREOP_DEFAULTS=['Consent','Pre-op Labs','ECG','Chest X-Ray','Echo','Anesthesia Fitness'];
-let preOpItems=[]; // [{label, done, custom}]
+let preOpItems=[];
 let activeFilter='all';
 const fields=['patientName','age','bed','doa','dob','dx','tbsa','surgeon','plan','medHx','vitals','maxOperator','maxOM','maxVA','stOperator','burnFluidRate','burnUOP','burnBalance'];
 let labEntries=[];
-let customLabsTemp=[]; // [{name, value}] for current entry being built
+let customLabsTemp=[];
 let medications=[];
 let cultures=[];
 let _medEditIdx=-1,_cultureEditIdx=-1,_cultureResult='';
 
-// ── STORAGE: localStorage (cache) + Firebase (sync) ──
+// ── STORAGE ──
 var _cache = {};
 
-// ── CACHE VERSION CHECK ──
-// Bumping this version clears stale in-memory cache but keeps localStorage data intact.
-// Firebase will re-sync fresh data after the clear.
 const _APP_VERSION = 'v3';
 (function _clearStaleCache(){
   const stored = localStorage.getItem('psx_app_version');
   if(stored !== _APP_VERSION){
-    // Clear only the in-memory cache and stale localStorage data keys
-    // Keep: psx_username, psx_device_id, psx_theme (user prefs)
-    // Clear: psx_cases, psx_archive, psx_ops, psx_ops_archive, psx_custom_tabs, psx_users
-    // These will be re-fetched from Firebase on _startFirebaseSync
     ['psx_cases','psx_archive','psx_ops','psx_ops_archive','psx_custom_tabs','psx_users'].forEach(k=>{
       localStorage.removeItem(k);
       delete _cache[k];
     });
     localStorage.setItem('psx_app_version', _APP_VERSION);
-    console.log('🔄 Cache cleared for version', _APP_VERSION);
   }
 })();
 
@@ -1319,13 +1424,461 @@ function applyTheme(){document.body.classList.toggle('light',isLight);themeBtn.t
 applyTheme();
 themeBtn.addEventListener('click',()=>{isLight=!isLight;localStorage.setItem('psx_theme',isLight?'light':'dark');applyTheme();});
 
+// ============================================================
+// نظام تعليقات على الحالات (Case Comments System)
+// ============================================================
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatTimeAgo(timestamp) {
+    const now = new Date();
+    const then = new Date(timestamp);
+    const diffMs = now - then;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
+    
+    if (diffSec < 60) return 'الآن';
+    if (diffMin < 60) return `منذ ${diffMin} دقيقة`;
+    if (diffHour < 24) return `منذ ${diffHour} ساعة`;
+    if (diffDay < 7) return `منذ ${diffDay} يوم`;
+    return then.toLocaleDateString('ar-EG');
+}
+
+function extractMentions(text) {
+    const mentionRegex = /@(\w+)/g;
+    const matches = [...text.matchAll(mentionRegex)];
+    return matches.map(m => m[1]);
+}
+
+window.addCommentToCase = function(caseId, commentText, mentionedUsers) {
+    const cases = getCases();
+    let foundCase = null;
+    let foundTab = null;
+    let foundIndex = -1;
+    
+    for (const tabId in cases) {
+        const idx = cases[tabId].findIndex(c => c && c._id === caseId);
+        if (idx !== -1) {
+            foundCase = cases[tabId][idx];
+            foundTab = tabId;
+            foundIndex = idx;
+            break;
+        }
+    }
+    
+    if (!foundCase) return false;
+    if (!foundCase.comments) foundCase.comments = [];
+    
+    const newComment = {
+        id: 'cmt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+        text: commentText,
+        author: currentUser,
+        authorDevId: localStorage.getItem('psx_device_id') || '',
+        timestamp: new Date().toISOString(),
+        mentions: mentionedUsers
+    };
+    
+    foundCase.comments.unshift(newComment);
+    foundCase.lastCommentAt = new Date().toISOString();
+    foundCase.commentCount = foundCase.comments.length;
+    
+    cases[foundTab][foundIndex] = foundCase;
+    saveCases(cases);
+    
+    if (mentionedUsers.length > 0) {
+        const users = getUsers();
+        const myDevId = localStorage.getItem('psx_device_id') || '';
+        mentionedUsers.forEach(username => {
+            const userEntry = Object.entries(users).find(([devId, u]) => 
+                u && u.name && u.name.toLowerCase() === username.toLowerCase()
+            );
+            if (userEntry && userEntry[0] !== myDevId) {
+                const notifications = JSON.parse(localStorage.getItem(`notifications_${userEntry[0]}`) || '[]');
+                notifications.unshift({
+                    id: 'notif_' + Date.now(),
+                    type: 'mention',
+                    from: currentUser,
+                    patient: foundCase.patientName,
+                    comment: commentText.substring(0, 100),
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                while (notifications.length > 50) notifications.pop();
+                localStorage.setItem(`notifications_${userEntry[0]}`, JSON.stringify(notifications));
+            }
+        });
+    }
+    
+    loadCases();
+    showToast('💬 تم إضافة التعليق', 1500);
+    return true;
+}
+
+window.deleteCommentFromCase = function(caseId, commentId) {
+    const cases = getCases();
+    let foundCase = null;
+    let foundTab = null;
+    let foundIndex = -1;
+    
+    for (const tabId in cases) {
+        const idx = cases[tabId].findIndex(c => c && c._id === caseId);
+        if (idx !== -1) {
+            foundCase = cases[tabId][idx];
+            foundTab = tabId;
+            foundIndex = idx;
+            break;
+        }
+    }
+    
+    if (!foundCase || !foundCase.comments) return false;
+    
+    const commentIndex = foundCase.comments.findIndex(c => c.id === commentId);
+    if (commentIndex === -1) return false;
+    
+    const comment = foundCase.comments[commentIndex];
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    if (comment.authorDevId !== myDevId) {
+        showToast('❌ يمكنك فقط حذف تعليقاتك', 2000);
+        return false;
+    }
+    
+    foundCase.comments.splice(commentIndex, 1);
+    foundCase.commentCount = foundCase.comments.length;
+    cases[foundTab][foundIndex] = foundCase;
+    saveCases(cases);
+    loadCases();
+    showToast('🗑 تم حذف التعليق', 1500);
+    return true;
+}
+
+function getCaseComments(caseId) {
+    const cases = getCases();
+    for (const tabId in cases) {
+        const c = cases[tabId].find(c => c && c._id === caseId);
+        if (c && c.comments) return c.comments;
+    }
+    return [];
+}
+
+function getCaseFromId(caseId) {
+    const cases = getCases();
+    for (const tabId in cases) {
+        const found = cases[tabId].find(c => c && c._id === caseId);
+        if (found) return found;
+    }
+    return null;
+}
+
+window.showCommentsSheet = function(caseId, patientName) {
+    const comments = getCaseComments(caseId);
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'commentsSheet';
+    overlay.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
+        z-index: 1100; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.2s;
+    `;
+    
+    const sheet = document.createElement('div');
+    sheet.style.cssText = `
+        background: var(--surface); border-radius: 28px 28px 0 0; width: 100%;
+        height: 85vh; display: flex; flex-direction: column; transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    `;
+    
+    const commentsHtml = comments.length === 0 ? `
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <div style="font-size: 2rem;">💬</div>
+            <div>لا توجد تعليقات بعد</div>
+            <div style="font-size: 0.7rem;">كن أول من يعلق!</div>
+        </div>
+    ` : comments.map(c => {
+        const isAuthor = c.authorDevId === myDevId;
+        const timeAgo = formatTimeAgo(c.timestamp);
+        return `
+            <div class="comment-item" data-comment-id="${c.id}" style="
+                background: var(--surface2); border-radius: 16px; padding: 12px;
+                margin-bottom: 10px; border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};
+            ">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="
+                            width: 28px; height: 28px; background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'};
+                            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+                            font-family: var(--display); font-weight: 700; font-size: 0.8rem; color: #fff;
+                        ">${(c.author || '?').charAt(0).toUpperCase()}</span>
+                        <div>
+                            <strong style="font-family: var(--display); font-size: 0.85rem;">${escapeHtml(c.author || 'مجهول')}</strong>
+                            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
+                        </div>
+                    </div>
+                    ${isAuthor ? `
+                        <button class="delete-comment-btn" data-comment-id="${c.id}" style="
+                            background: none; border: none; color: var(--text-muted);
+                            cursor: pointer; padding: 4px 8px; border-radius: 8px;
+                        ">🗑</button>
+                    ` : ''}
+                </div>
+                <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim); line-height: 1.5;">
+                    ${escapeHtml(c.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    sheet.innerHTML = `
+        <div style="display: flex; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); flex-shrink: 0;">
+            <div>
+                <h3 style="font-family: var(--display); font-weight: 700; font-size: 1rem;">💬 التعليقات</h3>
+                <p style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);">${escapeHtml(patientName)}</p>
+            </div>
+            <button id="closeCommentsSheet" style="width: 32px; height: 32px; border-radius: 10px; background: var(--surface2); border: 1.5px solid var(--border2); cursor: pointer;">✕</button>
+        </div>
+        <div id="commentsList" style="flex: 1; overflow-y: auto; padding: 1rem;">${commentsHtml}</div>
+        <div style="padding: 0.8rem 1rem 1.2rem; border-top: 1px solid var(--border); flex-shrink: 0;">
+            <div style="position: relative;">
+                <textarea id="newCommentInput" placeholder="اكتب تعليقك... استخدم @username لمنشن زميل" style="
+                    width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
+                    border-radius: 20px; color: var(--text); padding: 12px 50px 12px 16px;
+                    resize: none; outline: none; min-height: 48px; max-height: 100px;
+                " rows="2"></textarea>
+                <button id="submitCommentBtn" style="
+                    position: absolute; right: 8px; bottom: 12px; background: var(--accent-hand);
+                    border: none; border-radius: 20px; padding: 6px 14px; color: white;
+                    font-weight: 600; font-size: 0.75rem; cursor: pointer;
+                ">إرسال</button>
+            </div>
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--text-muted); margin-top: 6px; text-align: center;">
+                💡 استخدم @اسم_المستخدم لمنشن الزملاء
+            </div>
+        </div>
+    `;
+    
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        sheet.style.transform = 'translateY(0)';
+    }, 10);
+    
+    const closeBtn = sheet.querySelector('#closeCommentsSheet');
+    closeBtn.onclick = () => {
+        overlay.style.opacity = '0';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => overlay.remove(), 300);
+        }
+    };
+    
+    const submitBtn = sheet.querySelector('#submitCommentBtn');
+    const commentInput = sheet.querySelector('#newCommentInput');
+    
+    const sendComment = () => {
+        const text = commentInput.value.trim();
+        if (!text) return;
+        const mentions = extractMentions(text);
+        addCommentToCase(caseId, text, mentions);
+        commentInput.value = '';
+        commentInput.style.height = '48px';
+        const updatedComments = getCaseComments(caseId);
+        const commentsList = sheet.querySelector('#commentsList');
+        if (commentsList && updatedComments.length) {
+            const newCommentHtml = (() => {
+                const c = updatedComments[0];
+                const isAuthor = c.authorDevId === myDevId;
+                const timeAgo = formatTimeAgo(c.timestamp);
+                return `
+                    <div class="comment-item" data-comment-id="${c.id}" style="background: var(--surface2); border-radius: 16px; padding: 12px; margin-bottom: 10px; border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 28px; height: 28px; background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'}; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 0.8rem; color: #fff;">${(c.author || '?').charAt(0).toUpperCase()}</span>
+                                <div>
+                                    <strong style="font-family: var(--display); font-size: 0.85rem;">${escapeHtml(c.author || 'مجهول')}</strong>
+                                    <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
+                                </div>
+                            </div>
+                            <button class="delete-comment-btn" data-comment-id="${c.id}" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px;">🗑</button>
+                        </div>
+                        <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim);">${escapeHtml(c.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}</div>
+                    </div>
+                `;
+            })();
+            commentsList.insertAdjacentHTML('afterbegin', newCommentHtml);
+            const newDeleteBtn = commentsList.querySelector(`.delete-comment-btn[data-comment-id="${updatedComments[0].id}"]`);
+            if (newDeleteBtn) {
+                newDeleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (confirm('هل تريد حذف هذا التعليق؟')) {
+                        deleteCommentFromCase(caseId, updatedComments[0].id);
+                        const item = commentsList.querySelector(`.comment-item[data-comment-id="${updatedComments[0].id}"]`);
+                        if (item) item.remove();
+                    }
+                };
+            }
+        }
+    };
+    
+    submitBtn.onclick = sendComment;
+    commentInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendComment();
+        }
+    });
+    
+    commentInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+    
+    sheet.querySelectorAll('.delete-comment-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const commentId = btn.getAttribute('data-comment-id');
+            if (confirm('هل تريد حذف هذا التعليق؟')) {
+                deleteCommentFromCase(caseId, commentId);
+                const item = btn.closest('.comment-item');
+                if (item) item.remove();
+            }
+        };
+    });
+}
+
+function showNotificationsSheet(notifications) {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const updated = notifications.map(n => ({ ...n, read: true }));
+    localStorage.setItem(`notifications_${myDevId}`, JSON.stringify(updated));
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1200; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.2s;`;
+    
+    const sheet = document.createElement('div');
+    sheet.style.cssText = `background: var(--surface); border-radius: 28px 28px 0 0; width: 100%; max-height: 80vh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s;`;
+    
+    const notifsHtml = notifications.length === 0 ? `
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <div style="font-size: 2rem;">🔔</div>
+            <div>لا توجد إشعارات</div>
+        </div>
+    ` : notifications.map(n => {
+        const timeAgo = formatTimeAgo(n.timestamp);
+        return `
+            <div style="background: ${n.read ? 'var(--surface2)' : 'rgba(79,142,247,0.1)'}; border-radius: 14px; padding: 12px; margin-bottom: 8px; border-left: 3px solid var(--accent-hand);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                    <span>💬</span>
+                    <span style="font-weight: 600;">${escapeHtml(n.from)}</span>
+                    <span style="font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</span>
+                </div>
+                <div><strong>${escapeHtml(n.patient)}</strong></div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">"${escapeHtml(n.comment)}"</div>
+            </div>
+        `;
+    }).join('');
+    
+    sheet.innerHTML = `
+        <div style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--border);">
+            <h3 style="font-weight: 700;">🔔 الإشعارات (${notifications.length})</h3>
+            <button id="closeNotifSheet" style="background: var(--surface2); border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer;">✕</button>
+        </div>
+        <div style="flex: 1; overflow-y: auto; padding: 1rem;">${notifsHtml}</div>
+        <button id="clearAllNotifs" style="margin: 0.5rem 1rem 1.2rem; padding: 10px; background: var(--surface2); border: none; border-radius: 14px; cursor: pointer;">🗑 مسح الكل</button>
+    `;
+    
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        sheet.style.transform = 'translateY(0)';
+    }, 10);
+    
+    sheet.querySelector('#closeNotifSheet').onclick = () => {
+        overlay.style.opacity = '0';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    
+    sheet.querySelector('#clearAllNotifs').onclick = () => {
+        localStorage.setItem(`notifications_${myDevId}`, JSON.stringify([]));
+        overlay.remove();
+        showToast('🗑 تم مسح جميع الإشعارات', 1500);
+    };
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => overlay.remove(), 300);
+        }
+    };
+}
+
+function addNotificationButton() {
+    const headerRight = document.querySelector('.app-header-right');
+    if (headerRight && !document.getElementById('notifBtn')) {
+        const notifBtn = document.createElement('button');
+        notifBtn.id = 'notifBtn';
+        notifBtn.className = 'hdr-btn';
+        notifBtn.innerHTML = '🔔';
+        notifBtn.style.position = 'relative';
+        
+        function updateNotifBadge() {
+            const myDevId = localStorage.getItem('psx_device_id') || '';
+            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+            const unread = notifs.filter(n => !n.read).length;
+            const existing = notifBtn.querySelector('.notif-badge');
+            if (unread > 0) {
+                if (existing) {
+                    existing.textContent = unread > 9 ? '9+' : unread;
+                } else {
+                    const badge = document.createElement('span');
+                    badge.className = 'notif-badge';
+                    badge.style.cssText = `position: absolute; top: -2px; right: -2px; background: var(--danger); color: white; font-size: 0.55rem; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center;`;
+                    badge.textContent = unread > 9 ? '9+' : unread;
+                    notifBtn.appendChild(badge);
+                }
+            } else if (existing) {
+                existing.remove();
+            }
+        }
+        
+        notifBtn.onclick = () => {
+            const myDevId = localStorage.getItem('psx_device_id') || '';
+            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+            showNotificationsSheet(notifs);
+        };
+        
+        headerRight.insertBefore(notifBtn, headerRight.firstChild);
+        setInterval(updateNotifBadge, 30000);
+        updateNotifBadge();
+    }
+}
+
+// ============================================================
+// نهاية نظام التعليقات
+// ============================================================
+
 // TAB BAR
 function renderTabBar(){
   const bar=document.getElementById('tabBar');
   const addBtn=document.getElementById('addTabBtn');
   bar.querySelectorAll('.tab-item,.tab-separator,.tab-group-label').forEach(el=>el.remove());
 
-  // Render grouped ward tabs
   TAB_GROUPS.forEach(group=>{
     const lbl=document.createElement('div');
     lbl.className='tab-group-label';
@@ -1342,7 +1895,6 @@ function renderTabBar(){
     });
   });
 
-  // Custom tabs
   const custom=getCustomTabs();
   if(custom.length){
     const sep=document.createElement('div');sep.className='tab-separator';
@@ -1361,7 +1913,6 @@ function renderTabBar(){
     });
   }
 
-  // Ops
   const sep1=document.createElement('div');sep1.className='tab-separator';bar.insertBefore(sep1,addBtn);
   const opsEl=document.createElement('div');
   opsEl.className='tab-item ops-tab'+(currentTab==='__ops__'?' active':'');
@@ -1400,20 +1951,36 @@ function renderTabBar(){
   contactsEl.addEventListener('click',()=>switchTab('__contacts__'));
   bar.insertBefore(contactsEl,addBtn);
 
+  const dashSep=document.createElement('div');dashSep.className='tab-separator';bar.insertBefore(dashSep,addBtn);
+  const dashEl=document.createElement('div');
+  dashEl.className='tab-item'+(currentTab==='__dashboard__'?' active':'');
+  dashEl.style.cssText='color:#a78bfa;';
+  dashEl.setAttribute('data-tab','__dashboard__');
+  dashEl.innerHTML=`<span class="tab-icon">📊</span><span class="tab-label">Stats</span>`;
+  dashEl.addEventListener('click',()=>switchTab('__dashboard__'));
+  bar.insertBefore(dashEl,addBtn);
+
+  const shiftEl=document.createElement('div');
+  shiftEl.className='tab-item shift-tab-item'+(currentTab==='__shift__'?' active':'');
+  shiftEl.setAttribute('data-tab','__shift__');
+  shiftEl.innerHTML=`<span class="tab-icon">📝</span><span class="tab-label">Shift</span>`;
+  shiftEl.addEventListener('click',()=>switchTab('__shift__'));
+  bar.insertBefore(shiftEl,addBtn);
+
   updateCounts();
   const activeEl=bar.querySelector('.tab-item.active');
   if(activeEl)activeEl.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-
-
 function switchTab(tabId){
   if(typeof _selMode!=='undefined'&&_selMode) _selExit();
   currentTab=tabId;
   document.querySelectorAll('.tab-item').forEach(t=>t.classList.toggle('active',t.getAttribute('data-tab')===tabId));
-  document.getElementById('fabBtn').classList.toggle('fab-hidden', tabId==='__archive__' || tabId==='__ops__' || tabId==='__ops_archive__' || tabId==='__users__' || tabId==='__contacts__');
+  document.getElementById('fabBtn').classList.toggle('fab-hidden', tabId==='__archive__' || tabId==='__ops__' || tabId==='__ops_archive__' || tabId==='__users__' || tabId==='__contacts__' || tabId==='__dashboard__' || tabId==='__shift__');
+  var _specialTab = ['__archive__','__ops__','__ops_archive__','__users__','__contacts__','__dashboard__','__shift__'].includes(tabId);
+  var _sb = document.getElementById('sortBtn');
+  if(_sb) _sb.style.display = _specialTab ? 'none' : '';
   document.getElementById('opsFabBtn').style.display='none';
-  // Reset filter on tab switch
   activeFilter='all';
   document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
   const allChip=document.querySelector('.filter-chip[data-filter="all"]');
@@ -1467,14 +2034,13 @@ function toggleBurnFields(){
   if(!isHand){handOperated='';nvArterial='';nvVenous='';nvNerve='';
     document.querySelectorAll('.handOperatedBtn,.nvBtn').forEach(b=>b.classList.remove('selected'));}
 
-  // Aesthetic pre-op checklist
   const isAesthetic = currentTab==='aesthetic' || currentTab==='reconstructive' || currentTab==='er_softtissue' || currentTab==='er_maxfac';
   const aestheticGrp = document.getElementById('aestheticGroup');
   if(aestheticGrp) aestheticGrp.style.display = isAesthetic ? '' : 'none';
-  // ICU extra labs
+  
   const icuLabsEl = document.getElementById('icuLabsGroup');
   if(icuLabsEl) icuLabsEl.style.display = ICU_TABS.includes(currentTab) ? 'block' : 'none';
-  // Burn resus group (burn tabs only)
+  
   const isBurnResus = BURN_TABS.includes(currentTab);
   document.getElementById('burnResusGroup').style.display=isBurnResus?'':'none';
   if(!isBurnResus){
@@ -1501,7 +2067,6 @@ const sheetOverlay=document.getElementById('sheetOverlay');
 function openSheet(){formSheet.classList.add('open');sheetOverlay.classList.add('visible');}
 function closeSheet(){formSheet.classList.remove('open');sheetOverlay.classList.remove('visible');}
 function openNewCaseSheet(){
-  // Always reset edit state when opening for a new case
   resetForm();
   editIndex=-1;
   window._archiveEditIndex=-1;
@@ -1537,7 +2102,6 @@ document.querySelectorAll('.statusBtn').forEach(btn=>{
 });
 
 // HAND & MAXFAC TOGGLES
-// Hand - Operated
 document.querySelectorAll('.handOperatedBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     handOperated=btn.getAttribute('data-value');
@@ -1545,7 +2109,7 @@ document.querySelectorAll('.handOperatedBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// NV buttons (single select per group)
+
 document.querySelectorAll('.nvBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const group=btn.getAttribute('data-group');
@@ -1556,7 +2120,7 @@ document.querySelectorAll('.nvBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// MaxFac - Category
+
 document.querySelectorAll('.maxCatBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     maxCategory=btn.getAttribute('data-value');
@@ -1564,7 +2128,7 @@ document.querySelectorAll('.maxCatBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// MaxFac - Operated
+
 document.querySelectorAll('.maxOperatedBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     maxOperated=btn.getAttribute('data-value');
@@ -1573,7 +2137,7 @@ document.querySelectorAll('.maxOperatedBtn').forEach(btn=>{
     document.getElementById('maxOperatorGroup').style.display=maxOperated==='Operated'?'':'none';
   });
 });
-// Facial N
+
 document.querySelectorAll('.facialNBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     facialN=btn.getAttribute('data-value');
@@ -1581,7 +2145,7 @@ document.querySelectorAll('.facialNBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// Bite
+
 document.querySelectorAll('.biteBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     bite=btn.getAttribute('data-value');
@@ -1589,7 +2153,7 @@ document.querySelectorAll('.biteBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// Opening
+
 document.querySelectorAll('.openingBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     opening=btn.getAttribute('data-value');
@@ -1597,7 +2161,7 @@ document.querySelectorAll('.openingBtn').forEach(btn=>{
     btn.classList.add('selected');
   });
 });
-// Ophtho
+
 document.querySelectorAll('.ophthoBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     ophtho=btn.getAttribute('data-value');
@@ -1606,7 +2170,6 @@ document.querySelectorAll('.ophthoBtn').forEach(btn=>{
   });
 });
 
-// Soft Tissue - Operated
 document.querySelectorAll('.stOperatedBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     stOperated=btn.getAttribute('data-value');
@@ -1616,7 +2179,6 @@ document.querySelectorAll('.stOperatedBtn').forEach(btn=>{
   });
 });
 
-// VAC Status
 document.querySelectorAll('.vacStatusBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     vacStatus=btn.getAttribute('data-value');
@@ -1626,7 +2188,6 @@ document.querySelectorAll('.vacStatusBtn').forEach(btn=>{
   });
 });
 
-// Burn compartments (multi-select)
 document.querySelectorAll('.burnCompBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const val=btn.getAttribute('data-value');
@@ -1767,8 +2328,6 @@ document.getElementById('cultureSaveBtn').addEventListener('click',()=>{
 });
 
 // LAB ENTRIES
-
-// ── LAB ABNORMAL CHECKER ──
 function isLabAbnormal(key, val){
   var n = parseFloat(val);
   if(isNaN(n)) return false;
@@ -1783,9 +2342,7 @@ function isLabAbnormal(key, val){
 }
 function labChipHtml(key, val, label){
   var abnormal = isLabAbnormal(key, val);
-  var style = abnormal
-    ? ' style="border-color:var(--danger);background:rgba(247,95,95,.12);"'
-    : '';
+  var style = abnormal ? ' style="border-color:var(--danger);background:rgba(247,95,95,.12);"' : '';
   var valStyle = abnormal ? ' style="color:var(--danger);font-weight:700;"' : '';
   return '<span class="lab-chip"'+style+'><span class="lk">'+label+'</span><span class="lv"'+valStyle+'>'+val+'</span></span>';
 }
@@ -1823,10 +2380,8 @@ window.deleteLabEntry=function(idx){
   renderLabEntries();
 };
 
-// Set today as default lab date
 document.getElementById('labDate').valueAsDate=new Date();
 
-// Custom labs temp list
 function renderCustomLabsTemp(){
   const list=document.getElementById('customLabsList');
   if(!list)return;
@@ -1845,7 +2400,6 @@ document.getElementById('customLabAddBtn').addEventListener('click',()=>{
   const name=document.getElementById('customLabName').value.trim().toUpperCase();
   const value=document.getElementById('customLabValue').value.trim();
   if(!name||!value)return;
-  // Don't duplicate name
   customLabsTemp=customLabsTemp.filter(l=>l.name!==name);
   customLabsTemp.push({name,value});
   renderCustomLabsTemp();
@@ -1868,7 +2422,6 @@ document.getElementById('labAddEntryBtn').addEventListener('click',()=>{
   const wbc=document.getElementById('wbc').value.trim();
   const albumin=document.getElementById('albumin').value.trim();
   const inr=document.getElementById('inr').value.trim();
-  // ICU extra labs
   const isICU=ICU_TABS.includes(currentTab);
   const abg=isICU?document.getElementById('labABG').value.trim():'';
   const cr=isICU?document.getElementById('labCr').value.trim():'';
@@ -1890,7 +2443,6 @@ document.getElementById('labAddEntryBtn').addEventListener('click',()=>{
 
 // PRE-OP CHECKLIST
 function initPreOpItems(){
-  // Keep existing items, add any missing defaults
   const existingLabels=preOpItems.map(i=>i.label);
   PREOP_DEFAULTS.forEach(label=>{
     if(!existingLabels.includes(label))
@@ -1908,14 +2460,12 @@ function renderPreOpList(){
       <div class="preop-check${item.done?' checked':''}" data-idx="${i}"></div>
       <span class="preop-item-label" data-idx="${i}">${item.label}</span>
       ${item.custom?`<button class="preop-del" data-idx="${i}">✕</button>`:''}`;
-    // Toggle check
     row.querySelectorAll('.preop-check,.preop-item-label').forEach(el=>{
       el.addEventListener('click',()=>{
         preOpItems[i].done=!preOpItems[i].done;
         renderPreOpList();
       });
     });
-    // Delete custom
     const delBtn=row.querySelector('.preop-del');
     if(delBtn) delBtn.addEventListener('click',e=>{
       e.stopPropagation();
@@ -1925,7 +2475,7 @@ function renderPreOpList(){
     list.appendChild(row);
   });
 }
-// Add custom item
+
 document.getElementById('preOpAddBtn').addEventListener('click',()=>{
   const input=document.getElementById('preOpCustomInput');
   const label=input.value.trim();
@@ -1960,7 +2510,6 @@ document.getElementById('newTodo').addEventListener('keydown',e=>{if(e.key==='En
 // RESET FORM
 function resetForm(){
   fields.forEach(f=>{const el=document.getElementById(f);if(el)el.value='';});
-  // Clear lab fields too
   ['hb','plt','wbc','albumin','inr'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('labDate').valueAsDate=new Date();
   labEntries=[];renderLabEntries();
@@ -1974,25 +2523,21 @@ function resetForm(){
   document.getElementById('cultureAddBtn').style.display='flex';
   todos=[];renderTodos();selectedVirology=[];selectedStatus='';
   document.querySelectorAll('.virology-btn,.statusBtn').forEach(b=>b.classList.remove('selected'));
-  // Hand
   handOperated='';nvArterial='';nvVenous='';nvNerve='';
   document.querySelectorAll('.handOperatedBtn,.nvBtn').forEach(b=>b.classList.remove('selected'));
-  // MaxFac
   maxCategory='';maxOperated='';facialN='';bite='';opening='';ophtho='';
   document.querySelectorAll('.maxCatBtn,.maxOperatedBtn,.facialNBtn,.biteBtn,.openingBtn,.ophthoBtn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('maxOperatorGroup').style.display='none';
-  // Soft Tissue
   stOperated='';vacStatus='';
   document.querySelectorAll('.stOperatedBtn,.vacStatusBtn').forEach(b=>b.classList.remove('selected'));
   document.getElementById('stOperatorGroup').style.display='none';
   document.getElementById('vacDetailsGroup').style.display='none';
-  // Pre-op checklist reset
   preOpItems=[];
   if(SURGICAL_TABS.includes(currentTab)||ST_TABS.includes(currentTab)||MAXFAC_TABS.includes(currentTab)){initPreOpItems();}
   renderPreOpList();
-  // Burn resus
   burnCompartments=[];
   document.querySelectorAll('.burnCompBtn').forEach(b=>b.classList.remove('selected'));
+  _photosTemp=[];renderPhotoPreview();
 }
 document.getElementById('clearFormBtn').addEventListener('click',()=>{
   resetForm();editIndex=-1;window._archiveEditIndex=-1;
@@ -2002,9 +2547,8 @@ document.getElementById('clearFormBtn').addEventListener('click',()=>{
   document.getElementById('sheetMode').textContent='NEW ENTRY';
 });
 
-// ENTER KEY NAVIGATION between form fields
+// ENTER KEY NAVIGATION
 (function setupEnterNav(){
-  // Helper: focus next visible field from a list
   function focusNext(fields, currentId){
     const i = fields.indexOf(currentId);
     for(let j = i+1; j < fields.length; j++){
@@ -2018,7 +2562,6 @@ document.getElementById('clearFormBtn').addEventListener('click',()=>{
     return false;
   }
 
-  // Main form fields
   const MAIN_FIELDS = [
     'patientName','age','bed','doa','dob','tbsa','surgeon','dx',
     'burnFluidRate','burnUOP','burnBalance',
@@ -2027,17 +2570,13 @@ document.getElementById('clearFormBtn').addEventListener('click',()=>{
     'plan','medHx','vitals'
   ];
 
-  // Lab fields
   const LAB_FIELDS = [
     'labDate','hb','plt','wbc','albumin','inr',
     'labABG','labCr','labCRP','labESR','labAST','labALT','labProcal',
     'customLabName','customLabValue'
   ];
 
-  // Medication fields
   const MED_FIELDS = ['medName','medDose','medFreq'];
-
-  // Culture fields
   const CULTURE_FIELDS = ['cultureSpecimen','cultureDate','cultureOrganism'];
 
   function addEnterNav(fields, onLast){
@@ -2055,31 +2594,20 @@ document.getElementById('clearFormBtn').addEventListener('click',()=>{
     });
   }
 
-  // Main form: last field → submit
   addEnterNav(MAIN_FIELDS, ()=> document.getElementById('submitBtn')?.click());
-
-  // Labs: last field (customLabValue) → click ＋ add custom lab, then add entry
   addEnterNav(LAB_FIELDS, ()=>{
     const v = document.getElementById('customLabValue')?.value?.trim();
     if(v) document.getElementById('customLabAddBtn')?.click();
     else document.getElementById('labAddEntryBtn')?.click();
   });
-  // customLabName → customLabValue → add btn on Enter
-  const customLabName = document.getElementById('customLabName');
   const customLabValue = document.getElementById('customLabValue');
   if(customLabValue){
     customLabValue.addEventListener('keydown',(e)=>{
       if(e.key==='Enter'){ e.preventDefault(); document.getElementById('customLabAddBtn')?.click(); }
     });
   }
-
-  // Medications: last field → add med btn
   addEnterNav(MED_FIELDS, ()=> document.getElementById('medAddBtn')?.click());
-
-  // Cultures: last field → add culture btn
   addEnterNav(CULTURE_FIELDS, ()=> document.getElementById('cultureAddBtn')?.click());
-
-  // Todo: Enter adds todo
   const newTodo = document.getElementById('newTodo');
   if(newTodo){
     newTodo.addEventListener('keydown',(e)=>{
@@ -2114,9 +2642,8 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   }
   caseData.medications=medications.map(m=>({...m}));
   caseData.cultures=cultures.map(c=>({...c}));
-  // Hand
+  caseData.photos=_photosTemp.slice();
   caseData.handOperated=handOperated;caseData.nvArterial=nvArterial;caseData.nvVenous=nvVenous;caseData.nvNerve=nvNerve;
-  // MaxFac
   caseData.maxCategory=maxCategory;caseData.maxOperated=maxOperated;caseData.facialN=facialN;
   caseData.bite=bite;caseData.opening=opening;caseData.ophtho=ophtho;
   caseData.stOperated=stOperated;
@@ -2124,7 +2651,6 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   caseData.preOpItems=preOpItems.map(i=>({...i}));
   caseData.burnCompartments=burnCompartments.slice();
 
-  // Archive edit mode
   if(typeof window._archiveEditIndex==='number'&&window._archiveEditIndex>=0){
     const archive=getArchive();
     const old=archive[window._archiveEditIndex];
@@ -2162,18 +2688,17 @@ window.editCase=function(idOrIndex){
   medications=(c.medications||[]).map(m=>({...m}));renderMedications();
   cultures=(c.cultures||[]).map(cu=>({...cu}));renderCultures();
   todos=(c.todos||[]).map(t=>({text:t.text,done:t.done}));renderTodos();
+  _photosTemp=(c.photos||[]).slice();renderPhotoPreview();
   selectedVirology=c.virology?c.virology.split(', ').filter(Boolean):[];
   document.querySelectorAll('.virology-btn').forEach(btn=>btn.classList.toggle('selected',selectedVirology.includes(btn.getAttribute('data-value'))));
   selectedStatus=c.status||'';
   document.querySelectorAll('.statusBtn').forEach(btn=>btn.classList.toggle('selected',btn.getAttribute('data-value')===selectedStatus));
-  // Hand
   handOperated=c.handOperated||'';nvArterial=c.nvArterial||'';nvVenous=c.nvVenous||'';nvNerve=c.nvNerve||'';
   document.querySelectorAll('.handOperatedBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===handOperated));
   document.querySelectorAll('.nvBtn').forEach(b=>{
     const g=b.getAttribute('data-group');
     b.classList.toggle('selected',(g==='nvArterial'&&b.getAttribute('data-value')===nvArterial)||(g==='nvVenous'&&b.getAttribute('data-value')===nvVenous)||(g==='nvNerve'&&b.getAttribute('data-value')===nvNerve));
   });
-  // MaxFac
   maxCategory=c.maxCategory||'';maxOperated=c.maxOperated||'';facialN=c.facialN||'';
   bite=c.bite||'';opening=c.opening||'';ophtho=c.ophtho||'';
   document.querySelectorAll('.maxCatBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===maxCategory));
@@ -2183,10 +2708,8 @@ window.editCase=function(idOrIndex){
   document.querySelectorAll('.biteBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===bite));
   document.querySelectorAll('.openingBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===opening));
   document.querySelectorAll('.ophthoBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===ophtho));
-  // Soft Tissue
   stOperated=c.stOperated||'';
   vacStatus=c.vacStatus||'';
-  // Pre-op checklist
   preOpItems=(c.preOpItems&&c.preOpItems.length)?c.preOpItems.map(i=>({...i})):[];
   if((SURGICAL_TABS.includes(currentTab)||ST_TABS.includes(currentTab)||MAXFAC_TABS.includes(currentTab))&&!preOpItems.length) initPreOpItems();
   renderPreOpList();
@@ -2194,21 +2717,19 @@ window.editCase=function(idOrIndex){
   document.getElementById('stOperatorGroup').style.display=stOperated==='Operated'?'':'none';
   document.querySelectorAll('.vacStatusBtn').forEach(b=>b.classList.toggle('selected',b.getAttribute('data-value')===vacStatus));
   document.getElementById('vacDetailsGroup').style.display=vacStatus==='Yes'?'block':'none';
-  // Burn resus
   burnCompartments=(c.burnCompartments||[]).slice();
   document.querySelectorAll('.burnCompBtn').forEach(b=>b.classList.toggle('selected',burnCompartments.includes(b.getAttribute('data-value'))));
   document.getElementById('submitBtn').textContent='✓ Update';document.getElementById('submitBtn').classList.add('edit-mode');
   document.getElementById('sheetTitle').textContent='Edit Case';document.getElementById('sheetMode').textContent='EDITING';openSheet();
 };
+
 window.deleteCase=function(idOrIndex){
   const cases=getCases();
   var arr=cases[currentTab]||[];
   var idx=-1;
-  // Try _id lookup first (exclude literal 'undefined')
   if(typeof idOrIndex==='string' && idOrIndex!=='undefined' && isNaN(idOrIndex)){
     idx=arr.findIndex(function(c){return c&&c._id===idOrIndex;});
   }
-  // Fallback to numeric index
   if(idx<0){ idx=parseInt(idOrIndex); }
   if(isNaN(idx)||idx<0||idx>=arr.length) return;
   const removed=arr.splice(idx,1)[0];
@@ -2251,7 +2772,6 @@ window.editArchiveCase=function(archIndex){
   document.querySelectorAll('.virology-btn').forEach(btn=>btn.classList.toggle('selected',selectedVirology.includes(btn.getAttribute('data-value'))));
   selectedStatus=c.status||'';
   document.querySelectorAll('.statusBtn').forEach(btn=>btn.classList.toggle('selected',btn.getAttribute('data-value')===selectedStatus));
-  // Store archive index in a special edit mode
   editIndex=-1;
   window._archiveEditIndex=archIndex;
   document.getElementById('submitBtn').textContent='✓ Update';
@@ -2279,16 +2799,222 @@ function buildLabsTimelineHtml(c){
     return '<div style="margin-bottom:6px;">'+dateStr+'<div class="labs-mini">'+chips+'</div></div>';
   }).join('');
 }
-// LOAD CASES
+
+// LOAD CASES (مع دعم التعليقات)
 function loadCases(){
   const list=document.getElementById('casesList');list.innerHTML='';
 
-  // ── USERS VIEW ──
+  // SHIFT NOTES VIEW
+  if(currentTab==='__shift__'){
+    const notes=getShiftNotes();
+    const isTimerOn=_hvTimerRunning;
+    const dateStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'short'});
+    list.innerHTML=`
+<div style="padding:.3rem 0 .5rem;">
+  <div style="font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:.1rem;letter-spacing:-.02em;">📝 Shift Notes</div>
+  <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);">${dateStr}</div>
+</div>
+
+<div class="sn-section">
+  <div class="sn-section-header"><span class="sn-section-title">🤝 Handover Timer</span></div>
+  <div class="sn-section-body">
+    <input class="sn-on-call-input" id="snOnCallName" placeholder="On-call doctor name..." value="${notes.onCallName||''}">
+    <button class="sn-handover-btn${isTimerOn?' active':''}" id="snHandoverBtn">
+      ${isTimerOn?'■ End Handover':'▶ Start Handover'}
+    </button>
+    ${notes.lastHandover?`<div style="margin-top:.6rem;font-family:var(--mono);font-size:.62rem;color:var(--text-muted);">Last: ${notes.lastHandover}</div>`:''}
+  </div>
+</div>
+
+<div class="sn-section">
+  <div class="sn-section-header"><span class="sn-section-title">📋 Shift Summary</span></div>
+  <div class="sn-section-body">
+    <textarea class="sn-textarea" id="snSummaryText" placeholder="General notes about this shift... events, emergencies, important updates">${notes.summary||''}</textarea>
+    <button class="sn-save-btn" id="snSaveSummary">💾 Save Summary</button>
+  </div>
+</div>
+
+<div class="sn-section">
+  <div class="sn-section-header">
+    <span class="sn-section-title">📌 Quick Notes Log</span>
+    <span style="font-family:var(--mono);font-size:.62rem;color:var(--text-muted);">${(notes.log||[]).length} notes</span>
+  </div>
+  <div class="sn-section-body">
+    <textarea class="sn-textarea" id="snQuickNote" placeholder="Add a quick note..." style="min-height:60px;"></textarea>
+    <button class="sn-save-btn" id="snAddNote" style="background:var(--accent-max);">＋ Add Note</button>
+    <div style="margin-top:.75rem;">
+      ${(notes.log||[]).length===0?`<div style="font-family:var(--mono);font-size:.68rem;color:var(--text-muted);text-align:center;padding:.5rem 0;">No notes yet</div>`:
+        [...(notes.log||[])].reverse().map((n,ri)=>`
+        <div class="sn-log-item">
+          <div class="sn-log-meta">
+            <span>🕐 ${n.time}</span>
+            ${n.author?`<span>👤 ${n.author}</span>`:''}
+            <button class="sn-log-del" onclick="deleteShiftNote(${(notes.log||[]).length-1-ri})">✕</button>
+          </div>
+          <div class="sn-log-text">${n.text}</div>
+        </div>`).join('')}
+    </div>
+  </div>
+</div>`;
+
+    document.getElementById('snSaveSummary').addEventListener('click',()=>{
+      const s=getShiftNotes();
+      s.summary=document.getElementById('snSummaryText').value;
+      s.onCallName=document.getElementById('snOnCallName').value.trim();
+      saveShiftNotes(s);
+      showToast('✅ Summary saved!',1800);
+    });
+    document.getElementById('snAddNote').addEventListener('click',()=>{
+      const txt=document.getElementById('snQuickNote').value.trim();
+      if(!txt) return;
+      const s=getShiftNotes();
+      if(!s.log) s.log=[];
+      const now=new Date();
+      s.log.push({text:txt,time:now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),author:currentUser,ts:now.toISOString()});
+      saveShiftNotes(s);
+      loadCases();
+      showToast('📌 Note added',1500);
+    });
+    document.getElementById('snHandoverBtn').addEventListener('click',()=>{
+      const onCallName=document.getElementById('snOnCallName').value.trim();
+      const s=getShiftNotes();
+      s.onCallName=onCallName;
+      if(!_hvTimerRunning){
+        _hvStartTimer(onCallName);
+        s.lastHandover='Started at '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+(onCallName?' → '+onCallName:'');
+      } else {
+        _hvStopTimer();
+        s.lastHandover='Ended at '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+(onCallName?' → '+onCallName:'');
+      }
+      saveShiftNotes(s);
+      loadCases();
+    });
+    document.getElementById('snOnCallName').addEventListener('change',()=>{
+      const s=getShiftNotes();
+      s.onCallName=document.getElementById('snOnCallName').value.trim();
+      saveShiftNotes(s);
+      document.getElementById('hvTimerOnCall').textContent=s.onCallName||'';
+    });
+    return;
+  }
+
+  // DASHBOARD VIEW
+  if(currentTab==='__dashboard__'){
+    const allCases=getCases();
+    const allTabs=getAllTabs();
+    let totalCases=0,stable=0,improving=0,unstable=0,discharge=0,operated=0;
+    const tabBreakdown=[];
+    allTabs.forEach(tab=>{
+      const arr=allCases[tab.id]||[];
+      tabBreakdown.push({label:tab.label,icon:TAB_ICONS[tab.id]||'📁',count:arr.length});
+      arr.forEach(c=>{
+        totalCases++;
+        if(c.status==='Stable') stable++;
+        else if(c.status==='Improving') improving++;
+        else if(c.status==='Unstable') unstable++;
+        else if(c.status==='Discharge') discharge++;
+        if(c.handOperated==='Operated'||c.maxOperated==='Operated'||c.stOperated==='Operated') operated++;
+      });
+    });
+    const ops=getOps()||[];
+    const todayStr=new Date().toISOString().slice(0,10);
+    const todayOps=ops.filter(o=>o.date===todayStr);
+    const archiveCount=(getArchive()||[]).length;
+
+    list.innerHTML=`
+<div style="padding:.3rem 0 .5rem;">
+  <div style="font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:.1rem;letter-spacing:-.02em;">📊 Dashboard</div>
+  <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-muted);">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'2-digit',month:'short',year:'numeric'})}</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-bottom:.7rem;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.85rem 1rem;display:flex;flex-direction:column;gap:2px;">
+    <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);">Total Patients</div>
+    <div style="font-family:var(--display);font-weight:800;font-size:2rem;color:var(--text);line-height:1;">${totalCases}</div>
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">across all wards</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.85rem 1rem;display:flex;flex-direction:column;gap:2px;">
+    <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);">Today's Ops</div>
+    <div style="font-family:var(--display);font-weight:800;font-size:2rem;color:#f7c84f;line-height:1;">${todayOps.length}</div>
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">${ops.length} total scheduled</div>
+  </div>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.85rem 1rem;margin-bottom:.7rem;">
+  <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.7rem;">Status Breakdown</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.45rem;">
+    <div style="display:flex;align-items:center;gap:.6rem;background:rgba(79,217,160,.07);border:1px solid rgba(79,217,160,.2);border-radius:10px;padding:.55rem .7rem;">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--success);flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;"><div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">Stable</div><div style="font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--success);">${stable}</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.2);border-radius:10px;padding:.55rem .7rem;">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--accent-hand);flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;"><div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">Improving</div><div style="font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--accent-hand);">${improving}</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;background:rgba(247,95,95,.07);border:1px solid rgba(247,95,95,.2);border-radius:10px;padding:.55rem .7rem;">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--danger);flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;"><div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">Unstable</div><div style="font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--danger);">${unstable}</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;background:rgba(79,160,217,.07);border:1px solid rgba(79,160,217,.2);border-radius:10px;padding:.55rem .7rem;">
+      <div style="width:8px;height:8px;border-radius:50%;background:#4fa0d9;flex-shrink:0;"></div>
+      <div style="flex:1;min-width:0;"><div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">Discharge</div><div style="font-family:var(--display);font-weight:700;font-size:1.1rem;color:#4fa0d9;">${discharge}</div></div>
+    </div>
+  </div>
+</div>
+
+${totalCases > 0 ? `
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.85rem 1rem;margin-bottom:.7rem;">
+  <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.7rem;">Status Distribution</div>
+  <div style="display:flex;height:10px;border-radius:8px;overflow:hidden;gap:2px;">
+    ${stable>0?`<div style="flex:${stable};background:var(--success);border-radius:4px;" title="Stable: ${stable}"></div>`:''}
+    ${improving>0?`<div style="flex:${improving};background:var(--accent-hand);border-radius:4px;" title="Improving: ${improving}"></div>`:''}
+    ${unstable>0?`<div style="flex:${unstable};background:var(--danger);border-radius:4px;" title="Unstable: ${unstable}"></div>`:''}
+    ${discharge>0?`<div style="flex:${discharge};background:#4fa0d9;border-radius:4px;" title="Discharge: ${discharge}"></div>`:''}
+    ${(totalCases-stable-improving-unstable-discharge)>0?`<div style="flex:${totalCases-stable-improving-unstable-discharge};background:var(--border2);border-radius:4px;" title="No status"></div>`:''}
+  </div>
+  <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+    <span style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">🟢 ${Math.round(stable/totalCases*100)}% stable &nbsp; 🔵 ${Math.round(improving/totalCases*100)}% improving &nbsp; 🔴 ${Math.round(unstable/totalCases*100)}% unstable</span>
+  </div>
+</div>` : ''}
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.85rem 1rem;margin-bottom:.7rem;">
+  <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.65rem;">Patients per Ward</div>
+  <div style="display:flex;flex-direction:column;gap:.35rem;">
+    ${tabBreakdown.map(t=>`
+      <div onclick="switchTab('${getAllTabs().find(x=>x.label===t.label)?.id||'er_hand'}')" style="display:flex;align-items:center;gap:.6rem;cursor:pointer;padding:.4rem .5rem;border-radius:8px;transition:background .15s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+        <span style="font-size:14px;flex-shrink:0;">${t.icon}</span>
+        <span style="flex:1;font-family:var(--body);font-size:.82rem;color:var(--text-dim);">${t.label}</span>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          ${t.count>0?`<div style="width:${Math.min(t.count*12,80)}px;height:5px;background:var(--accent-hand);border-radius:3px;opacity:.6;"></div>`:''}
+          <span style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:${t.count>0?'var(--text)':'var(--text-muted)'};">${t.count}</span>
+        </div>
+      </div>`).join('')}
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-bottom:.7rem;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.75rem 1rem;">
+    <div style="font-family:var(--mono);font-size:.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;">Operated</div>
+    <div style="font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--accent-burn);line-height:1.2;">${operated}</div>
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">cases</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:.75rem 1rem;">
+    <div style="font-family:var(--mono);font-size:.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;">Archived</div>
+    <div style="font-family:var(--display);font-weight:800;font-size:1.6rem;color:#a78bfa;line-height:1.2;">${archiveCount}</div>
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">discharged / deleted</div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:.5rem 0;font-family:var(--mono);font-size:.6rem;color:var(--text-muted);">
+  Tap any ward to navigate → 
+</div>`;
+    return;
+  }
+
+  // USERS VIEW
   if(currentTab==='__users__'){
     const users=getUsers();
     const deviceId=localStorage.getItem('psx_device_id')||'';
-
-    // Count stats per device ID across all data
     const stats={};
     const initStat=id=>{if(!stats[id])stats[id]={added:0,edited:0,deleted:0};};
     const allCases=getCases();
@@ -2300,7 +3026,6 @@ function loadCases(){
       if(c._deletedByDevId){initStat(c._deletedByDevId);stats[c._deletedByDevId].deleted++;}
     });
 
-    // Sort by total activity desc (added + edited)
     if(!users||typeof users!=='object'){list.innerHTML='<div style="text-align:center;padding:3rem;color:var(--text-muted);">Waiting for sync...</div>';return;}
     const entries=Object.entries(users).sort((a,b)=>{
       const sa=stats[a[0]]||{};const sb=stats[b[0]]||{};
@@ -2312,7 +3037,6 @@ function loadCases(){
       list.innerHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--text-muted);font-family:var(--body);font-size:.88rem;">No users yet</div>';
       return;
     }
-    // Online count header
     const onlineCount=entries.filter(([,u])=>isOnline(u)).length;
     const hdr=document.createElement('div');
     hdr.style.cssText='font-family:var(--mono);font-size:.7rem;color:var(--text-muted);padding:4px 2px 8px;display:flex;align-items:center;gap:6px;';
@@ -2323,7 +3047,6 @@ function loadCases(){
     const roleLabels={'Consultant':'🎖 Consultants','Specialist':'⭐ Specialists','Resident':'🩺 Residents','':'👤 Others'};
     const roleColors2={'Consultant':'#7b6cf6','Specialist':'var(--accent-hand)','Resident':'var(--success)','':'var(--text-muted)'};
     let lastRole=null;
-    // Sort by role then activity
     const sortedEntries=[...entries].sort((a,b)=>{
       const ra=roleOrder.indexOf(a[1].role||''); const rb=roleOrder.indexOf(b[1].role||'');
       if(ra!==rb) return ra-rb;
@@ -2331,7 +3054,6 @@ function loadCases(){
       return ((sb.added||0)+(sb.edited||0))-((sa.added||0)+(sa.edited||0));
     });
     sortedEntries.forEach(([devId, u], idx)=>{
-      // Group header
       const role=u.role||'';
       if(role!==lastRole){
         lastRole=role;
@@ -2374,7 +3096,8 @@ function loadCases(){
     });
     return;
   }
-  // ── CONTACTS VIEW ──
+  
+  // CONTACTS VIEW
   if(currentTab==='__contacts__'){
     const users=getUsers();
     const deviceId=localStorage.getItem('psx_device_id')||'';
@@ -2384,7 +3107,6 @@ function loadCases(){
       list.innerHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--text-muted);font-family:var(--body);font-size:.88rem;">No contacts yet</div>';
       return;
     }
-    // Online count header for contacts
     const onlineCountC=entries.filter(([,u])=>isOnline(u)).length;
     const hdrC=document.createElement('div');
     hdrC.style.cssText='font-family:var(--mono);font-size:.7rem;color:var(--text-muted);padding:4px 2px 8px;display:flex;align-items:center;gap:6px;';
@@ -2420,7 +3142,7 @@ function loadCases(){
     return;
   }
 
-  // ── ARCHIVE VIEW ──
+  // ARCHIVE VIEW
   if(currentTab==='__archive__'){
     const archive=getArchive();
     const term=document.getElementById('search').value.toLowerCase();
@@ -2430,8 +3152,7 @@ function loadCases(){
       return [c.patientName,c.age,c.bed,c.dx,c.plan,c.status,c._fromLabel]
         .some(f=>f&&f.toString().toLowerCase().startsWith(term));
     });
-    const filtered=filteredArchWithIdx.map(x=>x.c);
-    if(filtered.length===0){
+    if(filteredArchWithIdx.length===0){
       list.innerHTML=`<div class="empty-state archive-empty"><div class="empty-icon">🗂</div><p>Archive is empty</p><small>Deleted cases will appear here</small></div>`;
       return;
     }
@@ -2477,37 +3198,34 @@ function loadCases(){
             <div style="margin-top:5px;">${buildLabsTimelineHtml(c)}</div>
           </div>
         </div></div>`;
-      var _archChk = _selMode ? ('<div class="sel-checkbox' + (_selIdx.has(realIndex)?' on':'') + '" data-ri="'+realIndex+'"></div>') : '';
-      var _archTop = card.querySelector('.card-top');
-      if(_archTop && _selMode){ var _cb=document.createElement('div'); _cb.className='sel-checkbox'+(_selIdx.has(realIndex)?' on':''); _archTop.insertBefore(_cb,_archTop.firstChild); }
-
-    (function(ri, el, store){
-      var t;
-      function cancel(){ clearTimeout(t); }
-      el.style.userSelect='none';
-      el.addEventListener('pointerdown', function(){
-        t = setTimeout(function(){
-          if(!_selMode) _selEnter();
-          _selToggle(ri, el);
-        }, 600);
-      });
-      el.addEventListener('pointerup', cancel);
-      el.addEventListener('pointermove', cancel);
-      el.addEventListener('pointercancel', cancel);
-      el.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-      if(_selMode){
-        el.addEventListener('click', function(e){
-          if(e.target.closest('.act-btn')) return;
-          _selToggle(ri, el);
+      
+      (function(ri, el){
+        var t;
+        function cancel(){ clearTimeout(t); }
+        el.style.userSelect='none';
+        el.addEventListener('pointerdown', function(){
+          t = setTimeout(function(){
+            if(!_selMode) _selEnter();
+            _selToggle(ri, el);
+          }, 600);
         });
-      }
-    })(realIndex, card, 'archive');
+        el.addEventListener('pointerup', cancel);
+        el.addEventListener('pointermove', cancel);
+        el.addEventListener('pointercancel', cancel);
+        el.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+        if(_selMode){
+          el.addEventListener('click', function(e){
+            if(e.target.closest('.act-btn')) return;
+            _selToggle(ri, el);
+          });
+        }
+      })(realIndex, card);
       list.appendChild(card);
     });
     return;
   }
 
-  // ── OPS VIEW ──
+  // OPS VIEW
   if(currentTab==='__ops__'){
     const ops=getOps();
     const term=document.getElementById('search').value.toLowerCase();
@@ -2517,14 +3235,12 @@ function loadCases(){
     });
     if(filtered.length===0){
       list.innerHTML=`<div class="empty-state"><div class="empty-icon">🔪</div><p>No operations listed</p><small>Tap ＋ to add</small></div>`;
-      // Show ops FAB
       document.getElementById('opsFabBtn').style.display='flex';
       return;
     }
     document.getElementById('opsFabBtn').style.display='flex';
     const DAY_ORDER=['Saturday','Sunday','Tuesday','Wednesday'];
     const DAY_AR={Saturday:'السبت',Sunday:'الأحد',Tuesday:'الثلاثاء',Wednesday:'الأربعاء'};
-    // Group by day
     const groups={};
     filtered.forEach(o=>{
       const day=o.opsDay||'Unscheduled';
@@ -2575,7 +3291,6 @@ function loadCases(){
           el.addEventListener('pointerup',cancel);el.addEventListener('pointermove',cancel);el.addEventListener('pointercancel',cancel);
           el.addEventListener('contextmenu',function(e){e.preventDefault();});
           if(_selMode){ el.addEventListener('click',function(e){ if(e.target.closest('.act-btn'))return; _selToggle(ri,el); }); }
-          if(_selMode){ var _cb=document.createElement('div'); _cb.className='sel-checkbox'+(_selIdx.has(ri)?' on':''); var _ct=el.querySelector('.card-top'); if(_ct)_ct.insertBefore(_cb,_ct.firstChild); }
         })(realIndex, card);
         sec.appendChild(card);
       });
@@ -2584,7 +3299,7 @@ function loadCases(){
     return;
   }
 
-  // ── OPS ARCHIVE VIEW ──
+  // OPS ARCHIVE VIEW
   if(currentTab==='__ops_archive__'){
     const oa=getOpsArchive();
     const term=document.getElementById('search').value.toLowerCase();
@@ -2636,16 +3351,16 @@ function loadCases(){
         el.addEventListener('pointerup',cancel);el.addEventListener('pointermove',cancel);el.addEventListener('pointercancel',cancel);
         el.addEventListener('contextmenu',function(e){e.preventDefault();});
         if(_selMode){el.addEventListener('click',function(e){if(e.target.closest('.act-btn'))return;_selToggle(ri,el);});}
-        if(_selMode){var _cb=document.createElement('div');_cb.className='sel-checkbox'+(_selIdx.has(ri)?' on':'');var _ct=el.querySelector('.card-top');if(_ct)_ct.insertBefore(_cb,_ct.firstChild);}
       })(realIndex, card);
       list.appendChild(card);
     });
     return;
   }
+
+  // REGULAR CASES VIEW
   const cases=getCases()[currentTab]||[];
   const term=document.getElementById('search').value.toLowerCase();
-  // filteredWithIdx stores {c, idx} to preserve original index after Firebase normalization
-  const filteredWithIdx=cases.map((c,i)=>({c,i})).filter(({c})=>{
+  let filteredWithIdx = cases.map((c,i)=>({c,i})).filter(({c})=>{
     if(!c) return false;
     const matchSearch=!term||[c.patientName,c.age,c.bed,c.dx,c.plan,c.status,c.virology]
       .some(f=>f&&f.toString().toLowerCase().startsWith(term));
@@ -2659,28 +3374,30 @@ function loadCases(){
     }
     return matchSearch&&matchFilter;
   });
-  const filtered=filteredWithIdx.map(x=>x.c);
-  // Results summary
+  
+  filteredWithIdx = _applySortToFiltered(filteredWithIdx);
+  
   const summaryEl=document.getElementById('resultsSummary');
   if(summaryEl){
     if(term||activeFilter!=='all'){
-      summaryEl.textContent=filtered.length+' result'+(filtered.length!==1?'s':'')+(activeFilter!=='all'?' · '+activeFilter:'')+(term?' · "'+term+'"':'');
+      summaryEl.textContent=filteredWithIdx.length+' result'+(filteredWithIdx.length!==1?'s':'')+(activeFilter!=='all'?' · '+activeFilter:'')+(term?' · "'+term+'"':'');
     } else {
       summaryEl.textContent=cases.length+' case'+(cases.length!==1?'s':'');
     }
   }
-  if(filtered.length===0){
+  
+  if(filteredWithIdx.length===0){
     list.innerHTML=`<div class="empty-state"><div class="empty-icon">${term||activeFilter!=='all'?'🔍':'📋'}</div><p>${term||activeFilter!=='all'?'No results found':'No cases yet'}</p><small>${term||activeFilter!=='all'?'Try a different search or filter':'Tap ＋ to add a case'}</small></div>`;
     return;
   }
+  
   filteredWithIdx.forEach(({c, i: realIndex})=>{
     if(!c || typeof c !== 'object') return;
-    const card=document.createElement('div');card.className='case-card';
+    const card=document.createElement('div');card.className='case-card'+(c.flagged?' priority-flagged':'');
     const virolHtml=(c.virology&&typeof c.virology==='string')?c.virology.split(', ').filter(Boolean).map(v=>`<span class="virology-tag">${v}</span>`).join(''):'';
     const statusHtml=c.status?`<span class="status-badge status-${c.status}">${c.status}</span>`:'';
     const todoHtml=(c.todos||[]).map(t=>`<div class="${t.done?'todo-done-m':'todo-pending-m'}">${t.done?'✓':'○'} ${t.text}</div>`).join('');
     const burnRow=BURN_TABS.includes(currentTab)&&c.dob?`<div class="detail-row"><span class="detail-label">Date of Burn</span><span class="detail-val">${formatDate(c.dob)}</span></div>`:'';
-    // Burn resus row
     const burnResusRow=BURN_TABS.includes(currentTab)&&(c.burnFluidRate||c.burnUOP||c.burnBalance||c.burnCompartments?.length)?`
       <div class="detail-row"><span class="detail-label">🔥 Resuscitation</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:3px;">
@@ -2690,7 +3407,6 @@ function loadCases(){
           ${c.burnCompartments&&c.burnCompartments.filter(v=>v!=='None').length?c.burnCompartments.filter(v=>v!=='None').map(v=>`<span class="burn-comp-chip">${v}</span>`).join(''):''}
         </div>
       </div>`:'';
-    // Hand NV row
     const nvRow=HAND_TABS.includes(currentTab)&&(c.nvArterial||c.nvVenous||c.nvNerve)?`
       <div class="detail-row"><span class="detail-label">NV Exam</span><div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">
         ${c.nvArterial?`<span class="nv-chip nv-${c.nvArterial}">Art: ${c.nvArterial}</span>`:''}
@@ -2698,10 +3414,8 @@ function loadCases(){
         ${c.nvNerve?`<span class="nv-chip nv-${c.nvNerve}">Nerve: ${c.nvNerve}</span>`:''}
       </div></div>`:'';
     const handOperatedRow=HAND_TABS.includes(currentTab)&&c.handOperated?`<div class="detail-row"><span class="detail-label">Operated?</span><span class="detail-val">${c.handOperated}</span></div>`:'';
-    // Soft Tissue row
     const stRow=ST_TABS.includes(currentTab)&&c.stOperated?`<div class="detail-row"><span class="detail-label">🩹 Soft Tissue</span><span class="detail-val">${c.stOperated}${c.stOperator?' — '+c.stOperator:''}</span></div>`:'';
     const vacRow=ST_TABS.includes(currentTab)&&c.vacStatus==='Yes'?`<div class="detail-row"><span class="detail-label">🌀 VAC</span><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:3px;">${c.vacStartDate?`<span class="vac-chip">Start: ${formatDate(c.vacStartDate)}</span>`:''} ${c.vacChangeInterval?`<span class="vac-chip">Change: ${c.vacChangeInterval}</span>`:''} ${c.vacNextChange?`<span class="vac-chip">Next: ${formatDate(c.vacNextChange)}</span>`:''}</div></div>`:'';
-    // MaxFac rows
     const maxfacRows=MAXFAC_TABS.includes(currentTab)?`
       ${c.maxCategory?`<div class="detail-row"><span class="detail-label">Category</span><span class="detail-val">${c.maxCategory}</span></div>`:''}
       ${c.maxOperated?`<div class="detail-row"><span class="detail-label">Operated?</span><span class="detail-val">${c.maxOperated}${c.maxOperator?' — '+c.maxOperator:''}</span></div>`:''}
@@ -2710,10 +3424,10 @@ function loadCases(){
       ${(c.bite||c.opening)?`<div class="detail-row"><span class="detail-label">Bite / Opening</span><span class="detail-val">${c.bite?'Bite: '+(c.bite==='Yes'?'Normal':'Abnormal'):''}${c.bite&&c.opening?' · ':''}${c.opening?'Opening: '+(c.opening==='Yes'?'Normal':'Limited'):''}</span></div>`:''}
       ${c.ophtho?`<div class="detail-row"><span class="detail-label">Ophtho Consult</span><span class="detail-val">${c.ophtho==='FU'?'Follow-Up':c.ophtho==='Still'?'Still Pending':'Not Required'}</span></div>`:''}
     `:'';
-    var _chk = _selMode ? ('<div class="sel-checkbox' + (_selIdx.has(c._id||realIndex)?' on':'') + '" data-ri="'+(c._id||realIndex)+'"></div>') : '';
+    const commentCount = (c.comments && c.comments.length) || 0;
+    
     card.innerHTML=`
       <div class="card-top">
-        ${_chk}
         <div class="card-name-row">
           <div class="card-name">${c.patientName}</div>
           <div class="card-meta">
@@ -2731,13 +3445,23 @@ function loadCases(){
         <div class="card-right">
           ${statusHtml}
           <div class="card-actions">
+            <button class="act-btn flag${c.flagged?' flagged':''}" title="${c.flagged?'Unflag':'Flag Priority'}" onclick="toggleFlag(${c._id?`'${c._id}'`:realIndex},this)">🚨</button>
             <button class="act-btn edit" onclick="editCase(${c._id?`'${c._id}'`:realIndex})">✎</button>
             <button class="act-btn del" onclick="deleteCase(${c._id?`'${c._id}'`:realIndex})">✕</button>
+            <button class="act-btn comment-btn" data-case-id="${c._id}" style="position:relative;" onclick="showCommentsSheet('${c._id}', '${c.patientName.replace(/'/g, "\\'")}')">
+              💬
+              ${commentCount > 0 ? `<span class="comment-badge" style="position: absolute; top: -4px; right: -4px; background: var(--accent-hand); color: white; font-size: 0.55rem; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center;">${commentCount}</span>` : '<span class="comment-badge" style="display: none;"></span>'}
+            </button>
           </div>
         </div>
       </div>
       ${c.dx?`<div class="card-dx">${c.dx}${BURN_TABS.includes(currentTab)&&c.tbsa?' <span style=\'color:var(--accent-burn);font-size:.78rem;font-weight:600;\'>('+c.tbsa+'% TBSA)</span>':''}</div>`:''}
       ${c.surgeon?`<div style="padding:0 1rem .6rem;font-size:.78rem;color:var(--text-muted);font-weight:500;">🩺 ${c.surgeon}</div>`:''}
+      ${(c.photos&&c.photos.length)?`<div class="card-photos-strip">${c.photos.map(p=>`<img class="card-photo-thumb" src="${p}" onclick="openLightbox('${p}')" alt="photo">`).join('')}</div>`:''}
+      <button class="card-expand-btn" style="justify-content:space-between;" onclick="openQuickStatus(${c._id?`'${c._id}'`:realIndex},'${(c.patientName||'').replace(/'/g,"\\'")}','${c.status||''}')">
+        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-muted);">⚡ Quick Status</span>
+        <span style="font-family:var(--mono);font-size:.62rem;color:${c.status==='Stable'?'var(--success)':c.status==='Unstable'?'var(--danger)':c.status==='Discharge'?'#4fa0d9':'var(--accent-hand)'};">${c.status||'—'}</span>
+      </button>
       <button class="card-expand-btn" onclick="toggleCard(this)">
         <span class="expand-label"><span class="expand-dot"></span>Details</span>
         <span class="expand-arrow">▾</span>
@@ -2766,7 +3490,6 @@ function loadCases(){
     card.style.userSelect='none';
     card.style.webkitUserSelect='none';
 
-    // Long press → selection mode
     (function(ri, el){
       var t;
       function cancel(){ clearTimeout(t); }
@@ -2787,12 +3510,8 @@ function loadCases(){
         });
       }
     })(c._id||String(realIndex), card);
-
-    // Add checkbox if in selection mode
-
-
-  });  // end filtered.forEach
-}  // end loadCases
+  });
+}
 
 window.toggleCard=function(btn){
   const details=btn.nextElementSibling;
@@ -2800,6 +3519,7 @@ window.toggleCard=function(btn){
   const isOpen=details.classList.toggle('open');
   btn.classList.toggle('expanded',isOpen);
 };
+
 // SEARCH
 const searchEl=document.getElementById('search');
 const searchClearBtn=document.getElementById('searchClearBtn');
@@ -2832,11 +3552,9 @@ function updateFilterBar(){
 // COUNTS
 function updateCounts(){
   const cases=getCases();
-  // Map old IDs to new IDs for backward compat
   const idMap={hand:'er_hand',burn:'burn_hand',maxfac:'er_maxfac',softtissue:'er_softtissue'};
   function getTabCases(tabId){
     var arr=cases[tabId]||[];
-    // Also count old-ID cases
     var oldId=Object.keys(idMap).find(k=>idMap[k]===tabId);
     if(oldId&&cases[oldId]) arr=arr.concat(cases[oldId]);
     return arr;
@@ -2850,7 +3568,7 @@ function updateCounts(){
   if(opsArchEl)opsArchEl.textContent=getOpsArchive().length;
 }
 
-// ── HTML PRINT EXPORT (full Arabic + English support) ──
+// HTML PRINT EXPORT
 function statusColor(s){
   const map={Stable:'#0f9e68',Improving:'#2c6ef2',Unstable:'#d93636',Discharge:'#3a9fd9'};
   return map[s]||'#888';
@@ -2859,21 +3577,16 @@ function statusColor(s){
 function buildPrintHTML(tabIds){
   const dateStr=new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
   const dateStrEn=new Date().toLocaleDateString('en-GB');
-
-  // Separate ops tab from regular tabs
   const regularTabIds = tabIds.filter(id => id !== '__ops__' && id !== '__archive__');
   const includeOps    = tabIds.includes('__ops__');
-
   let sections='';
 
-  // ── REGULAR WARD TABS ──
   regularTabIds.forEach(tabId=>{
     const cases=getCases()[tabId]||[];
     const label=getTabLabel(tabId);
     const isBurn=BURN_TABS.includes(tabId);
     const isSurgical=SURGICAL_TABS.includes(tabId);
     const hasCases=cases.length>0;
-
     let rows='';
     if(hasCases){
       cases.forEach((c,i)=>{
@@ -2905,12 +3618,11 @@ function buildPrintHTML(tabIds){
           : '—';
         var nameCell = '<strong>' + c.patientName + '</strong>'
           + (c.surgeon && isSurgical ? '<br><span style="color:#888;font-size:9px;">🩺 ' + c.surgeon + '</span>' : '');
-        var dobCell     = isBurn ? '<td class="mono">' + (c.dob ? formatDate(c.dob) : '—') + '</td>' : '';
+        var dobCell     = isBurn ? '<td class="mono">' + (c.dob ? formatDate(c.dob) : '—') + '<\/td>' : '';
         var dxCell      = isBurn
-          ? '<td>' + (c.dx||'—') + (c.tbsa ? ' <span class="tbsa">(' + c.tbsa + '%)</span>' : '') + '</td>'
-          : '<td>' + (c.dx||'—') + '</td>';
-        var surgeonCell = isSurgical ? '<td>' + (c.surgeon||'—') + '</td>' : '';
-        // Hand cells
+          ? '<td>' + (c.dx||'—') + (c.tbsa ? ' <span class="tbsa">(' + c.tbsa + '%)</span>' : '') + '<\/td>'
+          : '<td>' + (c.dx||'—') + '<\/td>';
+        var surgeonCell = isSurgical ? '<td>' + (c.surgeon||'—') + '<\/td>' : '';
         var isHand = HAND_TABS.includes(tabId);
         var isMaxfac = MAXFAC_TABS.includes(tabId);
         var isSoftTissue = ST_TABS.includes(tabId);
@@ -2918,44 +3630,44 @@ function buildPrintHTML(tabIds){
           ? '<td>'
             + (c.handOperated ? '<span style="font-weight:600;">' + c.handOperated + '</span><br>' : '')
             + [c.nvArterial?'Art: '+c.nvArterial:'', c.nvVenous?'Ven: '+c.nvVenous:'', c.nvNerve?'Nerve: '+c.nvNerve:''].filter(Boolean).join(' | ')
-            + '</td>'
+            + '<\/td>'
           : '';
         var maxfacCell = isMaxfac
           ? '<td>'
             + (c.maxCategory ? '<strong>' + c.maxCategory + '</strong>' : '—')
             + (c.maxOperated ? '<br>' + c.maxOperated + (c.maxOperator?' ('+c.maxOperator+')':'') : '')
-            + '</td>'
+            + '<\/td>'
             + '<td>'
             + (c.facialN ? 'FN: ' + c.facialN + '<br>' : '')
             + (c.maxOM ? 'OM: '+c.maxOM+'mm ' : '')
             + (c.maxVA ? 'VA: '+c.maxVA+'<br>' : '')
             + (c.bite ? 'Bite: '+(c.bite==='Yes'?'Normal':'Abnormal')+' ' : '')
             + (c.opening ? 'Opening: '+(c.opening==='Yes'?'Normal':'Limited') : '')
-            + '</td>'
-            + '<td>' + (c.ophtho ? (c.ophtho==='FU'?'FU':c.ophtho==='Still'?'Still':'Not Req.') : '—') + '</td>'
+            + '<\/td>'
+            + '<td>' + (c.ophtho ? (c.ophtho==='FU'?'FU':c.ophtho==='Still'?'Still':'Not Req.') : '—') + '<\/td>'
           : '';
         var stCell = isSoftTissue
-          ? '<td>' + (c.stOperated||'—') + (c.stOperator?' — '+c.stOperator:'') + '</td>'
+          ? '<td>' + (c.stOperated||'—') + (c.stOperator?' — '+c.stOperator:'') + '<\/td>'
           : '';
         rows += '<tr class="' + (i%2===1?'alt':'') + '">'
-          + '<td class="col-name">' + nameCell + '</td>'
-          + '<td class="mono">' + (c.age||'—') + '</td>'
-          + '<td class="mono accent">' + (c.bed||'—') + '</td>'
-          + '<td class="mono">' + (c.doa ? formatDate(c.doa) : '—') + '</td>'
+          + '<td class="col-name">' + nameCell + '<\/td>'
+          + '<td class="mono">' + (c.age||'—') + '<\/td>'
+          + '<td class="mono accent">' + (c.bed||'—') + '<\/td>'
+          + '<td class="mono">' + (c.doa ? formatDate(c.doa) : '—') + '<\/td>'
           + dobCell
           + dxCell
           + surgeonCell
           + handCell
           + maxfacCell
           + stCell
-          + '<td>' + virol + '</td>'
-          + '<td>' + statusBadge + '</td>'
-          + '<td class="plan-cell">' + (c.plan||'—') + '</td>'
-          + '<td class="todo-cell">' + (todos||'—') + '</td>'
-          + '<td class="plan-cell">' + (c.medHx||'—') + '</td>'
-          + '<td class="mono small">' + (c.vitals||'—') + '</td>'
-          + '<td class="labs-cell">' + (labs||'—') + '</td>'
-          + '</tr>';
+          + '<td>' + virol + '<\/td>'
+          + '<td>' + statusBadge + '<\/td>'
+          + '<td class="plan-cell">' + (c.plan||'—') + '<\/td>'
+          + '<td class="todo-cell">' + (todos||'—') + '<\/td>'
+          + '<td class="plan-cell">' + (c.medHx||'—') + '<\/td>'
+          + '<td class="mono small">' + (c.vitals||'—') + '<\/td>'
+          + '<td class="labs-cell">' + (labs||'—') + '<\/td>'
+          + '<\/tr>';
       });
     }
 
@@ -2969,7 +3681,7 @@ function buildPrintHTML(tabIds){
     var thMaxfac     = isMaxfac      ? '<th>Category / Op</th><th>Facial Exam</th><th>Ophtho</th>' : '';
     var thSoftTissue = isSoftTissue  ? '<th>Soft Tissue / Op</th>' : '';
     var bodyHtml  = hasCases
-      ? '<table><thead><tr>'
+      ? '<table><thead>\\n'
         + '<th>المريض<br><span class="en">Patient</span></th>'
         + '<th>السن<br><span class="en">Age</span></th>'
         + '<th>السرير<br><span class="en">Bed</span></th>'
@@ -2987,7 +3699,7 @@ function buildPrintHTML(tabIds){
         + '<th>التاريخ المرضي<br><span class="en">Hx</span></th>'
         + '<th>الوظائف الحيوية<br><span class="en">Vitals</span></th>'
         + '<th>التحاليل<br><span class="en">Labs</span></th>'
-        + '</tr></thead><tbody>' + rows + '</tbody></table>'
+        + '<\/tr><\/thead><tbody>' + rows + '</tbody><\/table>'
       : '<div class="no-cases">لا توجد حالات مسجلة / No cases recorded</div>';
 
     sections += '<div class="section">'
@@ -2999,13 +3711,10 @@ function buildPrintHTML(tabIds){
       + '</div>';
   });
 
-  // ── OPS LIST SECTION ──
   if(includeOps){
     const ops = getOps();
     const DAY_ORDER = ['Saturday','Sunday','Tuesday','Wednesday'];
     const DAY_AR    = {Saturday:'السبت',Sunday:'الأحد',Tuesday:'الثلاثاء',Wednesday:'الأربعاء'};
-
-    // Group by day
     const groups = {};
     ops.forEach(o=>{
       const day = o.opsDay || 'Unscheduled';
@@ -3013,7 +3722,6 @@ function buildPrintHTML(tabIds){
       groups[day].push(o);
     });
     const orderedKeys = [...DAY_ORDER.filter(d=>groups[d]), ...Object.keys(groups).filter(d=>!DAY_ORDER.includes(d))];
-
     let opsBody = '';
     if(ops.length === 0){
       opsBody = '<div class="no-cases">لا توجد عمليات مسجلة / No operations recorded</div>';
@@ -3023,25 +3731,25 @@ function buildPrintHTML(tabIds){
         opsBody += '<div class="ops-day-block">'
           + '<div class="ops-day-hdr"><span class="ops-day-ttl">📅 ' + dayLabel + '</span>'
           + '<span class="ops-day-cnt">' + groups[day].length + ' عملية</span></div>'
-          + '<table><thead><tr>'
+          + '<tr><thead>\\n'
           + '<th>المريض<br><span class="en">Patient</span></th>'
           + '<th>السن<br><span class="en">Age</span></th>'
           + '<th>التشخيص<br><span class="en">Diagnosis</span></th>'
           + '<th>القرار الجراحي<br><span class="en">Decision</span></th>'
           + '<th>الجراح<br><span class="en">Operator</span></th>'
           + '<th>التاريخ<br><span class="en">Date</span></th>'
-          + '</tr></thead><tbody>';
+          + '<\/tr><\/thead><tbody>';
         groups[day].forEach((o,i)=>{
           opsBody += '<tr class="' + (i%2===1?'alt':'') + '">'
-            + '<td class="col-name"><strong>' + (o.opsName||'—') + '</strong></td>'
-            + '<td class="mono">' + (o.opsAge||'—') + '</td>'
-            + '<td>' + (o.opsDx||'—') + '</td>'
-            + '<td class="plan-cell">' + (o.opsDecision||'—') + '</td>'
-            + '<td>' + (o.opsOperator||'—') + '</td>'
-            + '<td class="mono">' + (o.opsDate ? formatDate(o.opsDate) : '—') + '</td>'
-            + '</tr>';
+            + '<td class="col-name"><strong>' + (o.opsName||'—') + '</strong><\/td>'
+            + '<td class="mono">' + (o.opsAge||'—') + '<\/td>'
+            + '<td>' + (o.opsDx||'—') + '<\/td>'
+            + '<td class="plan-cell">' + (o.opsDecision||'—') + '<\/td>'
+            + '<td>' + (o.opsOperator||'—') + '<\/td>'
+            + '<td class="mono">' + (o.opsDate ? formatDate(o.opsDate) : '—') + '<\/td>'
+            + '<\/tr>';
         });
-        opsBody += '</tbody></table></div>';
+        opsBody += '</tbody><\/table><\/div>';
       });
     }
 
@@ -3074,7 +3782,6 @@ body{font-family:'Cairo',sans-serif;background:#fff;color:#1a1d2e;font-size:12px
 .sec-header{display:flex;align-items:center;justify-content:space-between;background:#f0f4ff;border-right:4px solid #2c6ef2;padding:8px 12px;border-radius:6px 0 0 6px;margin-bottom:8px;}
 .sec-title{font-size:13px;font-weight:700;color:#2c6ef2;}
 .sec-count{font-size:10px;color:#888;font-family:'IBM Plex Mono',monospace;}
-/* OPS section override */
 .ops-sec-header{background:#fffbea;border-right-color:#d4940a;}
 .ops-sec-title{color:#d4940a;}
 .ops-day-block{margin-bottom:14px;}
@@ -3163,7 +3870,6 @@ exportDropdown.addEventListener('click',e=>e.stopPropagation());
 
 document.getElementById('exportCurrentBtn').addEventListener('click',()=>{
   exportDropdown.classList.remove('open');
-  // If on archive tab, export nothing meaningful — export all ward tabs instead
   if(currentTab==='__archive__'){
     exportPDF(getAllTabs().map(t=>t.id));
   } else {
@@ -3172,7 +3878,6 @@ document.getElementById('exportCurrentBtn').addEventListener('click',()=>{
 });
 document.getElementById('exportAllBtn').addEventListener('click',()=>{
   exportDropdown.classList.remove('open');
-  // All ward tabs + ops
   exportPDF([...getAllTabs().map(t=>t.id), '__ops__']);
 });
 document.getElementById('exportOpsBtn').addEventListener('click',()=>{
@@ -3193,17 +3898,14 @@ document.getElementById('resetBtn').addEventListener('click',()=>{
 resetOverlay.addEventListener('click',e=>{if(e.target===resetOverlay)resetOverlay.classList.remove('visible');});
 document.getElementById('resetCancel').addEventListener('click',()=>resetOverlay.classList.remove('visible'));
 document.getElementById('clearCacheBtn').addEventListener('click',()=>{
-  // Auto backup before clearing
   try{
     const payload = _buildBackupPayload();
     localStorage.setItem(AUTO_BACKUP_KEY, payload);
     localStorage.setItem(AUTO_BACKUP_DATE_KEY, String(Date.now()));
   }catch(e){ console.warn('Pre-clear backup failed:', e); }
-  // Clear all app localStorage keys
   ['psx_cases','psx_archive','psx_ops','psx_ops_archive','psx_custom_tabs','psx_users'].forEach(k=>{
     localStorage.removeItem(k);
   });
-  // Clear in-memory cache
   Object.keys(_cache).forEach(k=>{ if(k.startsWith('psx_')) delete _cache[k]; });
   showToast('🗄 Backed up & cache cleared — reloading…', 1500);
   setTimeout(()=>location.reload(), 1600);
@@ -3211,7 +3913,6 @@ document.getElementById('clearCacheBtn').addEventListener('click',()=>{
 document.getElementById('resetOk').addEventListener('click',()=>{
   const selected=[...document.querySelectorAll('#resetChips .bsheet-chip.on')].map(c=>c.getAttribute('data-tab'));
   if(!selected.length){resetOverlay.classList.remove('visible');return;}
-  // Auto backup before clearing
   try{
     const payload = _buildBackupPayload();
     localStorage.setItem(AUTO_BACKUP_KEY, payload);
@@ -3248,7 +3949,6 @@ document.getElementById('opsSheetClose').addEventListener('click',()=>{closeOpsS
 document.getElementById('opsSheetHandle').addEventListener('touchstart',e=>{window._opsTouchY=e.touches[0].clientY;},{passive:true});
 document.getElementById('opsSheetHandle').addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-window._opsTouchY>60)closeOpsSheet();},{passive:true});
 
-// Day toggle
 document.querySelectorAll('.opsDayBtn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     selectedOpsDay=btn.getAttribute('data-value');
@@ -3288,7 +3988,6 @@ document.getElementById('opsSubmitBtn').addEventListener('click',()=>{
     opsDate:document.getElementById('opsDate').value,
   };
   const ops=getOps();
-  // Ops archive edit mode
   if(typeof window._opsArchiveEditIndex==='number' && window._opsArchiveEditIndex>=0){
     const oa=getOpsArchive();
     const old=oa[window._opsArchiveEditIndex];
@@ -3380,7 +4079,6 @@ window.editArchivedOp=function(index){
   openOpsSheet();
 };
 
-// ── SHARE & IMPORT ──
 function showToast(msg, duration){
   const t=document.getElementById('toast');
   t.textContent=msg;
@@ -3389,10 +4087,7 @@ function showToast(msg, duration){
   t._timer=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},duration||2200);
 }
 
-
-// PRINT CONTROLS — defined as globals inside IIFE so they always exist
 window._printHTML = '';
-
 window.doPrint = function(){
   var html = window._printHTML;
   if(!html){
@@ -3422,8 +4117,6 @@ window.closePrint = function(){
   frame.src = 'about:blank';
 };
 
-// ── BACKUP & RESTORE ──
-
 function getBackupStats(){
   const cases = getCases(); let caseCount = 0;
   Object.values(cases).forEach(a => { caseCount += a.length; });
@@ -3438,15 +4131,13 @@ function getBackupStats(){
   ).replace(/\n/g, '<br>');
 }
 
-
-// ── SERVICE WORKER ──
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){
     navigator.serviceWorker.register('sw.js').catch(function(){});
   });
 }
 
-// Edit my phone number — sheet based
+// Edit my phone number
 const editPhoneOverlay = document.getElementById('editPhoneOverlay');
 
 window.editMyPhone = function(){
@@ -3478,10 +4169,9 @@ document.getElementById('editPhoneInput').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('editPhoneSave').click();
 });
 
-// Edit my own name — sheet based
+// Edit my own name
 const editNameOverlay = document.getElementById('editNameOverlay');
 
-// Resolve user name: use live name from users store if devId known, else fallback to stored name
 function resolveUser(storedName, devId){
   try{
     if(devId && typeof devId === 'string'){
@@ -3504,7 +4194,6 @@ document.getElementById('editNameCancel').addEventListener('click', ()=>editName
 document.getElementById('editNameSave').addEventListener('click', ()=>{
   const trimmed = document.getElementById('editNameInput').value.trim();
   if(!trimmed){ showToast('⚠️ Name cannot be empty', 2000); return; }
-  // Check duplicate (ignore own current name)
   const myDeviceId = localStorage.getItem('psx_device_id')||'';
   const existingUsers = getUsers();
   const isDuplicate = Object.entries(existingUsers).some(([devId, u])=>{
@@ -3520,7 +4209,7 @@ document.getElementById('editNameInput').addEventListener('keydown', e=>{
   if(e.key==='Enter') document.getElementById('editNameSave').click();
 });
 
-// ── FIREBASE REAL-TIME LISTENERS ──
+// FIREBASE REAL-TIME LISTENERS
 function setSyncDot(state){
   var dot = document.getElementById('syncDot');
   if(!dot) return;
@@ -3529,8 +4218,7 @@ function setSyncDot(state){
 }
 
 var _fbReady = false;
-var _fbKeys = ['psx_cases','psx_archive','psx_ops','psx_ops_archive','psx_custom_tabs','psx_users'];
-var _fbReadyCount = 0;
+var _fbKeys = ['psx_cases','psx_archive','psx_ops','psx_ops_archive','psx_custom_tabs','psx_users','psx_shift_notes'];
 
 function _normalizeFirebaseVal(val, isArray){
   if(val === null || val === undefined) return isArray ? [] : {};
@@ -3544,16 +4232,13 @@ function _normalizeFirebaseVal(val, isArray){
 
 function _normalizeCase(c){
   if(!c || typeof c !== 'object') return null;
-  // Assign _id if missing
   if(!c._id) c._id = 'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
-  // Ensure string fields exist
   ['patientName','age','bed','dx','plan','virology','status','addedBy','addedByDevId',
    'editedBy','editedByDevId','restoredBy','restoredByDevId','_deletedBy','_deletedByDevId'].forEach(function(k){
     if(c[k] !== undefined && c[k] !== null && typeof c[k] !== 'string') c[k] = String(c[k]);
     if(c[k] === null) c[k] = '';
   });
-  // Ensure array fields are arrays
-  ['todos','labEntries','medications','cultures','preOpItems','burnCompartments'].forEach(function(k){
+  ['todos','labEntries','medications','cultures','preOpItems','burnCompartments','comments'].forEach(function(k){
     if(!c[k]) c[k]=[];
     else if(typeof c[k]==='object' && !Array.isArray(c[k])) c[k]=Object.values(c[k]);
   });
@@ -3582,14 +4267,14 @@ function _startFirebaseSync(){
       } else if(key === 'psx_custom_tabs'){
         val = (raw && typeof raw === 'object') ? raw : {};
       } else if(key === 'psx_users'){
-        // Users is a plain object keyed by deviceId
         val = (raw && typeof raw === 'object' && !Array.isArray(raw)) ? raw : {};
-        // Normalize each user's data
         if(val) Object.keys(val).forEach(function(devId){
           if(val[devId] && typeof val[devId] === 'object' && !val[devId].name) delete val[devId];
         });
+      } else if(key === 'psx_shift_notes'){
+        val = (raw && typeof raw === 'object' && !Array.isArray(raw)) ? raw : {summary:'',log:[],onCallName:'',lastHandover:''};
+        if(val.log && typeof val.log === 'object' && !Array.isArray(val.log)) val.log = Object.values(val.log);
       } else {
-        // archive, ops, ops_archive are arrays
         val = _normalizeFirebaseVal(raw, true);
         if(Array.isArray(val)) val = val.map(function(item){
           if(!item || typeof item !== 'object') return null;
@@ -3600,7 +4285,6 @@ function _startFirebaseSync(){
         }).filter(Boolean);
       }
 
-      // Diff cases before saving for notifications
       if(key === 'psx_cases' && _fbReady && _prevCasesSnapshot){
         try{ _diffCases(JSON.parse(_prevCasesSnapshot), val); }catch(e){}
       }
@@ -3617,7 +4301,6 @@ function _startFirebaseSync(){
         renderTabBar();
         loadCases();
         updateCounts();
-        // Save initial snapshot after first sync
         if(!_prevCasesSnapshot){
           try{ _prevCasesSnapshot = JSON.stringify(getCases()); }catch(e){}
         }
@@ -3633,11 +4316,10 @@ function _startFirebaseSync(){
   });
 }
 
-// ── USERNAME / WELCOME ──
+// USERNAME / WELCOME
 let currentUser = localStorage.getItem('psx_username') || '';
 
 function setUsername(name){
-  const oldName = currentUser;
   currentUser = name.trim();
   localStorage.setItem('psx_username', currentUser);
   const el = document.getElementById('headerUsernameText');
@@ -3657,8 +4339,8 @@ function setUsername(name){
   }
 }
 
-// ── ONLINE PRESENCE ──
-const ONLINE_THRESHOLD_MS = 2 * 60 * 1000; // 2 minutes = online
+// ONLINE PRESENCE
+const ONLINE_THRESHOLD_MS = 2 * 60 * 1000;
 
 function isOnline(u){
   if(!u||!u.lastSeen) return false;
@@ -3690,16 +4372,13 @@ function heartbeat(){
   if(currentTab==='__users__'||currentTab==='__contacts__') loadCases();
 }
 
-// Start heartbeat every 30s
 setInterval(heartbeat, 30000);
-// Update badge every 30s too
 setInterval(updateOnlineBadge, 30000);
 
 function checkWelcome(){
   if(!currentUser){
     const ws = document.getElementById('welcomeScreen');
     ws.style.display = 'flex';
-    // Check if this device has a saved user → go straight to password view
     const myDevId = localStorage.getItem('psx_device_id')||'';
     const users = getUsers();
     if(myDevId && users[myDevId] && users[myDevId].name){
@@ -3713,25 +4392,22 @@ function checkWelcome(){
 }
 
 function logout(){
-  // Mark user as offline in Firebase
   const deviceId=localStorage.getItem('psx_device_id');
   if(deviceId){
     const users=getUsers();
     if(users[deviceId]){
-      users[deviceId].lastSeen='2000-01-01T00:00:00.000Z'; // force offline
+      users[deviceId].lastSeen='2000-01-01T00:00:00.000Z';
       saveUsers(users);
     }
   }
   currentUser='';
   localStorage.removeItem('psx_username');
-  // Keep psx_password so user doesn't retype
   const el=document.getElementById('headerUsernameText');
   if(el) el.textContent='';
   const lb=document.getElementById('logoutBtn');
   if(lb) lb.style.display='none';
   const badge=document.getElementById('onlineBadge');
   if(badge) badge.textContent='';
-  // Show welcome screen
   const ws=document.getElementById('welcomeScreen');
   ws.style.display='flex';
   ws.style.opacity='1';
@@ -3742,13 +4418,12 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
   logout();
 });
 
-// ── SIMPLE HASH ──
 function _simpleHash(str){
   let h=0; for(let i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h|=0;} return Math.abs(h).toString(36);
 }
 
-// ── WELCOME SCREEN AUTH ──
-let _wsSelectedDevId = null; // device ID of selected user
+// WELCOME SCREEN AUTH
+let _wsSelectedDevId = null;
 
 function _wsShowUserList(){
   document.getElementById('wsUserList').style.display='block';
@@ -3766,7 +4441,6 @@ function _wsShowPasswordView(devId, name){
   document.getElementById('wsSelectedName').textContent = name;
   document.getElementById('wsSelectedAvatar').textContent = name.charAt(0).toUpperCase();
   document.getElementById('welcomeError').textContent = '';
-  // Auto-fill saved password for this device
   const myDevId = localStorage.getItem('psx_device_id')||'';
   if(devId === myDevId){
     const saved = localStorage.getItem('psx_password')||'';
@@ -3821,11 +4495,9 @@ function _wsRenderUsers(){
   });
 }
 
-// User list → show password
 document.getElementById('wsNewUserBtn').addEventListener('click', _wsShowNewUserForm);
 document.getElementById('wsBackBtn').addEventListener('click', _wsShowUserList);
 
-// Password submit
 document.getElementById('welcomeSubmitBtn').addEventListener('click', (e)=>{
   e.preventDefault();
   const errEl = document.getElementById('welcomeError');
@@ -3844,13 +4516,11 @@ document.getElementById('welcomeSubmitBtn').addEventListener('click', (e)=>{
     document.getElementById('welcomePasswordInput').focus();
     return;
   }
-  // First login without password — set it
   if(!u.password) u.password = hashed;
   u.lastSeen = new Date().toISOString();
   users[_wsSelectedDevId] = u;
   saveUsers(users);
 
-  // Bind this device to this user
   localStorage.setItem('psx_device_id', _wsSelectedDevId);
   localStorage.setItem('psx_password', pass);
   _loginSuccess(u.name);
@@ -3860,8 +4530,6 @@ document.getElementById('welcomePasswordInput').addEventListener('keydown',e=>{
   if(e.key==='Enter') document.getElementById('welcomeSubmitBtn').click();
 });
 
-// New user registration
-// Role selection for new user
 let _wsSelectedRole = '';
 document.getElementById('wsRoleBtns').addEventListener('click',(e)=>{
   const btn = e.target.closest('.ws-role-btn');
@@ -3918,8 +4586,7 @@ function _loginSuccess(name){
   setTimeout(()=>{ try{ setUsername(name); }catch(err){ console.warn(err); } }, 100);
 }
 
-
-// ── MULTI-SELECT ──
+// MULTI-SELECT
 var _selMode = false;
 var _selIdx = new Set();
 
@@ -3940,7 +4607,6 @@ function _selUpdate(){
   document.getElementById('selDeleteBtn').style.opacity=n?'1':'.4';
 }
 function _selToggle(id, cardEl){
-  // id is now a case _id string (or numeric index as fallback)
   if(_selIdx.has(id)){
     _selIdx.delete(id);
     cardEl.classList.remove('sel-selected');
@@ -3962,7 +4628,6 @@ document.getElementById('selDeleteBtn').addEventListener('click',function(){
   var cases=getCases(); var arr=cases[currentTab]||[]; var archive=getArchive();
   var ids=[..._selIdx];
   var removed=[];
-  // Find by _id first, then by numeric index
   var newArr=arr.filter(function(c,i){
     if(!c) return false;
     var match=ids.includes(c._id)||ids.includes(i);
@@ -4046,8 +4711,7 @@ document.getElementById('selMoveBtn').addEventListener('click',function(){
 document.getElementById('moveCancelBtn').addEventListener('click',function(){document.getElementById('moveOverlay').classList.remove('visible');});
 document.getElementById('moveOverlay').addEventListener('click',function(e){if(e.target===document.getElementById('moveOverlay'))document.getElementById('moveOverlay').classList.remove('visible');});
 
-
-// ── DATA MIGRATION: old tab IDs → new tab IDs ──
+// DATA MIGRATION
 function _migrateTabIds(){
   var map = {
     'hand':        'er_hand',
@@ -4061,7 +4725,6 @@ function _migrateTabIds(){
     var newId = map[oldId];
     if(cases[oldId] && cases[oldId].length > 0){
       if(!cases[newId]) cases[newId] = [];
-      // Only migrate if not already migrated
       var alreadyThere = cases[newId].some(function(n){
         return cases[oldId].some(function(o){ return o.patientName===n.patientName && o.bed===n.bed; });
       });
@@ -4070,19 +4733,13 @@ function _migrateTabIds(){
         changed = true;
       }
       delete cases[oldId];
-      if(!changed) changed = true; // still remove old key
+      if(!changed) changed = true;
     }
   });
   if(changed) saveCases(cases);
 }
 
-
-// ── AUTO-SAVE & DAILY AUTO-BACKUP ──
-
-// Auto-save indicator — shows ✓ next to sync dot after any save
-const _origSaveCases = saveCases;
-const _origSaveOps = saveOps;
-const _origSaveArchive = saveArchive;
+// AUTO-SAVE & DAILY AUTO-BACKUP
 let _autoSaveTimer = null;
 function _flashAutoSave(){
   clearTimeout(_autoSaveTimer);
@@ -4092,10 +4749,9 @@ function _flashAutoSave(){
   _autoSaveTimer = setTimeout(()=>{ if(dot) dot.title='Synced ✓'; }, 3000);
 }
 
-// Daily auto-backup — saves JSON to localStorage once every 24h
 const AUTO_BACKUP_KEY = 'psx_auto_backup';
 const AUTO_BACKUP_DATE_KEY = 'psx_auto_backup_date';
-const AUTO_BACKUP_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
+const AUTO_BACKUP_INTERVAL_MS = 24 * 60 * 60 * 1000;
 
 function _buildBackupPayload(){
   return JSON.stringify({
@@ -4118,29 +4774,19 @@ function _runDailyBackup(){
     const payload = _buildBackupPayload();
     localStorage.setItem(AUTO_BACKUP_KEY, payload);
     localStorage.setItem(AUTO_BACKUP_DATE_KEY, String(now));
-    const dateStr = new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
-    console.log('🗄 Daily auto-backup saved at', dateStr);
-    // Show notification only if it has been > 24h
-    if(lastDate){
-      showToast('🗄 Daily backup saved', 2000);
-    }
+    if(lastDate){ showToast('🗄 Daily backup saved', 2000); }
   }catch(e){ console.warn('Auto-backup failed:', e); }
 }
 
-// Schedule daily backup check every hour
 function _scheduleDailyBackup(){
   _runDailyBackup();
-  setInterval(_runDailyBackup, 60 * 60 * 1000); // check every hour
+  setInterval(_runDailyBackup, 60 * 60 * 1000);
 }
 
-// restoreAutoBackupBtn is now directly in HTML
-
-
-// ── VOICE INPUT ──
+// VOICE INPUT
 (function setupVoiceInput(){
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if(!SpeechRecognition){
-    // Hide all voice buttons if not supported
     document.querySelectorAll('.voice-btn').forEach(b=>b.style.display='none');
     return;
   }
@@ -4149,9 +4795,7 @@ function _scheduleDailyBackup(){
   let _activeBtn = null;
 
   function startVoice(targetId, btn){
-    // Stop any active recognition
     if(_activeRecog){ _activeRecog.stop(); }
-
     const el = document.getElementById(targetId);
     if(!el) return;
 
@@ -4169,7 +4813,6 @@ function _scheduleDailyBackup(){
 
     recog.onresult = (e) => {
       const transcript = e.results[0][0].transcript;
-      // Append to existing value
       const existing = el.value.trim();
       el.value = existing ? existing + ' ' + transcript : transcript;
       el.dispatchEvent(new Event('input'));
@@ -4181,9 +4824,7 @@ function _scheduleDailyBackup(){
       btn.textContent = '🎤';
       if(e.error === 'not-allowed'){
         showToast('🎤 Mic blocked — allow mic in browser settings', 4000);
-        // Try to guide user
         if(confirm('Microphone is blocked.\n\nTo fix:\n1. Tap the 🔒 lock icon in your browser\n2. Set Microphone → Allow\n3. Reload the page\n\nOpen browser settings now?')){
-          // On mobile, opening settings directly isn't possible — just inform
           showToast('Go to browser Settings → Site Settings → Microphone', 5000);
         }
       } else if(e.error === 'no-speech'){
@@ -4198,7 +4839,6 @@ function _scheduleDailyBackup(){
       btn.textContent = '🎤';
       _activeRecog = null;
       _activeBtn = null;
-      // Dismiss listening toast
       const t = document.getElementById('toast');
       if(t){ t.style.opacity='0'; }
     };
@@ -4206,13 +4846,11 @@ function _scheduleDailyBackup(){
     recog.start();
   }
 
-  // Delegate click on all voice buttons
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.voice-btn');
     if(!btn) return;
     const targetId = btn.getAttribute('data-target');
     if(!targetId) return;
-    // If already listening for this button, stop
     if(btn.classList.contains('listening') && _activeRecog){
       _activeRecog.stop();
       return;
@@ -4220,12 +4858,10 @@ function _scheduleDailyBackup(){
     startVoice(targetId, btn);
   });
 
-  // Language toggle — tap mic again to switch lang (future)
-  console.log('🎤 Voice input ready (ar-EG / en-US)');
+  console.log('🎤 Voice input ready');
 })();
 
-
-// ── BACKUP LOGIC ──
+// BACKUP LOGIC
 const backupOverlay = document.getElementById('backupOverlay');
 
 document.getElementById('backupBtn').addEventListener('click', () => {
@@ -4307,10 +4943,9 @@ document.getElementById('backupFileInput').addEventListener('change', function()
   reader.readAsText(file);
 });
 
-
-// ── PUSH NOTIFICATIONS ──
+// PUSH NOTIFICATIONS
 var _notifReady = false;
-var _prevCasesSnapshot = null; // JSON snapshot of cases before last sync
+var _prevCasesSnapshot = null;
 
 function _requestNotifPermission(){
   if(!('Notification' in window)) return;
@@ -4346,22 +4981,17 @@ function _diffCases(oldCases, newCases){
   Object.keys(newCases).forEach(function(tabId){
     var oldArr = oldCases[tabId] || [];
     var newArr = newCases[tabId] || [];
-
-    // Build map of old cases by _id
     var oldById = {};
     oldArr.forEach(function(c){ if(c && c._id) oldById[c._id] = c; });
 
     newArr.forEach(function(c){
       if(!c || !c.patientName) return;
-      // Skip if added/edited by me
       if(c.addedByDevId && c.addedByDevId === myDevId) return;
       if(c.editedByDevId && c.editedByDevId === myDevId) return;
 
       if(!c._id || !oldById[c._id]){
-        // New case
         added.push({ name: c.patientName, tab: getTabLabel(tabId), by: c.addedBy || 'Someone' });
       } else {
-        // Check if edited
         var old = oldById[c._id];
         if(c.editedAt && c.editedAt !== old.editedAt){
           edited.push({ name: c.patientName, tab: getTabLabel(tabId), by: c.editedBy || 'Someone' });
@@ -4383,6 +5013,194 @@ function _diffCases(oldCases, newCases){
   }
 }
 
+// SHIFT NOTES STORAGE
+function getShiftNotes(){ return _fromCache('psx_shift_notes',{summary:'',log:[],onCallName:'',lastHandover:''}); }
+function saveShiftNotes(n){ _toCache('psx_shift_notes',n); _fbWrite('psx_shift_notes',n); }
+
+window.deleteShiftNote=function(idx){
+  const s=getShiftNotes();
+  if(!s.log||idx<0||idx>=s.log.length) return;
+  s.log.splice(idx,1);
+  saveShiftNotes(s);
+  loadCases();
+};
+
+// HANDOVER TIMER
+var _hvTimerRunning=false;
+var _hvTimerStart=null;
+var _hvTimerInterval=null;
+var _hvBar=document.getElementById('hvTimerBar');
+var _hvElapsed=document.getElementById('hvTimerElapsed');
+var _hvOnCall=document.getElementById('hvTimerOnCall');
+var _hvStop=document.getElementById('hvTimerStop');
+
+function _hvStartTimer(onCallName){
+  _hvTimerRunning=true;
+  _hvTimerStart=Date.now();
+  _hvBar.classList.add('running');
+  document.body.classList.add('hv-running');
+  _hvOnCall.textContent=onCallName||'';
+  clearInterval(_hvTimerInterval);
+  _hvTimerInterval=setInterval(function(){
+    var secs=Math.floor((Date.now()-_hvTimerStart)/1000);
+    var m=Math.floor(secs/60);var s=secs%60;
+    _hvElapsed.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+function _hvStopTimer(){
+  _hvTimerRunning=false;
+  clearInterval(_hvTimerInterval);
+  _hvBar.classList.remove('running');
+  document.body.classList.remove('hv-running');
+  _hvElapsed.textContent='00:00';
+}
+_hvStop.addEventListener('click',function(){
+  const s=getShiftNotes();
+  s.lastHandover='Ended at '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+(s.onCallName?' → '+s.onCallName:'');
+  saveShiftNotes(s);
+  _hvStopTimer();
+  if(currentTab==='__shift__') loadCases();
+  showToast('✅ Handover ended',2000);
+});
+
+// PRIORITY FLAG
+window.toggleFlag=function(idOrIndex, btn){
+  const cases=getCases();
+  const arr=cases[currentTab]||[];
+  let idx=-1;
+  if(typeof idOrIndex==='string'&&idOrIndex!=='undefined'&&isNaN(idOrIndex)){
+    idx=arr.findIndex(c=>c&&c._id===idOrIndex);
+  }
+  if(idx<0) idx=parseInt(idOrIndex);
+  if(isNaN(idx)||idx<0||idx>=arr.length) return;
+  arr[idx].flagged=!arr[idx].flagged;
+  cases[currentTab]=arr;
+  saveCases(cases);
+  loadCases();
+  showToast(arr[idx].flagged?'🚨 Flagged as priority!':'Flag removed',1800);
+};
+
+// QUICK STATUS
+var _qsCaseId=null;
+var _qsOverlay=document.getElementById('qsOverlay');
+document.getElementById('qsCancel').addEventListener('click',function(){_qsOverlay.classList.remove('visible');});
+_qsOverlay.addEventListener('click',function(e){if(e.target===_qsOverlay)_qsOverlay.classList.remove('visible');});
+document.querySelectorAll('.qs-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var status=btn.getAttribute('data-status');
+    if(!_qsCaseId&&_qsCaseId!==0) return;
+    var cases=getCases();
+    var arr=cases[currentTab]||[];
+    var idx=-1;
+    if(typeof _qsCaseId==='string'&&isNaN(_qsCaseId)){
+      idx=arr.findIndex(function(c){return c&&c._id===_qsCaseId;});
+    }
+    if(idx<0) idx=parseInt(_qsCaseId);
+    if(isNaN(idx)||idx<0||idx>=arr.length){_qsOverlay.classList.remove('visible');return;}
+    arr[idx].status=status;
+    arr[idx].editedBy=currentUser;
+    arr[idx].editedByDevId=localStorage.getItem('psx_device_id')||'';
+    arr[idx].editedAt=new Date().toISOString();
+    cases[currentTab]=arr;
+    saveCases(cases);
+    _qsOverlay.classList.remove('visible');
+    loadCases();updateCounts();
+    showToast('✅ Status → '+status,1800);
+  });
+});
+window.openQuickStatus=function(idOrIndex,name,currentStatus){
+  _qsCaseId=idOrIndex;
+  document.getElementById('qsPatientName').textContent=name||'—';
+  document.querySelectorAll('.qs-btn').forEach(function(b){
+    b.classList.toggle('qs-active',b.getAttribute('data-status')===currentStatus);
+  });
+  _qsOverlay.classList.add('visible');
+};
+
+// SORTING
+var _sortMode = 'default';
+var _sortBtn = document.getElementById('sortBtn');
+var _sortDropdown = document.getElementById('sortDropdown');
+
+_sortBtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  var isOpen = _sortDropdown.style.display !== 'none';
+  _sortDropdown.style.display = isOpen ? 'none' : 'block';
+  _sortBtn.classList.toggle('active', !isOpen);
+});
+document.addEventListener('click', function(){ _sortDropdown.style.display='none'; _sortBtn.classList.remove('active'); });
+
+document.querySelectorAll('.sort-option').forEach(function(opt){
+  opt.addEventListener('click', function(e){
+    e.stopPropagation();
+    _sortMode = opt.getAttribute('data-sort');
+    document.querySelectorAll('.sort-option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    _sortBtn.textContent = '⇅ ' + opt.textContent.trim().replace(/^[^\s]+\s/,'');
+    _sortBtn.classList.add('active');
+    _sortDropdown.style.display='none';
+    loadCases();
+  });
+});
+
+function _applySortToFiltered(filteredWithIdx){
+  const STATUS_ORDER = {Unstable:0, Improving:1, Stable:2, Discharge:3, '':4};
+  switch(_sortMode){
+    case 'flag':   return [...filteredWithIdx].sort((a,b)=>(b.c.flagged?1:0)-(a.c.flagged?1:0));
+    case 'status': return [...filteredWithIdx].sort((a,b)=>(STATUS_ORDER[a.c.status||'']??4)-(STATUS_ORDER[b.c.status||'']??4));
+    case 'bed':    return [...filteredWithIdx].sort((a,b)=>(a.c.bed||'').localeCompare(b.c.bed||'',undefined,{numeric:true}));
+    case 'doa':    return [...filteredWithIdx].sort((a,b)=>(a.c.doa||'').localeCompare(b.c.doa||''));
+    case 'name':   return [...filteredWithIdx].sort((a,b)=>(a.c.patientName||'').localeCompare(b.c.patientName||''));
+    default:       return [...filteredWithIdx].sort((a,b)=>(b.c.flagged?1:0)-(a.c.flagged?1:0));
+  }
+}
+
+// PHOTO UPLOAD
+var _photosTemp = [];
+
+function renderPhotoPreview(){
+  var grid = document.getElementById('photoPreviewGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  _photosTemp.forEach(function(src, i){
+    var wrap = document.createElement('div');
+    wrap.className = 'photo-thumb-wrap';
+    wrap.innerHTML = '<img class="photo-thumb" src="'+src+'" alt="photo"><button class="photo-thumb-del" onclick="removePhoto('+i+')">✕</button>';
+    grid.appendChild(wrap);
+  });
+}
+
+window.removePhoto = function(i){
+  _photosTemp.splice(i,1);
+  renderPhotoPreview();
+};
+
+document.getElementById('photoFileInput').addEventListener('change', function(){
+  var files = Array.from(this.files);
+  var remaining = 5 - _photosTemp.length;
+  if(remaining <= 0){ showToast('Max 5 photos per case',1800); return; }
+  files.slice(0, remaining).forEach(function(file){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      _photosTemp.push(e.target.result);
+      renderPhotoPreview();
+    };
+    reader.readAsDataURL(file);
+  });
+  this.value = '';
+});
+
+document.getElementById('photoUploadArea').addEventListener('click', function(){
+  document.getElementById('photoFileInput').click();
+});
+
+// LIGHTBOX
+var _lightbox = document.getElementById('photoLightbox');
+var _lightboxImg = document.getElementById('photoLightboxImg');
+document.getElementById('photoLightboxClose').addEventListener('click', function(){ _lightbox.classList.remove('open'); });
+_lightbox.addEventListener('click', function(e){ if(e.target===_lightbox) _lightbox.classList.remove('open'); });
+window.openLightbox = function(src){ _lightboxImg.src=src; _lightbox.classList.add('open'); };
+
 // INIT
 try{ _requestNotifPermission(); }catch(e){}
 try{ renderTabBar(); }catch(e){ console.warn('renderTabBar:',e); }
@@ -4392,11 +5210,695 @@ try{ loadCases(); }catch(e){ console.warn('loadCases:',e); }
 try{ updateCounts(); }catch(e){ console.warn('updateCounts:',e); }
 try{ checkWelcome(); }catch(e){ console.warn('checkWelcome:',e); }
 try{ updateOnlineBadge(); }catch(e){ console.warn('updateOnlineBadge:',e); }
+try{ addNotificationButton(); }catch(e){ console.warn('addNotificationButton:',e); }
 try{ _startFirebaseSync();
 try{ _scheduleDailyBackup(); }catch(e){ console.warn(e); } }catch(e){ console.warn('_startFirebaseSync:',e); }
 
-})();
+// ============================================================
+// نظام تعليقات على الحالات (Case Comments System)
+// ============================================================
 
+// دالة لتنصيص النصوص
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// دالة لتنسيق الوقت (منذ كم دقيقة/ساعة/يوم)
+function formatTimeAgo(timestamp) {
+    if (!timestamp) return 'الآن';
+    const now = new Date();
+    const then = new Date(timestamp);
+    const diffMs = now - then;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
+    
+    if (diffSec < 60) return 'الآن';
+    if (diffMin < 60) return `منذ ${diffMin} دقيقة`;
+    if (diffHour < 24) return `منذ ${diffHour} ساعة`;
+    if (diffDay < 7) return `منذ ${diffDay} يوم`;
+    return then.toLocaleDateString('ar-EG');
+}
+
+// دالة لاستخراج المستخدمين المذكورين من النص
+function extractMentions(text) {
+    const mentionRegex = /@(\w+)/g;
+    const matches = [...text.matchAll(mentionRegex)];
+    return matches.map(m => m[1]);
+}
+
+// دالة لإضافة تعليق على حالة
+window.addCommentToCase = function(caseId, commentText, mentionedUsers) {
+    const cases = getCases();
+    let foundCase = null;
+    let foundTab = null;
+    let foundIndex = -1;
+    
+    // البحث عن الحالة في جميع التبويبات
+    for (const tabId in cases) {
+        const arr = cases[tabId];
+        const idx = arr.findIndex(c => c && c._id === caseId);
+        if (idx !== -1) {
+            foundCase = arr[idx];
+            foundTab = tabId;
+            foundIndex = idx;
+            break;
+        }
+    }
+    
+    if (!foundCase) return false;
+    
+    // تهيئة مصفوفة التعليقات إذا لم تكن موجودة
+    if (!foundCase.comments) foundCase.comments = [];
+    
+    const newComment = {
+        id: 'cmt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+        text: commentText,
+        author: currentUser,
+        authorDevId: localStorage.getItem('psx_device_id') || '',
+        timestamp: new Date().toISOString(),
+        mentions: mentionedUsers
+    };
+    
+    foundCase.comments.unshift(newComment); // أحدث تعليق في الأعلى
+    foundCase.lastCommentAt = new Date().toISOString();
+    foundCase.commentCount = foundCase.comments.length;
+    
+    cases[foundTab][foundIndex] = foundCase;
+    saveCases(cases);
+    
+    // إرسال إشعارات للمستخدمين المذكورين
+    if (mentionedUsers.length > 0) {
+        const users = getUsers();
+        const myDevId = localStorage.getItem('psx_device_id') || '';
+        mentionedUsers.forEach(username => {
+            const userEntry = Object.entries(users).find(([devId, u]) => 
+                u && u.name && u.name.toLowerCase() === username.toLowerCase()
+            );
+            if (userEntry && userEntry[0] !== myDevId) {
+                const notifications = JSON.parse(localStorage.getItem(`notifications_${userEntry[0]}`) || '[]');
+                notifications.unshift({
+                    id: 'notif_' + Date.now() + '_' + Math.random(),
+                    type: 'mention',
+                    from: currentUser,
+                    patient: foundCase.patientName,
+                    comment: commentText.substring(0, 100),
+                    timestamp: new Date().toISOString(),
+                    read: false
+                });
+                // الاحتفاظ بآخر 50 إشعار فقط
+                while (notifications.length > 50) notifications.pop();
+                localStorage.setItem(`notifications_${userEntry[0]}`, JSON.stringify(notifications));
+            }
+        });
+    }
+    
+    // تحديث العرض
+    loadCases();
+    showToast('💬 تم إضافة التعليق', 1500);
+    
+    return true;
+}
+
+// دالة لحذف تعليق
+window.deleteCommentFromCase = function(caseId, commentId) {
+    const cases = getCases();
+    let foundCase = null;
+    let foundTab = null;
+    let foundIndex = -1;
+    
+    for (const tabId in cases) {
+        const arr = cases[tabId];
+        const idx = arr.findIndex(c => c && c._id === caseId);
+        if (idx !== -1) {
+            foundCase = arr[idx];
+            foundTab = tabId;
+            foundIndex = idx;
+            break;
+        }
+    }
+    
+    if (!foundCase || !foundCase.comments) return false;
+    
+    const commentIndex = foundCase.comments.findIndex(c => c.id === commentId);
+    if (commentIndex === -1) return false;
+    
+    const comment = foundCase.comments[commentIndex];
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const isAuthor = comment.authorDevId === myDevId;
+    
+    if (!isAuthor) {
+        showToast('❌ يمكنك فقط حذف تعليقاتك', 2000);
+        return false;
+    }
+    
+    foundCase.comments.splice(commentIndex, 1);
+    foundCase.commentCount = foundCase.comments.length;
+    
+    cases[foundTab][foundIndex] = foundCase;
+    saveCases(cases);
+    
+    loadCases();
+    showToast('🗑 تم حذف التعليق', 1500);
+    return true;
+}
+
+// دالة لجلب تعليقات حالة معينة
+function getCaseComments(caseId) {
+    const cases = getCases();
+    for (const tabId in cases) {
+        const c = cases[tabId].find(c => c && c._id === caseId);
+        if (c && c.comments) {
+            return c.comments;
+        }
+    }
+    return [];
+}
+
+// دالة للحصول على بيانات الحالة من الـ ID
+function getCaseFromId(caseId) {
+    const cases = getCases();
+    for (const tabId in cases) {
+        const found = cases[tabId].find(c => c && c._id === caseId);
+        if (found) return found;
+    }
+    return null;
+}
+
+// دالة لعرض شيت التعليقات
+window.showCommentsSheet = function(caseId, patientName) {
+    const comments = getCaseComments(caseId);
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'commentsSheet';
+    overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.75);
+        backdrop-filter: blur(8px);
+        z-index: 1100;
+        display: flex;
+        align-items: flex-end;
+        opacity: 0;
+        transition: opacity 0.2s;
+    `;
+    
+    const sheet = document.createElement('div');
+    sheet.style.cssText = `
+        background: var(--surface);
+        border-radius: 28px 28px 0 0;
+        width: 100%;
+        height: 85vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    `;
+    
+    const commentsHtml = comments.length === 0 ? `
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💬</div>
+            <div style="font-family: var(--body); font-size: 0.85rem;">لا توجد تعليقات بعد</div>
+            <div style="font-size: 0.7rem; margin-top: 0.25rem;">كن أول من يعلق!</div>
+        </div>
+    ` : comments.map(c => {
+        const isAuthor = c.authorDevId === myDevId;
+        const timeAgo = formatTimeAgo(c.timestamp);
+        const mentionsHtml = c.mentions && c.mentions.length ? 
+            `<span style="display: inline-block; font-size: 0.6rem; color: var(--accent-hand); background: var(--accent-hand-glow); padding: 2px 6px; border-radius: 12px; margin-left: 6px;">
+                @${c.mentions.join(', @')}
+            </span>` : '';
+        
+        return `
+            <div class="comment-item" data-comment-id="${c.id}" style="
+                background: var(--surface2);
+                border-radius: 16px;
+                padding: 12px;
+                margin-bottom: 10px;
+                border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};
+            ">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="
+                            width: 28px;
+                            height: 28px;
+                            background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'};
+                            border-radius: 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-family: var(--display);
+                            font-weight: 700;
+                            font-size: 0.8rem;
+                            color: ${isAuthor ? '#fff' : 'var(--text)'};
+                        ">${(c.author || '?').charAt(0).toUpperCase()}</span>
+                        <div>
+                            <strong style="font-family: var(--display); font-size: 0.85rem; color: var(--text);">${escapeHtml(c.author || 'مجهول')}</strong>
+                            ${mentionsHtml}
+                            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
+                        </div>
+                    </div>
+                    ${isAuthor ? `
+                        <button class="delete-comment-btn" data-comment-id="${c.id}" style="
+                            background: none;
+                            border: none;
+                            color: var(--text-muted);
+                            font-size: 14px;
+                            cursor: pointer;
+                            padding: 4px 8px;
+                            border-radius: 8px;
+                            transition: all 0.15s;
+                        " onmouseover="this.style.background='rgba(247,95,95,0.1)'; this.style.color='var(--danger)'" onmouseout="this.style.background=''; this.style.color='var(--text-muted)'">🗑</button>
+                    ` : ''}
+                </div>
+                <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim); line-height: 1.5; word-break: break-word;">
+                    ${escapeHtml(c.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    sheet.innerHTML = `
+        <div style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem 0.8rem;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        ">
+            <div>
+                <h3 style="font-family: var(--display); font-weight: 700; font-size: 1rem; color: var(--text);">💬 التعليقات</h3>
+                <p style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">${escapeHtml(patientName)}</p>
+            </div>
+            <button id="closeCommentsSheet" style="
+                width: 32px;
+                height: 32px;
+                border-radius: 10px;
+                background: var(--surface2);
+                border: 1.5px solid var(--border2);
+                color: var(--text-muted);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px;
+            ">✕</button>
+        </div>
+        
+        <div id="commentsList" style="
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+        ">
+            ${commentsHtml}
+        </div>
+        
+        <div style="
+            padding: 0.8rem 1rem 1.2rem;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            flex-shrink: 0;
+        ">
+            <div style="position: relative;">
+                <textarea id="newCommentInput" placeholder="اكتب تعليقك... استخدم @username لمنشن زميل" style="
+                    width: 100%;
+                    background: var(--surface2);
+                    border: 1.5px solid var(--border);
+                    border-radius: 20px;
+                    color: var(--text);
+                    font-family: var(--body);
+                    font-size: 0.88rem;
+                    padding: 12px 50px 12px 16px;
+                    resize: none;
+                    outline: none;
+                    transition: border-color 0.2s;
+                    min-height: 48px;
+                    max-height: 100px;
+                " rows="2"></textarea>
+                <button id="submitCommentBtn" style="
+                    position: absolute;
+                    right: 8px;
+                    bottom: 12px;
+                    background: var(--accent-hand);
+                    border: none;
+                    border-radius: 20px;
+                    padding: 6px 14px;
+                    color: white;
+                    font-family: var(--display);
+                    font-weight: 600;
+                    font-size: 0.75rem;
+                    cursor: pointer;
+                    transition: opacity 0.15s;
+                ">إرسال</button>
+            </div>
+            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--text-muted); margin-top: 6px; text-align: center;">
+                💡 استخدم @اسم_المستخدم لمنشن الزملاء
+            </div>
+        </div>
+    `;
+    
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        sheet.style.transform = 'translateY(0)';
+    }, 10);
+    
+    // إغلاق الشيت
+    const closeBtn = sheet.querySelector('#closeCommentsSheet');
+    closeBtn.onclick = () => {
+        overlay.style.opacity = '0';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => overlay.remove(), 300);
+        }
+    };
+    
+    // إرسال تعليق جديد
+    const submitBtn = sheet.querySelector('#submitCommentBtn');
+    const commentInput = sheet.querySelector('#newCommentInput');
+    
+    const sendComment = () => {
+        const text = commentInput.value.trim();
+        if (!text) return;
+        
+        const mentions = extractMentions(text);
+        addCommentToCase(caseId, text, mentions);
+        
+        commentInput.value = '';
+        commentInput.style.height = '48px';
+        
+        // إعادة تحميل الشيت لعرض التعليق الجديد
+        const updatedComments = getCaseComments(caseId);
+        const commentsList = sheet.querySelector('#commentsList');
+        if (commentsList && updatedComments.length) {
+            const newComment = updatedComments[0];
+            const isAuthor = newComment.authorDevId === myDevId;
+            const timeAgo = formatTimeAgo(newComment.timestamp);
+            const mentionsHtml = newComment.mentions && newComment.mentions.length ? 
+                `<span style="display: inline-block; font-size: 0.6rem; color: var(--accent-hand); background: var(--accent-hand-glow); padding: 2px 6px; border-radius: 12px; margin-left: 6px;">
+                    @${newComment.mentions.join(', @')}
+                </span>` : '';
+            
+            const newCommentHtml = `
+                <div class="comment-item" data-comment-id="${newComment.id}" style="
+                    background: var(--surface2);
+                    border-radius: 16px;
+                    padding: 12px;
+                    margin-bottom: 10px;
+                    border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="
+                                width: 28px;
+                                height: 28px;
+                                background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'};
+                                border-radius: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-family: var(--display);
+                                font-weight: 700;
+                                font-size: 0.8rem;
+                                color: ${isAuthor ? '#fff' : 'var(--text)'};
+                            ">${(newComment.author || '?').charAt(0).toUpperCase()}</span>
+                            <div>
+                                <strong style="font-family: var(--display); font-size: 0.85rem; color: var(--text);">${escapeHtml(newComment.author || 'مجهول')}</strong>
+                                ${mentionsHtml}
+                                <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
+                            </div>
+                        </div>
+                        <button class="delete-comment-btn" data-comment-id="${newComment.id}" style="
+                            background: none;
+                            border: none;
+                            color: var(--text-muted);
+                            font-size: 14px;
+                            cursor: pointer;
+                            padding: 4px 8px;
+                            border-radius: 8px;
+                        ">🗑</button>
+                    </div>
+                    <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim); line-height: 1.5;">
+                        ${escapeHtml(newComment.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}
+                    </div>
+                </div>
+            `;
+            commentsList.insertAdjacentHTML('afterbegin', newCommentHtml);
+            
+            // إضافة حدث حذف للتعليق الجديد
+            const newDeleteBtn = commentsList.querySelector(`.delete-comment-btn[data-comment-id="${newComment.id}"]`);
+            if (newDeleteBtn) {
+                newDeleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (confirm('هل تريد حذف هذا التعليق؟')) {
+                        deleteCommentFromCase(caseId, newComment.id);
+                        const commentItem = commentsList.querySelector(`.comment-item[data-comment-id="${newComment.id}"]`);
+                        if (commentItem) commentItem.remove();
+                        // تحديث عدد التعليقات في البطاقة
+                        const updated = getCaseComments(caseId);
+                        updateCommentCountOnCard(caseId, updated ? updated.length : 0);
+                    }
+                };
+            }
+            
+            // تحديث عدد التعليقات في البطاقة
+            updateCommentCountOnCard(caseId, updatedComments.length);
+        }
+    };
+    
+    submitBtn.onclick = sendComment;
+    commentInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendComment();
+        }
+    });
+    
+    commentInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+    
+    // إضافة أحداث الحذف للأزرار الموجودة
+    sheet.querySelectorAll('.delete-comment-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const commentId = btn.getAttribute('data-comment-id');
+            if (confirm('هل تريد حذف هذا التعليق؟')) {
+                deleteCommentFromCase(caseId, commentId);
+                const commentItem = btn.closest('.comment-item');
+                if (commentItem) commentItem.remove();
+                
+                // تحديث عدد التعليقات
+                const updatedComments = getCaseComments(caseId);
+                updateCommentCountOnCard(caseId, updatedComments ? updatedComments.length : 0);
+            }
+        };
+    });
+}
+
+// دالة لتحديث عدد التعليقات على البطاقة
+function updateCommentCountOnCard(caseId, count) {
+    const cards = document.querySelectorAll('.case-card');
+    for (const card of cards) {
+        const commentBtn = card.querySelector(`.comment-btn[data-case-id="${caseId}"]`);
+        if (commentBtn) {
+            const badge = commentBtn.querySelector('.comment-badge');
+            if (badge) {
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = 'inline-flex';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        }
+    }
+}
+
+// دالة لعرض شيت الإشعارات
+function showNotificationsSheet(notifications) {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const updated = notifications.map(n => ({ ...n, read: true }));
+    localStorage.setItem(`notifications_${myDevId}`, JSON.stringify(updated));
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1200; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.2s;`;
+    
+    const sheet = document.createElement('div');
+    sheet.style.cssText = `background: var(--surface); border-radius: 28px 28px 0 0; width: 100%; max-height: 80vh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s;`;
+    
+    const notifsHtml = notifications.length === 0 ? `
+        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+            <div style="font-size: 2rem;">🔔</div>
+            <div>لا توجد إشعارات</div>
+        </div>
+    ` : notifications.map(n => {
+        const timeAgo = formatTimeAgo(n.timestamp);
+        return `
+            <div style="background: ${n.read ? 'var(--surface2)' : 'rgba(79,142,247,0.1)'}; border-radius: 14px; padding: 12px; margin-bottom: 8px; border-left: 3px solid var(--accent-hand);">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                    <span>💬</span>
+                    <span style="font-weight: 600;">${escapeHtml(n.from)}</span>
+                    <span style="font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</span>
+                </div>
+                <div><strong>${escapeHtml(n.patient)}</strong></div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">"${escapeHtml(n.comment)}"</div>
+            </div>
+        `;
+    }).join('');
+    
+    sheet.innerHTML = `
+        <div style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--border);">
+            <h3 style="font-weight: 700;">🔔 الإشعارات (${notifications.length})</h3>
+            <button id="closeNotifSheet" style="background: var(--surface2); border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer;">✕</button>
+        </div>
+        <div style="flex: 1; overflow-y: auto; padding: 1rem;">${notifsHtml}</div>
+        <button id="clearAllNotifs" style="margin: 0.5rem 1rem 1.2rem; padding: 10px; background: var(--surface2); border: none; border-radius: 14px; cursor: pointer;">🗑 مسح الكل</button>
+    `;
+    
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        sheet.style.transform = 'translateY(0)';
+    }, 10);
+    
+    sheet.querySelector('#closeNotifSheet').onclick = () => {
+        overlay.style.opacity = '0';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    
+    sheet.querySelector('#clearAllNotifs').onclick = () => {
+        localStorage.setItem(`notifications_${myDevId}`, JSON.stringify([]));
+        overlay.remove();
+        showToast('🗑 تم مسح جميع الإشعارات', 1500);
+    };
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => overlay.remove(), 300);
+        }
+    };
+}
+
+// إضافة زر الإشعارات في الهيدر
+function addNotificationButton() {
+    const headerRight = document.querySelector('.app-header-right');
+    if (headerRight && !document.getElementById('notifBtn')) {
+        const notifBtn = document.createElement('button');
+        notifBtn.id = 'notifBtn';
+        notifBtn.className = 'hdr-btn';
+        notifBtn.innerHTML = '🔔';
+        notifBtn.style.position = 'relative';
+        notifBtn.title = 'الإشعارات';
+        
+        function updateNotifBadge() {
+            const myDevId = localStorage.getItem('psx_device_id') || '';
+            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+            const unread = notifs.filter(n => !n.read).length;
+            const existing = notifBtn.querySelector('.notif-badge');
+            if (unread > 0) {
+                if (existing) {
+                    existing.textContent = unread > 9 ? '9+' : unread;
+                } else {
+                    const badge = document.createElement('span');
+                    badge.className = 'notif-badge';
+                    badge.style.cssText = `position: absolute; top: -2px; right: -2px; background: var(--danger); color: white; font-size: 0.55rem; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center;`;
+                    badge.textContent = unread > 9 ? '9+' : unread;
+                    notifBtn.appendChild(badge);
+                }
+            } else if (existing) {
+                existing.remove();
+            }
+        }
+        
+        notifBtn.onclick = () => {
+            const myDevId = localStorage.getItem('psx_device_id') || '';
+            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+            showNotificationsSheet(notifs);
+        };
+        
+        headerRight.insertBefore(notifBtn, headerRight.firstChild);
+        setInterval(updateNotifBadge, 30000);
+        updateNotifBadge();
+    }
+}
+
+// تعديل دالة loadCases لإضافة أزرار التعليقات (يجب استدعاؤها بعد loadCases الأصلية)
+const originalLoadCasesWithComments = loadCases;
+window.loadCases = function() {
+    originalLoadCasesWithComments();
+    setTimeout(() => {
+        // إضافة أزرار التعليقات للبطاقات
+        const cards = document.querySelectorAll('.case-card');
+        cards.forEach(card => {
+            // البحث عن الـ caseId من البطاقة
+            const editBtn = card.querySelector('.act-btn.edit');
+            let caseId = null;
+            if (editBtn && editBtn.getAttribute('onclick')) {
+                const match = editBtn.getAttribute('onclick').match(/editCase\(['"]([^'"]+)['"]\)/);
+                if (match) caseId = match[1];
+            }
+            
+            if (caseId && !card.querySelector('.comment-btn')) {
+                const cardActions = card.querySelector('.card-actions');
+                if (cardActions) {
+                    const caseData = getCaseFromId(caseId);
+                    const commentCount = caseData?.comments?.length || 0;
+                    const commentBtn = document.createElement('button');
+                    commentBtn.className = 'act-btn comment-btn';
+                    commentBtn.setAttribute('data-case-id', caseId);
+                    commentBtn.style.position = 'relative';
+                    commentBtn.innerHTML = `💬<span class="comment-badge" style="position: absolute; top: -4px; right: -4px; background: var(--accent-hand); color: white; font-size: 0.55rem; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center; ${commentCount === 0 ? 'display: none;' : ''}">${commentCount}</span>`;
+                    commentBtn.title = 'التعليقات';
+                    commentBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        const patientName = card.querySelector('.card-name')?.textContent || '';
+                        showCommentsSheet(caseId, patientName);
+                    };
+                    cardActions.appendChild(commentBtn);
+                }
+            }
+        });
+    }, 200);
+};
+
+// فحص الإشعارات عند تحميل الصفحة
+setTimeout(() => {
+    addNotificationButton();
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+    const unread = notifs.filter(n => !n.read);
+    if (unread.length > 0) {
+        setTimeout(() => {
+            showToast(`🔔 لديك ${unread.length} إشعار${unread.length > 1 ? 'ات' : ''} جديد`, 3000);
+        }, 2000);
+    }
+}, 1000);
+
+console.log('✅ Comments System with Notifications initialized');
+})();
 </script>
 </body>
 </html>
