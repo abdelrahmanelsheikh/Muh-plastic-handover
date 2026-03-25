@@ -1308,6 +1308,16 @@ firebase.initializeApp({
 var db = firebase.database();
 </script>
 
+
+
+
+
+
+
+
+
+
+
 <script>
 (function(){
 // ============================================================
@@ -1428,448 +1438,6 @@ themeBtn.addEventListener('click',()=>{isLight=!isLight;localStorage.setItem('ps
 // نظام تعليقات على الحالات (Case Comments System)
 // ============================================================
 
-function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function formatTimeAgo(timestamp) {
-    const now = new Date();
-    const then = new Date(timestamp);
-    const diffMs = now - then;
-    const diffSec = Math.floor(diffMs / 1000);
-    const diffMin = Math.floor(diffSec / 60);
-    const diffHour = Math.floor(diffMin / 60);
-    const diffDay = Math.floor(diffHour / 24);
-    
-    if (diffSec < 60) return 'الآن';
-    if (diffMin < 60) return `منذ ${diffMin} دقيقة`;
-    if (diffHour < 24) return `منذ ${diffHour} ساعة`;
-    if (diffDay < 7) return `منذ ${diffDay} يوم`;
-    return then.toLocaleDateString('ar-EG');
-}
-
-function extractMentions(text) {
-    const mentionRegex = /@(\w+)/g;
-    const matches = [...text.matchAll(mentionRegex)];
-    return matches.map(m => m[1]);
-}
-
-window.addCommentToCase = function(caseId, commentText, mentionedUsers) {
-    const cases = getCases();
-    let foundCase = null;
-    let foundTab = null;
-    let foundIndex = -1;
-    
-    for (const tabId in cases) {
-        const idx = cases[tabId].findIndex(c => c && c._id === caseId);
-        if (idx !== -1) {
-            foundCase = cases[tabId][idx];
-            foundTab = tabId;
-            foundIndex = idx;
-            break;
-        }
-    }
-    
-    if (!foundCase) return false;
-    if (!foundCase.comments) foundCase.comments = [];
-    
-    const newComment = {
-        id: 'cmt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-        text: commentText,
-        author: currentUser,
-        authorDevId: localStorage.getItem('psx_device_id') || '',
-        timestamp: new Date().toISOString(),
-        mentions: mentionedUsers
-    };
-    
-    foundCase.comments.unshift(newComment);
-    foundCase.lastCommentAt = new Date().toISOString();
-    foundCase.commentCount = foundCase.comments.length;
-    
-    cases[foundTab][foundIndex] = foundCase;
-    saveCases(cases);
-    
-    if (mentionedUsers.length > 0) {
-        const users = getUsers();
-        const myDevId = localStorage.getItem('psx_device_id') || '';
-        mentionedUsers.forEach(username => {
-            const userEntry = Object.entries(users).find(([devId, u]) => 
-                u && u.name && u.name.toLowerCase() === username.toLowerCase()
-            );
-            if (userEntry && userEntry[0] !== myDevId) {
-                const notifications = JSON.parse(localStorage.getItem(`notifications_${userEntry[0]}`) || '[]');
-                notifications.unshift({
-                    id: 'notif_' + Date.now(),
-                    type: 'mention',
-                    from: currentUser,
-                    patient: foundCase.patientName,
-                    comment: commentText.substring(0, 100),
-                    timestamp: new Date().toISOString(),
-                    read: false
-                });
-                while (notifications.length > 50) notifications.pop();
-                localStorage.setItem(`notifications_${userEntry[0]}`, JSON.stringify(notifications));
-            }
-        });
-    }
-    
-    loadCases();
-    showToast('💬 تم إضافة التعليق', 1500);
-    return true;
-}
-
-window.deleteCommentFromCase = function(caseId, commentId) {
-    const cases = getCases();
-    let foundCase = null;
-    let foundTab = null;
-    let foundIndex = -1;
-    
-    for (const tabId in cases) {
-        const idx = cases[tabId].findIndex(c => c && c._id === caseId);
-        if (idx !== -1) {
-            foundCase = cases[tabId][idx];
-            foundTab = tabId;
-            foundIndex = idx;
-            break;
-        }
-    }
-    
-    if (!foundCase || !foundCase.comments) return false;
-    
-    const commentIndex = foundCase.comments.findIndex(c => c.id === commentId);
-    if (commentIndex === -1) return false;
-    
-    const comment = foundCase.comments[commentIndex];
-    const myDevId = localStorage.getItem('psx_device_id') || '';
-    if (comment.authorDevId !== myDevId) {
-        showToast('❌ يمكنك فقط حذف تعليقاتك', 2000);
-        return false;
-    }
-    
-    foundCase.comments.splice(commentIndex, 1);
-    foundCase.commentCount = foundCase.comments.length;
-    cases[foundTab][foundIndex] = foundCase;
-    saveCases(cases);
-    loadCases();
-    showToast('🗑 تم حذف التعليق', 1500);
-    return true;
-}
-
-function getCaseComments(caseId) {
-    const cases = getCases();
-    for (const tabId in cases) {
-        const c = cases[tabId].find(c => c && c._id === caseId);
-        if (c && c.comments) return c.comments;
-    }
-    return [];
-}
-
-function getCaseFromId(caseId) {
-    const cases = getCases();
-    for (const tabId in cases) {
-        const found = cases[tabId].find(c => c && c._id === caseId);
-        if (found) return found;
-    }
-    return null;
-}
-
-window.showCommentsSheet = function(caseId, patientName) {
-    const comments = getCaseComments(caseId);
-    const myDevId = localStorage.getItem('psx_device_id') || '';
-    
-    const overlay = document.createElement('div');
-    overlay.id = 'commentsSheet';
-    overlay.style.cssText = `
-        position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px);
-        z-index: 1100; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.2s;
-    `;
-    
-    const sheet = document.createElement('div');
-    sheet.style.cssText = `
-        background: var(--surface); border-radius: 28px 28px 0 0; width: 100%;
-        height: 85vh; display: flex; flex-direction: column; transform: translateY(100%);
-        transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    `;
-    
-    const commentsHtml = comments.length === 0 ? `
-        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
-            <div style="font-size: 2rem;">💬</div>
-            <div>لا توجد تعليقات بعد</div>
-            <div style="font-size: 0.7rem;">كن أول من يعلق!</div>
-        </div>
-    ` : comments.map(c => {
-        const isAuthor = c.authorDevId === myDevId;
-        const timeAgo = formatTimeAgo(c.timestamp);
-        return `
-            <div class="comment-item" data-comment-id="${c.id}" style="
-                background: var(--surface2); border-radius: 16px; padding: 12px;
-                margin-bottom: 10px; border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};
-            ">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="
-                            width: 28px; height: 28px; background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'};
-                            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-                            font-family: var(--display); font-weight: 700; font-size: 0.8rem; color: #fff;
-                        ">${(c.author || '?').charAt(0).toUpperCase()}</span>
-                        <div>
-                            <strong style="font-family: var(--display); font-size: 0.85rem;">${escapeHtml(c.author || 'مجهول')}</strong>
-                            <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
-                        </div>
-                    </div>
-                    ${isAuthor ? `
-                        <button class="delete-comment-btn" data-comment-id="${c.id}" style="
-                            background: none; border: none; color: var(--text-muted);
-                            cursor: pointer; padding: 4px 8px; border-radius: 8px;
-                        ">🗑</button>
-                    ` : ''}
-                </div>
-                <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim); line-height: 1.5;">
-                    ${escapeHtml(c.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}
-                </div>
-            </div>
-        `;
-    }).join('');
-    
-    sheet.innerHTML = `
-        <div style="display: flex; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); flex-shrink: 0;">
-            <div>
-                <h3 style="font-family: var(--display); font-weight: 700; font-size: 1rem;">💬 التعليقات</h3>
-                <p style="font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted);">${escapeHtml(patientName)}</p>
-            </div>
-            <button id="closeCommentsSheet" style="width: 32px; height: 32px; border-radius: 10px; background: var(--surface2); border: 1.5px solid var(--border2); cursor: pointer;">✕</button>
-        </div>
-        <div id="commentsList" style="flex: 1; overflow-y: auto; padding: 1rem;">${commentsHtml}</div>
-        <div style="padding: 0.8rem 1rem 1.2rem; border-top: 1px solid var(--border); flex-shrink: 0;">
-            <div style="position: relative;">
-                <textarea id="newCommentInput" placeholder="اكتب تعليقك... استخدم @username لمنشن زميل" style="
-                    width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
-                    border-radius: 20px; color: var(--text); padding: 12px 50px 12px 16px;
-                    resize: none; outline: none; min-height: 48px; max-height: 100px;
-                " rows="2"></textarea>
-                <button id="submitCommentBtn" style="
-                    position: absolute; right: 8px; bottom: 12px; background: var(--accent-hand);
-                    border: none; border-radius: 20px; padding: 6px 14px; color: white;
-                    font-weight: 600; font-size: 0.75rem; cursor: pointer;
-                ">إرسال</button>
-            </div>
-            <div style="font-family: var(--mono); font-size: 0.55rem; color: var(--text-muted); margin-top: 6px; text-align: center;">
-                💡 استخدم @اسم_المستخدم لمنشن الزملاء
-            </div>
-        </div>
-    `;
-    
-    overlay.appendChild(sheet);
-    document.body.appendChild(overlay);
-    
-    setTimeout(() => {
-        overlay.style.opacity = '1';
-        sheet.style.transform = 'translateY(0)';
-    }, 10);
-    
-    const closeBtn = sheet.querySelector('#closeCommentsSheet');
-    closeBtn.onclick = () => {
-        overlay.style.opacity = '0';
-        sheet.style.transform = 'translateY(100%)';
-        setTimeout(() => overlay.remove(), 300);
-    };
-    
-    overlay.onclick = (e) => {
-        if (e.target === overlay) {
-            overlay.style.opacity = '0';
-            sheet.style.transform = 'translateY(100%)';
-            setTimeout(() => overlay.remove(), 300);
-        }
-    };
-    
-    const submitBtn = sheet.querySelector('#submitCommentBtn');
-    const commentInput = sheet.querySelector('#newCommentInput');
-    
-    const sendComment = () => {
-        const text = commentInput.value.trim();
-        if (!text) return;
-        const mentions = extractMentions(text);
-        addCommentToCase(caseId, text, mentions);
-        commentInput.value = '';
-        commentInput.style.height = '48px';
-        const updatedComments = getCaseComments(caseId);
-        const commentsList = sheet.querySelector('#commentsList');
-        if (commentsList && updatedComments.length) {
-            const newCommentHtml = (() => {
-                const c = updatedComments[0];
-                const isAuthor = c.authorDevId === myDevId;
-                const timeAgo = formatTimeAgo(c.timestamp);
-                return `
-                    <div class="comment-item" data-comment-id="${c.id}" style="background: var(--surface2); border-radius: 16px; padding: 12px; margin-bottom: 10px; border-left: 3px solid ${isAuthor ? 'var(--accent-hand)' : 'var(--border2)'};">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="width: 28px; height: 28px; background: ${isAuthor ? 'var(--accent-hand)' : 'var(--surface3)'}; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; font-size: 0.8rem; color: #fff;">${(c.author || '?').charAt(0).toUpperCase()}</span>
-                                <div>
-                                    <strong style="font-family: var(--display); font-size: 0.85rem;">${escapeHtml(c.author || 'مجهول')}</strong>
-                                    <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</div>
-                                </div>
-                            </div>
-                            <button class="delete-comment-btn" data-comment-id="${c.id}" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px;">🗑</button>
-                        </div>
-                        <div style="font-family: var(--body); font-size: 0.88rem; color: var(--text-dim);">${escapeHtml(c.text).replace(/@(\w+)/g, '<span style="color: var(--accent-hand); font-weight: 500;">@$1</span>')}</div>
-                    </div>
-                `;
-            })();
-            commentsList.insertAdjacentHTML('afterbegin', newCommentHtml);
-            const newDeleteBtn = commentsList.querySelector(`.delete-comment-btn[data-comment-id="${updatedComments[0].id}"]`);
-            if (newDeleteBtn) {
-                newDeleteBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    if (confirm('هل تريد حذف هذا التعليق؟')) {
-                        deleteCommentFromCase(caseId, updatedComments[0].id);
-                        const item = commentsList.querySelector(`.comment-item[data-comment-id="${updatedComments[0].id}"]`);
-                        if (item) item.remove();
-                    }
-                };
-            }
-        }
-    };
-    
-    submitBtn.onclick = sendComment;
-    commentInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendComment();
-        }
-    });
-    
-    commentInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-    });
-    
-    sheet.querySelectorAll('.delete-comment-btn').forEach(btn => {
-        btn.onclick = (e) => {
-            e.stopPropagation();
-            const commentId = btn.getAttribute('data-comment-id');
-            if (confirm('هل تريد حذف هذا التعليق؟')) {
-                deleteCommentFromCase(caseId, commentId);
-                const item = btn.closest('.comment-item');
-                if (item) item.remove();
-            }
-        };
-    });
-}
-
-function showNotificationsSheet(notifications) {
-    const myDevId = localStorage.getItem('psx_device_id') || '';
-    const updated = notifications.map(n => ({ ...n, read: true }));
-    localStorage.setItem(`notifications_${myDevId}`, JSON.stringify(updated));
-    
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1200; display: flex; align-items: flex-end; opacity: 0; transition: opacity 0.2s;`;
-    
-    const sheet = document.createElement('div');
-    sheet.style.cssText = `background: var(--surface); border-radius: 28px 28px 0 0; width: 100%; max-height: 80vh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s;`;
-    
-    const notifsHtml = notifications.length === 0 ? `
-        <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
-            <div style="font-size: 2rem;">🔔</div>
-            <div>لا توجد إشعارات</div>
-        </div>
-    ` : notifications.map(n => {
-        const timeAgo = formatTimeAgo(n.timestamp);
-        return `
-            <div style="background: ${n.read ? 'var(--surface2)' : 'rgba(79,142,247,0.1)'}; border-radius: 14px; padding: 12px; margin-bottom: 8px; border-left: 3px solid var(--accent-hand);">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                    <span>💬</span>
-                    <span style="font-weight: 600;">${escapeHtml(n.from)}</span>
-                    <span style="font-size: 0.6rem; color: var(--text-muted);">${timeAgo}</span>
-                </div>
-                <div><strong>${escapeHtml(n.patient)}</strong></div>
-                <div style="font-size: 0.7rem; color: var(--text-muted);">"${escapeHtml(n.comment)}"</div>
-            </div>
-        `;
-    }).join('');
-    
-    sheet.innerHTML = `
-        <div style="display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid var(--border);">
-            <h3 style="font-weight: 700;">🔔 الإشعارات (${notifications.length})</h3>
-            <button id="closeNotifSheet" style="background: var(--surface2); border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer;">✕</button>
-        </div>
-        <div style="flex: 1; overflow-y: auto; padding: 1rem;">${notifsHtml}</div>
-        <button id="clearAllNotifs" style="margin: 0.5rem 1rem 1.2rem; padding: 10px; background: var(--surface2); border: none; border-radius: 14px; cursor: pointer;">🗑 مسح الكل</button>
-    `;
-    
-    overlay.appendChild(sheet);
-    document.body.appendChild(overlay);
-    
-    setTimeout(() => {
-        overlay.style.opacity = '1';
-        sheet.style.transform = 'translateY(0)';
-    }, 10);
-    
-    sheet.querySelector('#closeNotifSheet').onclick = () => {
-        overlay.style.opacity = '0';
-        sheet.style.transform = 'translateY(100%)';
-        setTimeout(() => overlay.remove(), 300);
-    };
-    
-    sheet.querySelector('#clearAllNotifs').onclick = () => {
-        localStorage.setItem(`notifications_${myDevId}`, JSON.stringify([]));
-        overlay.remove();
-        showToast('🗑 تم مسح جميع الإشعارات', 1500);
-    };
-    
-    overlay.onclick = (e) => {
-        if (e.target === overlay) {
-            overlay.style.opacity = '0';
-            sheet.style.transform = 'translateY(100%)';
-            setTimeout(() => overlay.remove(), 300);
-        }
-    };
-}
-
-function addNotificationButton() {
-    const headerRight = document.querySelector('.app-header-right');
-    if (headerRight && !document.getElementById('notifBtn')) {
-        const notifBtn = document.createElement('button');
-        notifBtn.id = 'notifBtn';
-        notifBtn.className = 'hdr-btn';
-        notifBtn.innerHTML = '🔔';
-        notifBtn.style.position = 'relative';
-        
-        function updateNotifBadge() {
-            const myDevId = localStorage.getItem('psx_device_id') || '';
-            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
-            const unread = notifs.filter(n => !n.read).length;
-            const existing = notifBtn.querySelector('.notif-badge');
-            if (unread > 0) {
-                if (existing) {
-                    existing.textContent = unread > 9 ? '9+' : unread;
-                } else {
-                    const badge = document.createElement('span');
-                    badge.className = 'notif-badge';
-                    badge.style.cssText = `position: absolute; top: -2px; right: -2px; background: var(--danger); color: white; font-size: 0.55rem; padding: 1px 4px; border-radius: 10px; min-width: 16px; text-align: center;`;
-                    badge.textContent = unread > 9 ? '9+' : unread;
-                    notifBtn.appendChild(badge);
-                }
-            } else if (existing) {
-                existing.remove();
-            }
-        }
-        
-        notifBtn.onclick = () => {
-            const myDevId = localStorage.getItem('psx_device_id') || '';
-            const notifs = JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
-            showNotificationsSheet(notifs);
-        };
-        
-        headerRight.insertBefore(notifBtn, headerRight.firstChild);
-        setInterval(updateNotifBadge, 30000);
-        updateNotifBadge();
-    }
-}
-
-// ============================================================
 // نهاية نظام التعليقات
 // ============================================================
 
@@ -5898,6 +5466,801 @@ setTimeout(() => {
 }, 1000);
 
 console.log('✅ Comments System with Notifications initialized');
+
+
+
+// .......................................................................
+
+// ============================================================
+// نظام الإشعارات الفورية (Push Notifications)
+// ============================================================
+
+// طلب إذن الإشعارات
+function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        console.log('هذا المتصفح لا يدعم الإشعارات');
+        return false;
+    }
+    
+    if (Notification.permission === 'granted') {
+        console.log('✅ الإشعارات مفعلة');
+        return true;
+    }
+    
+    if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                console.log('✅ تم تفعيل الإشعارات');
+                showToast('🔔 تم تفعيل الإشعارات', 2000);
+            }
+        });
+    }
+    return Notification.permission === 'granted';
+}
+
+// إرسال إشعار
+function sendNotification(title, body, tag, icon = '🔔') {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'granted') return;
+    
+    try {
+        const notification = new Notification(title, {
+            body: body,
+            icon: '/icon-192.png',
+            badge: '/icon-192.png',
+            tag: tag || 'muh-notification',
+            renotify: true,
+            silent: false,
+            requireInteraction: false
+        });
+        
+        notification.onclick = function() {
+            window.focus();
+            this.close();
+        };
+        
+        setTimeout(() => {
+            notification.close();
+        }, 8000);
+        
+        return notification;
+    } catch(e) {
+        console.warn('خطأ في الإشعار:', e);
+    }
+}
+
+// ============================================================
+// 1. إشعارات عند إضافة حالة جديدة
+// ============================================================
+
+// تخزين آخر حالة تم إضافتها
+let lastAddedCase = null;
+let lastAddedTimestamp = 0;
+
+// مراقبة إضافة الحالات الجديدة
+function monitorNewCases() {
+    const cases = getCases();
+    const allCases = [];
+    
+    // جمع كل الحالات من جميع التبويبات
+    for (const tabId in cases) {
+        if (Array.isArray(cases[tabId])) {
+            allCases.push(...cases[tabId].map(c => ({ ...c, tabId })));
+        }
+    }
+    
+    // البحث عن أحدث حالة مضافة
+    const newestCase = allCases.reduce((latest, current) => {
+        const currentTime = current.addedAt ? new Date(current.addedAt).getTime() : 0;
+        const latestTime = latest.addedAt ? new Date(latest.addedAt).getTime() : 0;
+        return currentTime > latestTime ? current : latest;
+    }, { addedAt: 0 });
+    
+    const currentTimestamp = newestCase.addedAt ? new Date(newestCase.addedAt).getTime() : 0;
+    
+    // إذا تمت إضافة حالة جديدة خلال آخر 5 ثواني
+    if (currentTimestamp > lastAddedTimestamp && currentTimestamp > Date.now() - 5000) {
+        const myDevId = localStorage.getItem('psx_device_id') || '';
+        const isMyCase = newestCase.addedByDevId === myDevId;
+        
+        // لا نرسل إشعار إذا كانت الحالة مضافة بواسطتي
+        if (!isMyCase && newestCase.patientName) {
+            const tabLabel = getTabLabel(newestCase.tabId);
+            sendNotification(
+                '🆕 حالة جديدة',
+                `${newestCase.addedBy || 'شخص'} أضاف ${newestCase.patientName} إلى ${tabLabel}`,
+                `new-case-${newestCase._id}`,
+                '🆕'
+            );
+            
+            // تخزين الإشعار في localStorage للمشاهدة لاحقاً
+            storeNotification({
+                type: 'new_case',
+                title: 'حالة جديدة',
+                message: `${newestCase.addedBy || 'شخص'} أضاف ${newestCase.patientName}`,
+                patient: newestCase.patientName,
+                tab: tabLabel,
+                timestamp: new Date().toISOString(),
+                caseId: newestCase._id,
+                read: false
+            });
+        }
+        lastAddedTimestamp = currentTimestamp;
+    }
+    
+    lastAddedCase = newestCase;
+}
+
+// ============================================================
+// 2. إشعارات عند تعديل حالة يتابعها المستخدم
+// ============================================================
+
+// تخزين الحالات التي يتابعها المستخدم
+function getFollowedCases() {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    return JSON.parse(localStorage.getItem(`followed_cases_${myDevId}`) || '[]');
+}
+
+function followCase(caseId) {
+    const followed = getFollowedCases();
+    if (!followed.includes(caseId)) {
+        followed.push(caseId);
+        localStorage.setItem(`followed_cases_${localStorage.getItem('psx_device_id') || ''}`, JSON.stringify(followed));
+        showToast('✅ تمت إضافة الحالة للمتابعة', 1500);
+        return true;
+    }
+    return false;
+}
+
+function unfollowCase(caseId) {
+    const followed = getFollowedCases();
+    const index = followed.indexOf(caseId);
+    if (index !== -1) {
+        followed.splice(index, 1);
+        localStorage.setItem(`followed_cases_${localStorage.getItem('psx_device_id') || ''}`, JSON.stringify(followed));
+        showToast('❌ تم إزالة الحالة من المتابعة', 1500);
+        return true;
+    }
+    return false;
+}
+
+function isFollowingCase(caseId) {
+    return getFollowedCases().includes(caseId);
+}
+
+// تخزين الإصدار السابق من الحالات للمقارنة
+let previousCasesSnapshot = null;
+
+// مراقبة تعديلات الحالات
+function monitorCaseEdits() {
+    const cases = getCases();
+    const currentSnapshot = JSON.stringify(cases);
+    
+    if (previousCasesSnapshot && previousCasesSnapshot !== currentSnapshot) {
+        try {
+            const oldCases = JSON.parse(previousCasesSnapshot);
+            const newCases = JSON.parse(currentSnapshot);
+            const myDevId = localStorage.getItem('psx_device_id') || '';
+            const followedIds = getFollowedCases();
+            
+            // مقارنة الحالات
+            for (const tabId in newCases) {
+                const newTabCases = newCases[tabId] || [];
+                const oldTabCases = oldCases[tabId] || [];
+                
+                newTabCases.forEach((newCase, index) => {
+                    if (!newCase || !newCase._id) return;
+                    
+                    const oldCase = oldTabCases.find(c => c && c._id === newCase._id);
+                    
+                    // إذا كانت الحالة متابعة وتم تعديلها
+                    if (followedIds.includes(newCase._id) && oldCase) {
+                        const isEditedByMe = newCase.editedByDevId === myDevId;
+                        
+                        // لا نرسل إشعار إذا كان التعديل بواسطتي
+                        if (!isEditedByMe) {
+                            // التحقق من التغييرات
+                            const changes = [];
+                            if (newCase.status !== oldCase.status) changes.push(`الحالة: ${oldCase.status || '—'} → ${newCase.status || '—'}`);
+                            if (newCase.plan !== oldCase.plan) changes.push('تم تحديث الخطة');
+                            if (newCase.medications?.length !== oldCase.medications?.length) changes.push('تم تحديث الأدوية');
+                            if (newCase.todos?.length !== oldCase.todos?.length) changes.push('تم تحديث المهام');
+                            
+                            if (changes.length > 0) {
+                                const changesText = changes.slice(0, 2).join('، ');
+                                sendNotification(
+                                    '✏️ حالة تم تحديثها',
+                                    `${newCase.editedBy || 'شخص'} عدل ${newCase.patientName}: ${changesText}`,
+                                    `edit-case-${newCase._id}`,
+                                    '✏️'
+                                );
+                                
+                                storeNotification({
+                                    type: 'case_edited',
+                                    title: 'تحديث حالة',
+                                    message: `${newCase.editedBy || 'شخص'} عدل ${newCase.patientName}`,
+                                    details: changesText,
+                                    patient: newCase.patientName,
+                                    timestamp: new Date().toISOString(),
+                                    caseId: newCase._id,
+                                    read: false
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        } catch(e) {
+            console.warn('خطأ في مقارنة الحالات:', e);
+        }
+    }
+    
+    previousCasesSnapshot = currentSnapshot;
+}
+
+// ============================================================
+// 3. إشعارات عند اقتراب موعد VAC
+// ============================================================
+
+// فحص مواعيد VAC وإرسال إشعارات
+let lastVACNotificationTime = 0;
+const VAC_NOTIFICATION_INTERVAL = 60 * 60 * 1000; // كل ساعة
+
+function checkVACNotifications() {
+    const now = Date.now();
+    if (now - lastVACNotificationTime < VAC_NOTIFICATION_INTERVAL) return;
+    
+    const cases = getCases();
+    const allCases = [];
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    
+    // جمع كل الحالات
+    for (const tabId in cases) {
+        if (Array.isArray(cases[tabId])) {
+            allCases.push(...cases[tabId].map(c => ({ ...c, tabId })));
+        }
+    }
+    
+    const today = new Date();
+    const upcomingVAC = [];
+    const overdueVAC = [];
+    
+    allCases.forEach(c => {
+        if (c.vacStatus === 'Yes' && c.vacNextChange) {
+            const nextChange = new Date(c.vacNextChange);
+            const daysDiff = Math.ceil((nextChange - today) / (1000 * 60 * 60 * 24));
+            
+            if (daysDiff === 0) {
+                upcomingVAC.push({ ...c, daysLeft: 0, status: 'today' });
+            } else if (daysDiff === 1) {
+                upcomingVAC.push({ ...c, daysLeft: 1, status: 'tomorrow' });
+            } else if (daysDiff === 2) {
+                upcomingVAC.push({ ...c, daysLeft: 2, status: 'soon' });
+            } else if (daysDiff < 0) {
+                overdueVAC.push({ ...c, daysOverdue: Math.abs(daysDiff) });
+            }
+        }
+    });
+    
+    // إشعارات لمواعيد VAC القادمة
+    if (upcomingVAC.length > 0) {
+        const todayCount = upcomingVAC.filter(v => v.status === 'today').length;
+        const tomorrowCount = upcomingVAC.filter(v => v.status === 'tomorrow').length;
+        
+        let title = '';
+        let body = '';
+        
+        if (todayCount > 0) {
+            title = '⚠️ تنبيه VAC عاجل';
+            body = `${todayCount} حالة تحتاج تغيير VAC اليوم`;
+            if (todayCount === 1) {
+                const patient = upcomingVAC.find(v => v.status === 'today');
+                body = `${patient.patientName} (${patient.bed}) يحتاج تغيير VAC اليوم`;
+            }
+        } else if (tomorrowCount > 0) {
+            title = '📅 تذكير VAC';
+            body = `${tomorrowCount} حالة تحتاج تغيير VAC غداً`;
+            if (tomorrowCount === 1) {
+                const patient = upcomingVAC.find(v => v.status === 'tomorrow');
+                body = `${patient.patientName} (${patient.bed}) يحتاج تغيير VAC غداً`;
+            }
+        } else {
+            title = '🌀 تذكير VAC';
+            body = `${upcomingVAC.length} حالة تحتاج تغيير VAC خلال الأيام القادمة`;
+        }
+        
+        sendNotification(title, body, 'vac-upcoming', '🌀');
+        
+        // تخزين الإشعار
+        upcomingVAC.forEach(v => {
+            storeNotification({
+                type: 'vac_reminder',
+                title: title,
+                message: `${v.patientName} (${v.bed}) - موعد التغيير: ${formatDate(v.vacNextChange)}`,
+                patient: v.patientName,
+                timestamp: new Date().toISOString(),
+                caseId: v._id,
+                read: false
+            });
+        });
+    }
+    
+    // إشعارات للمواعيد المتأخرة
+    if (overdueVAC.length > 0 && overdueVAC.length <= 3) {
+        overdueVAC.forEach(v => {
+            sendNotification(
+                '⚠️ VAC متأخر',
+                `${v.patientName} (${v.bed}) متأخر ${v.daysOverdue} يوم عن موعد التغيير`,
+                `vac-overdue-${v._id}`,
+                '⚠️'
+            );
+        });
+    } else if (overdueVAC.length > 3) {
+        sendNotification(
+            '⚠️ تنبيه VAC متأخر',
+            `${overdueVAC.length} حالة متأخرة عن موعد تغيير VAC`,
+            'vac-overdue-multiple',
+            '⚠️'
+        );
+    }
+    
+    lastVACNotificationTime = now;
+}
+
+// ============================================================
+// تخزين الإشعارات للمشاهدة لاحقاً
+// ============================================================
+
+function storeNotification(notification) {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const key = `notifications_${myDevId}`;
+    const notifications = JSON.parse(localStorage.getItem(key) || '[]');
+    
+    notifications.unshift({
+        ...notification,
+        id: 'notif_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)
+    });
+    
+    // الاحتفاظ بآخر 100 إشعار فقط
+    while (notifications.length > 100) notifications.pop();
+    
+    localStorage.setItem(key, JSON.stringify(notifications));
+    
+    // تحديث عداد الإشعارات
+    updateNotificationBadge();
+}
+
+function getNotifications() {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    return JSON.parse(localStorage.getItem(`notifications_${myDevId}`) || '[]');
+}
+
+function markNotificationAsRead(notificationId) {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const key = `notifications_${myDevId}`;
+    const notifications = JSON.parse(localStorage.getItem(key) || '[]');
+    
+    const index = notifications.findIndex(n => n.id === notificationId);
+    if (index !== -1) {
+        notifications[index].read = true;
+        localStorage.setItem(key, JSON.stringify(notifications));
+        updateNotificationBadge();
+    }
+}
+
+function markAllNotificationsAsRead() {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    const key = `notifications_${myDevId}`;
+    const notifications = JSON.parse(localStorage.getItem(key) || '[]');
+    
+    notifications.forEach(n => n.read = true);
+    localStorage.setItem(key, JSON.stringify(notifications));
+    updateNotificationBadge();
+}
+
+function clearAllNotifications() {
+    const myDevId = localStorage.getItem('psx_device_id') || '';
+    localStorage.setItem(`notifications_${myDevId}`, JSON.stringify([]));
+    updateNotificationBadge();
+    showToast('🗑 تم مسح جميع الإشعارات', 1500);
+}
+
+function getUnreadCount() {
+    const notifications = getNotifications();
+    return notifications.filter(n => !n.read).length;
+}
+
+// تحديث عداد الإشعارات في الأيقونة
+function updateNotificationBadge() {
+    const unreadCount = getUnreadCount();
+    const notifBtn = document.getElementById('notificationBtn');
+    if (!notifBtn) return;
+    
+    const existingBadge = notifBtn.querySelector('.notif-badge');
+    if (unreadCount > 0) {
+        if (existingBadge) {
+            existingBadge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+        } else {
+            const badge = document.createElement('span');
+            badge.className = 'notif-badge';
+            badge.style.cssText = `
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                background: var(--danger);
+                color: white;
+                font-size: 9px;
+                font-weight: bold;
+                padding: 1px 4px;
+                border-radius: 10px;
+                min-width: 16px;
+                text-align: center;
+            `;
+            badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+            notifBtn.appendChild(badge);
+        }
+    } else if (existingBadge) {
+        existingBadge.remove();
+    }
+}
+
+// ============================================================
+// عرض شيت الإشعارات
+// ============================================================
+
+function showNotificationsSheet() {
+    const notifications = getNotifications();
+    const unreadCount = getUnreadCount();
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'notificationsSheet';
+    overlay.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+        z-index: 3000; display: flex; align-items: flex-end; opacity: 0;
+        transition: opacity 0.2s;
+    `;
+    
+    const sheet = document.createElement('div');
+    sheet.style.cssText = `
+        background: var(--surface); border-radius: 24px 24px 0 0;
+        width: 100%; max-height: 85vh; overflow-y: auto;
+        transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    `;
+    
+    const notificationTypes = {
+        new_case: { icon: '🆕', color: '#4fd9a0', title: 'حالة جديدة' },
+        case_edited: { icon: '✏️', color: '#4f8ef7', title: 'تحديث حالة' },
+        vac_reminder: { icon: '🌀', color: '#f7884f', title: 'تذكير VAC' }
+    };
+    
+    const notificationsHtml = notifications.length === 0 ? `
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <div style="font-size: 48px; margin-bottom: 16px;">🔔</div>
+            <div>لا توجد إشعارات</div>
+        </div>
+    ` : notifications.map(n => {
+        const type = notificationTypes[n.type] || { icon: '📌', color: 'var(--text-muted)', title: 'إشعار' };
+        const timeAgo = formatTimeAgo(n.timestamp);
+        const isUnread = !n.read;
+        
+        return `
+            <div class="notification-item" data-notif-id="${n.id}" style="
+                background: ${isUnread ? 'rgba(79,142,247,0.1)' : 'var(--surface2)'};
+                border-left: 3px solid ${type.color};
+                border-radius: 12px;
+                padding: 12px;
+                margin-bottom: 8px;
+                cursor: pointer;
+                transition: background 0.15s;
+            ">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <span style="font-size: 20px;">${type.icon}</span>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="font-size: 13px;">${type.title}</strong>
+                            <span style="font-size: 10px; color: var(--text-muted);">${timeAgo}</span>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-dim); margin-top: 2px;">${escapeHtml(n.message)}</div>
+                        ${n.details ? `<div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">${escapeHtml(n.details)}</div>` : ''}
+                    </div>
+                    ${!n.read ? `<span style="width: 8px; height: 8px; background: var(--accent-hand); border-radius: 50%;"></span>` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    sheet.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-bottom: 1px solid var(--border);">
+            <div>
+                <h3 style="font-size: 16px;">🔔 الإشعارات</h3>
+                ${unreadCount > 0 ? `<span style="font-size: 11px; color: var(--accent-hand);">${unreadCount} غير مقروء</span>` : ''}
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button id="markAllReadBtn" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px; padding: 4px 8px;">✓ قراءة الكل</button>
+                <button id="clearAllNotifsBtn" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px; padding: 4px 8px;">🗑 مسح الكل</button>
+                <button id="closeNotifsBtn" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+        </div>
+        <div id="notificationsList" style="padding: 12px;">
+            ${notificationsHtml}
+        </div>
+    `;
+    
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => {
+        overlay.style.opacity = '1';
+        sheet.style.transform = 'translateY(0)';
+    }, 10);
+    
+    // إغلاق الشيت
+    sheet.querySelector('#closeNotifsBtn').onclick = () => {
+        overlay.style.opacity = '0';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(() => overlay.remove(), 300);
+    };
+    
+    // قراءة الكل
+    sheet.querySelector('#markAllReadBtn').onclick = () => {
+        markAllNotificationsAsRead();
+        overlay.remove();
+        showNotificationsSheet(); // إعادة فتح مع تحديث
+    };
+    
+    // مسح الكل
+    sheet.querySelector('#clearAllNotifsBtn').onclick = () => {
+        if (confirm('هل تريد مسح جميع الإشعارات؟')) {
+            clearAllNotifications();
+            overlay.remove();
+        }
+    };
+    
+    // عند النقر على إشعار
+    sheet.querySelectorAll('.notification-item').forEach(item => {
+        item.onclick = () => {
+            const notifId = item.getAttribute('data-notif-id');
+            markNotificationAsRead(notifId);
+            overlay.remove();
+        };
+    });
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            sheet.style.transform = 'translateY(100%)';
+            setTimeout(() => overlay.remove(), 300);
+        }
+    };
+}
+
+// ============================================================
+// إضافة زر الإشعارات في الهيدر
+// ============================================================
+
+function addNotificationButton() {
+    const headerRight = document.querySelector('.app-header-right');
+    if (!headerRight) return;
+    if (document.getElementById('notificationBtn')) return;
+    
+    const notifBtn = document.createElement('button');
+    notifBtn.id = 'notificationBtn';
+    notifBtn.className = 'hdr-btn';
+    notifBtn.innerHTML = '🔔';
+    notifBtn.style.position = 'relative';
+    notifBtn.title = 'الإشعارات';
+    notifBtn.onclick = () => showNotificationsSheet();
+    
+    headerRight.insertBefore(notifBtn, headerRight.firstChild);
+    updateNotificationBadge();
+}
+
+// ============================================================
+// إضافة زر متابعة على البطاقات
+// ============================================================
+
+function addFollowButtonToCards() {
+    const cards = document.querySelectorAll('.case-card');
+    cards.forEach(card => {
+        if (card.querySelector('.follow-btn')) return;
+        
+        const editBtn = card.querySelector('.act-btn.edit');
+        let caseId = null;
+        if (editBtn && editBtn.getAttribute('onclick')) {
+            const match = editBtn.getAttribute('onclick').match(/editCase\(['"]([^'"]+)['"]\)/);
+            if (match) caseId = match[1];
+        }
+        
+        if (caseId) {
+            const cardActions = card.querySelector('.card-actions');
+            if (cardActions) {
+                const isFollowing = isFollowingCase(caseId);
+                const followBtn = document.createElement('button');
+                followBtn.className = 'act-btn follow-btn';
+                followBtn.innerHTML = isFollowing ? '⭐' : '☆';
+                followBtn.title = isFollowing ? 'إلغاء المتابعة' : 'متابعة الحالة';
+                followBtn.style.fontSize = '16px';
+                followBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    if (isFollowingCase(caseId)) {
+                        unfollowCase(caseId);
+                        followBtn.innerHTML = '☆';
+                        followBtn.title = 'متابعة الحالة';
+                    } else {
+                        followCase(caseId);
+                        followBtn.innerHTML = '⭐';
+                        followBtn.title = 'إلغاء المتابعة';
+                    }
+                };
+                cardActions.insertBefore(followBtn, cardActions.firstChild);
+            }
+        }
+    });
+}
+
+// ============================================================
+// تفعيل نظام الإشعارات
+// ============================================================
+
+let notificationInterval = null;
+
+function startNotificationSystem() {
+    // طلب إذن الإشعارات
+    requestNotificationPermission();
+    
+    // إضافة زر الإشعارات
+    addNotificationButton();
+    
+    // حفظ لقطة أولى للحالات
+    previousCasesSnapshot = JSON.stringify(getCases());
+    lastAddedTimestamp = Date.now();
+    
+    // بدء مراقبة الحالات كل 5 ثواني
+    notificationInterval = setInterval(() => {
+        monitorNewCases();
+        monitorCaseEdits();
+        checkVACNotifications();
+        
+        // إضافة أزرار المتابعة للبطاقات الجديدة
+        addFollowButtonToCards();
+        
+        // تحديث عداد الإشعارات
+        updateNotificationBadge();
+    }, 5000);
+    
+    console.log('✅ نظام الإشعارات مفعل');
+}
+
+// تعديل loadCases لإضافة أزرار المتابعة
+const originalLoadCasesWithNotif = loadCases;
+window.loadCases = function() {
+    originalLoadCasesWithNotif();
+    setTimeout(() => {
+        addFollowButtonToCards();
+        updateNotificationBadge();
+    }, 300);
+};
+
+// تعديل switchTab
+const originalSwitchTabWithNotif = switchTab;
+window.switchTab = function(tabId) {
+    originalSwitchTabWithNotif(tabId);
+    setTimeout(() => {
+        addFollowButtonToCards();
+    }, 400);
+};
+
+// بدء النظام بعد تحميل الصفحة
+setTimeout(() => {
+    startNotificationSystem();
+}, 2000);
+
+console.log('✅ Push Notifications System initialized');
+
+// ============================================================
+// إصلاح مشكلة الـ Refresh المستمر
+// ============================================================
+
+(function fixRefreshLoop() {
+    console.log('🔧 Applying refresh fixes...');
+    
+    // 1. تعطيل Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            registrations.forEach(function(registration) {
+                registration.unregister();
+                console.log('✅ Service Worker unregistered');
+            });
+        }).catch(function(err) {
+            console.log('No service workers found');
+        });
+    }
+    
+    // 2. منع إعادة تحميل الصفحة من Firebase
+    if (typeof db !== 'undefined') {
+        // تعطيل الـ persistence المؤقتاً
+        try {
+            db.goOffline();
+            setTimeout(() => {
+                db.goOnline();
+            }, 1000);
+        } catch(e) {}
+    }
+    
+    // 3. منع استدعاء loadCases بشكل متكرر
+    let _loadingLock = false;
+    const originalLoadCasesGlobal = window.loadCases;
+    if (originalLoadCasesGlobal) {
+        window.loadCases = function() {
+            if (_loadingLock) {
+                console.log('⏸️ LoadCases skipped (already loading)');
+                return;
+            }
+            _loadingLock = true;
+            try {
+                originalLoadCasesGlobal();
+            } finally {
+                setTimeout(() => { _loadingLock = false; }, 300);
+            }
+        };
+    }
+    
+    // 4. منع التحديث المتكرر من Firebase listeners
+    let _lastSyncTime = 0;
+    const SYNC_COOLDOWN = 2000; // 2 ثانية بين التحديثات
+    
+    if (typeof db !== 'undefined') {
+        const originalOn = db.ref().on;
+        db.ref().on = function(eventType, callback) {
+            const wrappedCallback = function(snapshot) {
+                const now = Date.now();
+                if (now - _lastSyncTime > SYNC_COOLDOWN) {
+                    _lastSyncTime = now;
+                    callback(snapshot);
+                } else {
+                    console.log('⏸️ Firebase sync throttled');
+                }
+            };
+            return originalOn.call(this, eventType, wrappedCallback);
+        };
+    }
+    
+    // 5. تنظيف المؤقتات القديمة
+    const activeIntervals = [];
+    const originalSetInterval = window.setInterval;
+    window.setInterval = function(callback, delay) {
+        const id = originalSetInterval(callback, delay);
+        activeIntervals.push(id);
+        // تنظيف المؤقتات بعد 10 ثواني إذا كانت متكررة جداً
+        if (delay < 1000 && activeIntervals.filter(i => i === id).length > 3) {
+            console.warn('⚠️ Clearing rapid interval:', delay);
+            clearInterval(id);
+            return null;
+        }
+        return id;
+    };
+    
+    // 6. منع refresh من الـ hashchange
+    window.addEventListener('hashchange', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    });
+    
+    // 7. منع إعادة تحميل الصفحة من الـ beforeunload
+    let _isReloading = false;
+    window.addEventListener('beforeunload', function(e) {
+        if (_isReloading) return;
+        // منع الإشعارات المزعجة
+        e.preventDefault();
+        e.returnValue = '';
+        setTimeout(() => { _isReloading = false; }, 1000);
+    });
+    
+    console.log('✅ Refresh fixes applied');
+})();
+
+
 })();
 </script>
 </body>
