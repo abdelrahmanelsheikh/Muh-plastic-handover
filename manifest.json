@@ -1,0 +1,25 @@
+{
+  "name": "MUH Plastic Handover",
+  "short_name": "MUH PSX",
+  "description": "MUH Plastic Surgery Ward Handover System",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0f14",
+  "theme_color": "#0d0f14",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
